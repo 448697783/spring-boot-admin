@@ -7,8 +7,8 @@
 				pattern="[%-d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] [%F:%L] [%c.%M] [%t]: %m%n" />
 		</Console>
 		<RollingFile name="SysRollingFile"
-			fileName="logs/wallet/wallet.log"
-			filePattern="logs/wallet/$${date:yyyy-MM}/wallet-%d{yyyy-MM-dd_HH}-%i.log">
+			fileName="logs/admin/log.log"
+			filePattern="logs/admin/$${date:yyyy-MM}/log-%d{yyyy-MM-dd_HH}-%i.log">
 			<PatternLayout charset="UTF-8"
 				pattern="[%-d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] [%F:%L] [%c.%M] [%t]: %m%n" />
 			<Policies>
@@ -17,8 +17,8 @@
 			</Policies>
 		</RollingFile>
 		<RollingFile name="SettleRollingFile"
-					 fileName="logs/wallet/settle.log"
-					 filePattern="logs/wallet/$${date:yyyy-MM}/settle-%d{yyyy-MM-dd_HH}-%i.log">
+					 fileName="logs/admin/log.log"
+					 filePattern="logs/admin/$${date:yyyy-MM}/settle-%d{yyyy-MM-dd_HH}-%i.log">
 			<PatternLayout charset="UTF-8"
 						   pattern="[%-d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] [%F:%L] [%c.%M] [%t]: %m%n" />
 			<Policies>
@@ -28,7 +28,7 @@
 		</RollingFile>
 		<Syslog charset="UTF-8" name="RFC5424" format="RFC5424" host="10.11.157.101"
 			port="9999" protocol="UDP" facility="LOCAL0" newLine="true"
-			messageId="wallet-msg" appName="wallet-app" mdcId="wallet-mdc">
+			messageId="admin-msg" appName="admin-app" mdcId="admin-mdc">
 			<LoggerFields>
 				<KeyValuePair key="thread" value="%t" />
 				<KeyValuePair key="level" value="%p" />
