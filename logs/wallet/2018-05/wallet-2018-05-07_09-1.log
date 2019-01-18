@@ -1,0 +1,8 @@
+[2018-05-07 09:54:31,253] [ERROR] [ContextLog.java:60] [admin.common.aspect.ContextLog.error] [http-nio-8081-exec-7]: 请求唯一标识->null-1 异常描述->{msg=手机号不能为空, code=9000} 
+admin.common.exception.CheckException: 手机号不能为空
+[2018-05-07 09:54:39,704] [ERROR] [ContextLog.java:60] [admin.common.aspect.ContextLog.error] [http-nio-8081-exec-8]: 请求唯一标识->null-1 异常描述->{msg=手机号或密码错误, code=9000} 
+admin.common.exception.CheckException: 手机号或密码错误
+[2018-05-07 09:54:44,802] [ERROR] [ContextLog.java:60] [admin.common.aspect.ContextLog.error] [http-nio-8081-exec-9]: 请求唯一标识->null-1 异常描述->{msg=手机号或密码错误, code=9000} 
+admin.common.exception.CheckException: 手机号或密码错误
+[2018-05-07 09:54:57,877] [ERROR] [ContextLog.java:60] [admin.common.aspect.ContextLog.error] [http-nio-8081-exec-29]: 请求唯一标识->null-1 异常描述->{msg=手机号或密码错误, code=9000} 
+admin.common.exception.CheckException: 手机号或密码错误

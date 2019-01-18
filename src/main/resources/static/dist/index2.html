@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script type="text/ecmascript" src="./libs/jquery.min.js"></script>
+<script type="text/ecmascript"
+	src="./plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script type="text/ecmascript" src="./plugins/jqgrid/grid.locale-en.js"></script>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="./css/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="./css/ui.jqgrid.css" />
+<meta charset="utf-8" />
+<title>jqGrid Loading Data - Edit Dialogs with Custom Layout</title>
+</head>
+
+<style>
+/* Table Head */
+table.gridtable thead th {
+	background-color: rgb(128, 102, 160);
+	color: #fff;
+	border-bottom-width: 1;
+	width: 100px;
+}
+
+/* Column Style */
+table.gridtable td td {
+	color: #000;
+}
+/* Heading and Column Style */
+table.gridtable {
+    font-family: verdana,arial,sans-serif;
+    font-size:14px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+}
+table.gridtable tr td {
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(128, 102, 160);
+}
+
+/* Padding and font style */
+table.gridtable td td {
+	padding: 5px 10px;
+	font-size: 12px;
+	font-family: Verdana;
+	font-weight: bold;
+}
+</style>
+<body>
+<div  style="height:300px;width:140px;overflow:auto">
+<table border=1>
+<tr>
+    <th> 国家 </th>
+    <th> 姓名 </th>
+    <th> 年龄 </th>
+</tr>
+
+<tr>
+  <td>美国</td><td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td rowspan=3>中国</td><td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>澳大利亚</td><td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td rowspan=3>中国</td><td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>美国</td><td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td rowspan=3>中国</td><td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>美国</td><td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td rowspan=3>中国</td><td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>1111</td><td>222</td>
+</tr>
+<tr>
+  <td>1111</td><td>222</td>
+</tr>
+</table>
+</div>
+
+	<input type="button" value="添加表格" onclick="CreateTable(5,6)">
+	<input type="button" value="添加行">
+	<div id="createtable"></div>
+	<div id="createrow"></div>
+	<script type="text/javascript">
+		function CreateTable() {
+			var str = '{ "total": 4000, "columns": [{ "field": "EMPLOYEEID", "title": "员工编号" }, { "field": "EMPLOYEENAME", "title": "员工姓名"}, { "field": "EMPLOYEENAME", "title": "员工姓名"}],"rows":[{"EMPLOYEEID":"001","EMPLOYEENAME":"小明","a":"fdsafdsa"},{"EMPLOYEEID":"002","EMPLOYEENAME":"小宏","a":"fdsafdsa"}]}';
+			var data = JSON.parse(str);
+			var rowCount = data.rows.length;
+			var cellCount = data.columns.length;
+
+			var table = $("<table class='gridtable'>");
+			table.appendTo($("#createtable"));
+
+			var trHeader = $("<thead></thead>");
+			trHeader.appendTo(table);
+			for (var j = 0; j < cellCount; j++) {
+				var td = $("<th>" + data.columns[j].title + "</th>");
+				td.appendTo(trHeader);
+			}
+
+			for (var i = 0; i < rowCount; i++) {
+				var tr = $("<tr></tr>");
+				tr.appendTo(table);
+				for (var j = 0; j < cellCount; j++) {
+					var field = data.columns[j].field;
+					var val = "";
+					if (data.rows[i][field] != null) {
+						val = data.rows[i][field];
+					}
+
+					var td = $("<td>" + val + "</td>");
+					td.appendTo(tr);
+				}
+			}
+			$("#createtable").append("</table>");
+		}
+	</script>
+
+
+</body>
+</html>

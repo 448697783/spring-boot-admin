@@ -1,0 +1,4 @@
+[2018-06-10 01:04:13,343] [INFO] [CtrLogAspect.java:108] [admin.common.aspect.CtrLogAspect.intiCtrLog] [http-nio-8081-exec-9]: 请求唯一标识->d8369f0f85e043a7ae9d495df749ea55-1 方法描述->删除 请求参数->[admin.entity.Testcase1Entity [,controllerName=null,testCaseId=null,createdTime=null,updatedTime=null,execLastTime=null,status=null]] 方法位置->execution(Testcase1DResultVO admin.modules.testcase1.controller.Testcase1Controller.deleteTestcase1Info(Testcase1DeleteVO)) 请求IP地址->127.0.0.1
+[2018-06-10 01:04:13,512] [INFO] [CtrLogAspect.java:94] [admin.common.aspect.CtrLogAspect.resultCtrLog] [http-nio-8081-exec-9]: 请求唯一标识->d8369f0f85e043a7ae9d495df749ea55-1 返回结果->null 方法执行时间->180
+[2018-06-10 01:04:13,515] [ERROR] [ContextLog.java:60] [admin.common.aspect.ContextLog.error] [http-nio-8081-exec-9]: 请求唯一标识->d8369f0f85e043a7ae9d495df749ea55-3 异常描述->{msg=更新时间不能为空, code=9000} 
+admin.common.exception.CheckException: 更新时间不能为空

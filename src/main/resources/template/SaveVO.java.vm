@@ -1,0 +1,158 @@
+package ${package}.modules.${module}.vo;
+import ${package}.common.baseenum.BaseEnum.ReturnMessageEnum;
+import ${package}.modules.${module}.entity.${className}Entity;
+import java.io.Serializable;
+import java.util.ArrayList;
+import ${package}.common.utils.BeanCopierUtils;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.List;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.math.BigDecimal;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
+
+import java.math.BigDecimal;
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@ApiModel("保存${comments}参数")
+public class ${className}SaveVO {
+
+#foreach ($column in $columns)
+#if (!${column.characterMaximumLength})
+#else
+	${column.characterMaximumLength}
+#end
+#if (!${column.isNullable})
+#else
+#if($column.columnName != $pk.columnName)
+#if($column.isNullable)
+	${column.isNullable}
+#end
+#end
+#end
+#if (!${column.numericPrecision})
+#else
+	${column.numericPrecision}
+#end
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+	@ApiModelProperty(value="$column.comments 格式yyyy-MM-dd HH:mm:ss",example="填写例子")
+	@ApiParam(value="$column.comments 格式yyyy-MM-dd HH:mm:ss",defaultValue = "填写例子")  
+#else
+	@ApiModelProperty(value="$column.comments",example="填写例子")
+	@ApiParam(value="$column.comments",defaultValue="填写例子")
+#end
+	private $column.attrType $column.attrname;
+	
+#end
+
+#foreach ($column in $columns)
+
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("${package}.entity.${className}Entity [")
+#foreach ($column in $columns)
+#if($velocityCount==0)
+		.append("$column.attrname=").append($column.attrname)
+#else
+		.append(",${column.attrname}=").append($column.attrname)
+#end 
+#end
+		.append("]");
+		return builder.toString();
+	}
+	
+	public static enum ${className}Enum{
+#foreach($column in $columns)
+#if (!$velocityHasNext)
+		${column.columnName}("${column.attrname}","${column.comments}");
+#else
+		${column.columnName}("${column.attrname}","${column.comments}"),
+#end
+#end
+		private String fieldName;
+		private String remark;
+		${className}Enum(String fieldName,String remark){
+			this.fieldName = fieldName;
+			this.remark = remark;
+		}
+		
+		public String get(){
+			return this.fieldName;
+		}
+		
+		public String getRemark(){
+			return this.remark;
+		}
+	}
+	
+	@ApiModel("保存${comments}信息,返回执行结果")
+	public static class ${className}SResultVO {
+		private static ${className}SResultVO fail = new ${className}SResultVO(ReturnMessageEnum.FAIL.getCode(),ReturnMessageEnum.FAIL.getMessage());
+
+		private static ${className}SResultVO success= new ${className}SResultVO(ReturnMessageEnum.SUCCESS.getCode(),ReturnMessageEnum.SUCCESS.getMessage());
+
+		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
+		private String code;
+		@ApiModelProperty(value="返回保存结果信息")
+		private String message;
+		
+		public ${className}SResultVO(String code,String message){
+			this.code = code;
+			this.message = message;
+		}
+		
+		public ${className}SResultVO(){
+		}
+		
+		public String getCode() {
+			return code;
+		}
+	
+		public void setCode(String code) {
+			this.code = code;
+		}
+		public static ${className}SResultVO ok() {
+			return success;
+		}
+	
+		public static ${className}SResultVO  fail() {
+			return fail;
+		}
+		
+		public String getMessage() {
+			return message;
+		}
+	
+		public void setMessage(String message) {
+			this.message = message;
+		}
+	}
+}

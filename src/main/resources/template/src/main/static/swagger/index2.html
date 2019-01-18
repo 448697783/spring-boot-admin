@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>接口文档 - 人人开源</title>
+<script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+
+<script type="text/javascript">
+	
+	    var selectbox = function () {
+	          
+	            //用变量idm存储select的id或name
+	            var idm = $(this).attr("id") || $(this).attr("name");
+	            if($("#" + idm + "div").length <= 0){//判断动态创建的div是否已经存在，如果不存在则创建
+	                var divHtml = "<div style='display:none' id='" + idm + "div'><input type='text' id='" + idm + "inputText'/></div>";
+	                $(this).attr("tabindex",-1).after(divHtml);
+	                $("#" + idm + "div").css({position:"absolute",top:$(this).position().top -1 ,left:$(this).position().left-7}).show();
+	                $("#" + idm + "inputText").val($(this).val()).css({width:$(this).width()-13,height:$(this).height() + 1});
+	                //select注册onchange事件
+	                $(this).change(function(){
+	                        $("#" + idm + "inputText").val($(this).val()); 
+	                })             
+	            }
+	            ("#" + idm + "inputText").attr("disabled", $(this).attr("disabled"));
+	            //解决ie6下select浮在div上面的bug
+	            //$("#" + idm + "div").bgIframe();
+	            return $("#" + idm + "inputText").val();
+	        }
+		
+</script>
+</head>
+
+<body>
+	<table border="1">
+		<tr id='B2_Q11'>
+			<td class="data">Q1</td>
+			<td class="data"><div id="B2_C13" class="test_box selectd">aaaaaaaaaa</div></td>
+			<td class="data"><div id="B2_D13" class="test_box">bbbbbbbbbbbb</div></td>
+			<td class="data"><select onclick="selectbox()"  id="id"> <option value="0">Item1</option> <option value="1">Item2</option> <option value="-1">Others</option> </select> </td>
+		</tr>
+	</table>
+	
+</body>
+</html>

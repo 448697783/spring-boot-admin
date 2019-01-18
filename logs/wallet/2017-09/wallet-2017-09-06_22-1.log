@@ -1,0 +1,13 @@
+[2017-09-06 22:05:16,088] [INFO] [AutoSwitchDSAspect.java:51] [admin.common.aspect.AutoSwitchDSAspect.before] [http-nio-8080-exec-18]: 数据源切换为:slave
+[2017-09-06 22:05:16,097] [INFO] [AutoSwitchDSAspect.java:56] [admin.common.aspect.AutoSwitchDSAspect.after] [http-nio-8080-exec-18]: 数据源切换为:master
+[2017-09-06 22:05:37,445] [INFO] [AutoSwitchDSAspect.java:51] [admin.common.aspect.AutoSwitchDSAspect.before] [http-nio-8080-exec-1]: 数据源切换为:slave
+[2017-09-06 22:05:37,459] [INFO] [AutoSwitchDSAspect.java:56] [admin.common.aspect.AutoSwitchDSAspect.after] [http-nio-8080-exec-1]: 数据源切换为:master
+[2017-09-06 22:10:03,576] [INFO] [AutoSwitchDSAspect.java:51] [admin.common.aspect.AutoSwitchDSAspect.before] [http-nio-8080-exec-2]: 数据源切换为:slave
+[2017-09-06 22:10:03,588] [INFO] [AutoSwitchDSAspect.java:56] [admin.common.aspect.AutoSwitchDSAspect.after] [http-nio-8080-exec-2]: 数据源切换为:master
+[2017-09-06 22:10:36,295] [INFO] [AutoSwitchDSAspect.java:51] [admin.common.aspect.AutoSwitchDSAspect.before] [http-nio-8080-exec-3]: 数据源切换为:slave
+[2017-09-06 22:10:36,300] [INFO] [AutoSwitchDSAspect.java:56] [admin.common.aspect.AutoSwitchDSAspect.after] [http-nio-8080-exec-3]: 数据源切换为:master
+[2017-09-06 22:12:45,664] [INFO] [AutoSwitchDSAspect.java:51] [admin.common.aspect.AutoSwitchDSAspect.before] [http-nio-8080-exec-1]: 数据源切换为:slave
+[2017-09-06 22:12:45,677] [INFO] [AutoSwitchDSAspect.java:56] [admin.common.aspect.AutoSwitchDSAspect.after] [http-nio-8080-exec-1]: 数据源切换为:master
+[2017-09-06 22:23:00,237] [INFO] [CtrLogAspect.java:93] [admin.common.aspect.CtrLogAspect.intiCtrLog] [http-nio-8080-exec-1]: UUID->fe28c0ef-643c-4c6a-8438-0d75fecee6ab EXECUTE->注册 METHOD->admin.modules.api.controller.ApiRegisterController.register PARAMETER->[null, null] IP->127.0.0.1
+[2017-09-06 22:23:00,247] [INFO] [AutoSwitchDSAspect.java:51] [admin.common.aspect.AutoSwitchDSAspect.before] [http-nio-8080-exec-1]: 数据源切换为:slave
+[2017-09-06 22:23:00,259] [INFO] [AutoSwitchDSAspect.java:56] [admin.common.aspect.AutoSwitchDSAspect.after] [http-nio-8080-exec-1]: 数据源切换为:master

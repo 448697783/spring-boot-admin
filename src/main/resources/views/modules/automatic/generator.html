@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>代码生成器</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/build.css">
+<link rel="stylesheet" href="../../css/font-awesome.min.css">
+<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../plugins/layer/layer.js"></script>
+<script src="../../libs/bootstrap.min.js"></script>
+<script src="../../libs/vue.min.js"></script>
+<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp">
+	<div class="grid-btn">
+		<div class="form-group col-xs-2">
+			<input type="text" class="form-control" v-model="q.tableName" @keyup.enter="query" placeholder="表名">
+		</div>
+		<div class="form-group col-xs-2">
+			<input type="text" class="form-control" v-model="q.projectName" @keyup.enter="query" placeholder="项目名称">
+		</div>
+		<div class="form-group col-xs-2">
+			<input type="text" class="form-control" v-model="q.packageName" @keyup.enter="query" placeholder="包名">
+		</div>
+		<div class="form-group col-xs-2">
+			<input type="text" class="form-control" v-model="q.modeName" @keyup.enter="query" placeholder="模块名如modues下包名">
+		</div>
+		<div class="form-group col-xs-2">
+			<input type="text" class="form-control" v-model="q.tableAliase" @keyup.enter="query" placeholder="类名如controller,dao,entity前缀名">
+		</div>
+		<div class="form-group col-xs-2">
+			<select v-model="selected" @change="query"  class="form-control" >  
+      			<option v-for="item in items"  v-bind:value="item.aliase">{{item.aliase}}</option>  
+		    </select>  
+		</div>
+		<div class="form-group col-xs-12">
+			<input type="text" class="form-control" v-model="q.sql" @keyup.enter="query" placeholder="sql">
+		</div>
+		<div class="form-group col-sm-1">
+			<div class="checkbox checkbox-info">
+    			<input id="QueryVO" v-model="q.queryVo" class="styled" type="checkbox">
+   					 <label for="QueryVO"> QueryVO </label>
+			</div>
+		</div>
+		<div class="form-group col-sm-1">
+			<div class="checkbox checkbox-info">
+    			<input id="EditVO" v-model="q.editVo"  class="styled" type="checkbox">
+   					 <label for="EditVO"> EditVO </label>
+			</div>
+		</div>
+		<div class="form-group col-sm-1">
+			<div class="checkbox checkbox-info">
+    			<input id="Entity"  v-model="q.entity"  class="styled" type="checkbox">
+   					 <label for="Entity"> Entity </label>
+			</div>
+		</div>
+		<div class="form-group col-sm-1">
+			<div class="checkbox  checkbox-info">
+    			<input id="Controller" v-model="q.controller" class="styled" type="checkbox">
+   					 <label for="Controller"> Controller </label>
+			</div>
+		</div>
+		<div class="form-group col-sm-1">
+			<div class="checkbox checkbox-info">
+    			<input id="Service"  v-model="q.service"  class="styled" type="checkbox">
+   					 <label for="Service"> Service </label>
+			</div>
+		</div>
+		<div class="form-group col-sm-1">
+			<div class="checkbox checkbox-info">
+    			<input id="checkbox4" v-model="q.iservice"  class="styled" type="checkbox">
+   					 <label for="checkbox4"> IService </label>
+			</div>
+		</div>
+		<div class="form-group col-sm-1">
+			<div class="checkbox checkbox-info">
+    			<input id="Dao" v-model="q.dao"  class="styled" type="checkbox">
+   					 <label for="Dao"> Dao </label>
+			</div>
+		</div>
+		<div class="form-group col-sm-1">
+			<div class="checkbox checkbox-info">
+    			<input id="html" v-model="q.html"  class="styled" type="checkbox">
+   					 <label for="html"> html </label>
+			</div>
+		</div>
+		<div class="form-group col-sm-1">
+			<div class="checkbox checkbox-info">
+    			<input id="role" v-model="q.role"  class="styled" type="checkbox">
+   					 <label for="role"> role </label>
+			</div>
+		</div>
+		<a class="btn btn-primary" @click="query"><i class="glyphicon glyphicon-search" ></i>查询</a>
+		<a class="btn btn-primary" @click="generator"><i class="glyphicon glyphicon-download-alt"></i>生成代码</a>
+	</div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <table id="edit"></table>
+    
+</div>
+
+<script src="../../js/modules/automatic/generator.js"></script>
+</body>
+</html>

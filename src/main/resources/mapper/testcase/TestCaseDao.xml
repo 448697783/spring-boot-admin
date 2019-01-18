@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin.modules.testcase.dao.TestCaseDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="admin.modules.testcase.entity.TestCaseEntity" id="testcaseMap">
+        <result property="controllerName" column="controller_name"/>
+        <result property="test_case_id" column="testCaseId"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+        <result property="execLastTime" column="exec_last_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="admin.modules.testcase.entity.TestCaseEntity">
+		select * from testcase where id = #{value}
+	</select>
+	<select id="getTestCaseEntity" parameterType="admin.modules.testcase.entity.TestCaseEntity" resultType="admin.modules.testcase.entity.TestCaseEntity">
+				select * from testcase where controller_name = #{controllerName}  
+				<if test="describe != null and describe != ''">
+					and `describe` like concat('%',#{describe},'%') 
+				</if>
+				and dept_id in (
+		<foreach collection="sysRoleDeptEntity" item="item" index="index" separator="," >
+			#{item.deptId}
+		</foreach>
+		)
+	</select>
+	
+	<sql id="Base_Column_List">
+        controller_name",         test_case_id",         created_time",         updated_time",         exec_last_time",         status"	</sql>
+	
+	<select id="queryList" resultType="admin.modules.testcase.entity.TestCaseEntity">
+		select <include refid="Base_Column_List" /> from testcase
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(1) from testcase 
+	</select>
+	 
+	<insert id="insert" parameterType="admin.modules.testcase.entity.TestCaseEntity" useGeneratedKeys="true" keyProperty="testCaseId" keyColumn="test_case_id">
+		insert into testcase
+		(
+			controller_name, 
+			created_time, 
+			updated_time, 
+			exec_last_time, 
+			`describe`, 
+			dept_id,
+			method,
+			status
+		)
+		values
+		(
+			#{controllerName}, 
+			now(), 
+			now(), 
+			#{execLastTime}, 
+			#{describe},
+			#{deptId}, 
+			#{method},
+			#{status}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="admin.modules.testcase.entity.TestCaseEntity">
+		update testcase 
+		<set>
+			<if test="controllerName != null">controller_name = #{controllerName}, </if>
+			<if test="createdTime != null">created_time = #{createdTime}, </if>
+			<if test="execLastTime != null">exec_last_time = #{execLastTime}, </if>
+			<if test="status != null">status = #{status},</if>
+		</set>
+		updated_time = new()
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from testcase where test_case_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from testcase where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="${package}.modules.${module}.dao.${className}Dao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="${package}.modules.${module}.entity.${className}Entity" id="${classname}Map">
+#foreach($column in $columns)
+        <result property="${column.attrname}" column="${column.columnName}"/>
+#end
+    </resultMap>
+
+	<select id="queryObject" resultType="${package}.modules.${module}.entity.${className}Entity">
+		select <include refid="Base_Column_List" /> from ${tableName} where ${pk.columnName} = #{value}
+	</select>
+
+	<sql id="Base_Column_List">
+#foreach($column in $columns)
+		${column.columnName}#if($velocityCount != $columns.size()), #end
+        
+#end
+	</sql>
+	
+	<sql id="Generic_Where_Clause">
+		<where>
+#foreach($column in $columns)
+			<if test="${column.attrname} != null">
+				AND ${column.columnName} = #{${column.attrname}}
+			</if>
+#end
+		</where>
+	</sql>
+	
+	<select id="queryList" resultType="${package}.modules.${module}.entity.${className}Entity">
+		select  ua.* 
+		    from(
+		       (select rownum rn,uo.* from
+		              (
+					SELECT
+		                <include refid="Base_Column_List" />                        
+		            FROM
+		                ${tableName}
+		            <include refid="Generic_Where_Clause" />
+					<choose>
+						<when test="sidx != null and sidx.trim() != ''">
+							order by ${sidx} ${order}
+						</when>
+					</choose>
+				) uo
+		<if test="offset != null and end != null ">
+            where rownum&lt;=${end} )) ua
+			where ua.rn>=${offset}
+		</if>
+		<if test="offset == null || end == null">
+			)) ua
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(1) from ${tableName} <include refid="Generic_Where_Clause" />
+	</select>
+	 
+	<insert id="insert" parameterType="${package}.modules.${module}.entity.${className}Entity"#if($pk.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
+#foreach($column in $columns)
+#if($column.columnName == $pk.columnName)
+		<!--<selectKey resultType="$column.attrType" order="BEFORE" keyProperty="$column.attrname">  
+    	  SELECT SEQ_${tableName}.NEXTVAL $column.attrname  from DUAL
+   		</selectKey>--> 
+#end 
+#end  		
+		insert into ${tableName}
+		(
+#foreach($column in $columns)
+			$column.columnName#if($velocityCount != $columns.size()), #end
+			
+#end
+		)
+		values
+		(
+#foreach($column in $columns)
+#if($column.attrname != 'versionOptimizedLock')
+			#{${column.attrname},jdbcType=${column.dataType}}#if($velocityCount != $columns.size()), #end
+			 
+#end
+#if($column.attrname == 'versionOptimizedLock')
+			0#if($velocityCount != $columns.size()), #end
+			
+#end
+#end
+		)
+	</insert>
+	 
+	<update id="update" parameterType="${package}.modules.${module}.entity.${className}Entity">
+		update ${tableName} 
+		<set>
+#foreach($column in $columns)
+#if($column.attrname != 'versionOptimizedLock')
+#if($column.columnName != $pk.columnName)
+			<if test="$column.attrname != null">$column.columnName = #{${column.attrname}}#if($velocityCount != $columns.size()), #end</if>
+			
+#end
+#end
+#if($column.attrname == 'versionOptimizedLock')
+			$column.columnName = ${column.columnName} + 1 #if($velocityCount != $columns.size()), #end
+			
+#end
+#end
+		</set>
+#foreach($column in $columns)
+#if($column.attrname == 'versionOptimizedLock')
+		where
+		
+#if($column.columnName == $pk.columnName)
+			$column.columnName = #{${column.attrname}} and
+			
+#end
+			$column.columnName = #{${column.attrname}} 
+			
+#end
+#end
+	</update>
+	
+	<delete id="delete">
+		delete from ${tableName} where ${pk.columnName} = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from ${tableName} where ${pk.columnName} in 
+		<foreach item="${pk.attrname}" collection="array" open="(" separator="," close=")">
+			#{${pk.attrname}}
+		</foreach>
+	</delete>
+
+</mapper>

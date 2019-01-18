@@ -1,0 +1,2 @@
+[2018-05-21 14:13:19,548] [INFO] [CtrLogAspect.java:108] [admin.common.aspect.CtrLogAspect.intiCtrLog] [http-nio-8081-exec-5]: 请求唯一标识->b0ba80e153994a13b648de467fd6a94e-1 方法描述->获取测试用例列表 请求参数->[post-/swagger/save] 方法位置->execution(List admin.modules.testcase.TestCaseController.getList(String)) 请求IP地址->127.0.0.1
+[2018-05-21 14:13:19,561] [INFO] [CtrLogAspect.java:94] [admin.common.aspect.CtrLogAspect.resultCtrLog] [http-nio-8081-exec-5]: 请求唯一标识->b0ba80e153994a13b648de467fd6a94e-1 返回结果->[] 方法执行时间->13

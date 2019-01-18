@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin.modules.automatic.dao.OracleDao">
+	<select id="queryList" resultType="map">
+	select  ua.comments tableComment, ua.created createTime ,ua.table_name tableName ,replace(regexp_substr(ua.table_name,'_(.*?)_'),'_','') module
+		    from(
+		       (select rownum rn,uo.* from
+		              (
+				SELECT
+		                a.table_name,
+		                b.comments,
+		                c.created                           
+		            FROM
+		                user_tables a ,
+		                user_tab_comments b,
+		                user_objects c                           
+		            where
+		                c.object_name=a.table_name                                   
+		                and  a.table_name= b.table_name                                   
+		                and c.object_type='TABLE'                                                
+	           <if test="tableName != null and tableName.trim() != ''">
+		                and a.table_name like '%'||'${tableName}'||'%'
+	            </if>
+		                order by c.created desc 
+				) uo
+		<if test="offset != null and end != null ">
+            where rownum&lt;=#{end} )) ua
+			where ua.rn>=#{offset}
+		</if>
+		<if test="offset == null || end == null">
+			)) ua
+		</if>
+	
+	</select>
+	
+	<select id="queryTotal" resultType="int">
+		SELECT
+		              count(1)                       
+		            FROM
+		                user_tables a ,
+		                user_tab_comments b,
+		                user_objects c                           
+		            where
+		                c.object_name=a.table_name                                   
+		                and  a.table_name= b.table_name                                   
+		                and c.object_type='TABLE'                                                
+	           <if test="tableName != null and tableName.trim() != ''">
+		                and a.table_name like '${tableName}'||'%'
+	            </if>
+	</select> 
+	
+	<select id="queryTable" resultType="map">
+	select  ua.comments tableComment , ua.created createTime ,ua.table_name tableName 
+		    from(
+		       (select rownum rn,uo.* from
+		              (
+				SELECT
+		                a.table_name ,
+		                b.comments,
+		                c.created                           
+		            FROM
+		                user_tables a ,
+		                user_tab_comments b,
+		                user_objects c                           
+		            where
+		                c.object_name=a.table_name                                   
+		                and  a.table_name= b.table_name                                   
+		                and c.object_type='TABLE'                                                
+		                and a.table_name = #{tableName}
+		                order by c.created desc 
+				) uo
+			)) ua
+	</select> 
+	
+	<select id="queryColumns" resultType="map">
+			
+   
+    select
+	a.tableName tableName,
+        a.dataType dataType,
+        a.CHARACTER_MAXIMUM_LENGTH,
+		a.DATA_TYPE,
+        a.NUMERIC_PRECISION,
+        a.DATA_SCALE,
+	 a.columnName columnName,
+        c.column_name columnKey ,
+        a.comments columnComment ,
+        a.IS_NULLABLE
+    from
+        (     select
+            a.column_name columnName,
+            a.data_type dataType,
+			a.DATA_LENGTH CHARACTER_MAXIMUM_LENGTH,
+			a.DATA_TYPE,
+            a.DATA_PRECISION NUMERIC_PRECISION,
+            a.DATA_SCALE,
+	    a.table_Name tableName,
+	       a.NULLABLE  IS_NULLABLE  ,
+            b.comments     
+        from
+            user_tab_columns  a,
+            user_col_comments b      
+        where
+            b.column_name=a.column_name          
+            and a.table_name=b.table_name          
+            and a.table_name =#{tableName}) a  
+    left join
+        (
+            select
+                cu.column_name 
+            from
+                user_cons_columns cu,
+                user_constraints au 
+            where
+                cu.constraint_name = au.constraint_name 
+                and au.constraint_type = 'P' 
+                and au.table_name = #{tableName}
+        ) c 
+            on a.columnName =c.column_name
+	</select>
+	
+	<select id="excuteSql" resultType="map">
+		${sql}
+	</select>
+</mapper>

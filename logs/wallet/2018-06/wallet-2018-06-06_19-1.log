@@ -1,0 +1,4 @@
+[2018-06-06 19:05:50,653] [INFO] [CtrLogAspect.java:108] [admin.common.aspect.CtrLogAspect.intiCtrLog] [http-nio-8081-exec-6]: 请求唯一标识->53b886a8185d4e2cafb8f1bd029c188d-1 方法描述->获取测试用例列表 请求参数->[get-/testcase1/testcase1/queryTestcase1InfoList] 方法位置->execution(List admin.modules.testcase.TestCaseController.getList(String)) 请求IP地址->127.0.0.1
+[2018-06-06 19:05:50,743] [INFO] [CtrLogAspect.java:94] [admin.common.aspect.CtrLogAspect.resultCtrLog] [http-nio-8081-exec-6]: 请求唯一标识->53b886a8185d4e2cafb8f1bd029c188d-1 返回结果->[] 方法执行时间->101
+[2018-06-06 19:13:34,658] [ERROR] [ContextLog.java:60] [admin.common.aspect.ContextLog.error] [http-nio-8081-exec-1]: 请求唯一标识->null-1 异常描述->{msg=token不能为空, code=9000} 
+admin.common.exception.CheckException: token不能为空

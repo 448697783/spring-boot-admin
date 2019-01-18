@@ -1,0 +1,194 @@
+package ${package}.modules.${module}.vo;
+import ${package}.common.baseenum.BaseEnum.ReturnMessageEnum;
+import ${package}.modules.${module}.entity.${className}Entity;
+import java.io.Serializable;
+import ${package}.common.utils.BeanCopierUtils;
+
+import java.util.List;
+import java.sql.Timestamp;
+import java.math.BigDecimal;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.math.BigDecimal;
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@ApiModel("${comments}")
+public class ${className}VO implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+#foreach ($column in $columns)
+
+#if (!${column.characterMaximumLength})
+#else
+	${column.characterMaximumLength}#end
+#if (!${column.isNullable})
+#else
+	${column.isNullable}
+#end
+#if (!${column.numericPrecision})
+#else
+	${column.numericPrecision}
+#end
+	@ApiModelProperty("$column.comments")
+	private $column.attrType $column.attrname;
+#end
+
+#foreach ($column in $columns)
+
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("${package}.entity.${className}Entity [")
+#foreach ($column in $columns)
+#if($velocityCount==0)
+		.append("$column.attrname=").append($column.attrname)
+#else
+		.append(",${column.attrname}=").append($column.attrname)
+#end 
+#end
+		.append("]");
+		return builder.toString();
+	}
+	
+	public static enum ${className}Enum{
+#foreach($column in $columns)
+#if (!$velocityHasNext)
+		${column.columnName}("${column.attrname}","${column.comments}");
+#else
+		${column.columnName}("${column.attrname}","${column.comments}"),
+#end
+#end
+		private String fieldName;
+		private String remark;
+		${className}Enum(String fieldName,String remark){
+			this.fieldName = fieldName;
+			this.remark = remark;
+		}
+		
+		public String get(){
+			return this.fieldName;
+		}
+		
+		public String getRemark(){
+			return this.remark;
+		}
+	}
+	
+	@ApiModel("查询${comments}结果")
+	public static class Query${className}ReturnResult {
+
+		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
+		private String code;
+		@ApiModelProperty(value="返回信息描述")
+		private String message;
+		
+		public Query${className}ReturnResult(String code,String message){
+			this.code = code;
+			this.message = message;
+		}
+		
+		private List<${className}Info> ${classname}Info;
+		public ${className}ReturnInfo(List<${className}Entity> ${classname}EntityList){
+			List<${className}Info> ${classname}Info = new ArrayList<${className}Info>();
+			BeanCopierUtils.copyProperties( ${classname}EntityList,${classname}Info);
+			
+			this.${classname}Info = ${classname}Info;
+			this.code = ReturnMessageEnum.SUCCESS.getCode();
+			this.message =ReturnMessageEnum.SUCCESS.getMessage();
+		}
+		
+		public String getCode() {
+			return code;
+		}
+	
+		public void setCode(String code) {
+			this.code = code;
+		}
+		public static ${className}ReturnInfo ok() {
+			return new ${className}ReturnInfo(ReturnMessageEnum.SUCCESS.getCode(),ReturnMessageEnum.SUCCESS.getMessage());
+		}
+	
+		public static ${className}ReturnInfo  error() {
+			return new ${className}ReturnInfo(ReturnMessageEnum.FAIL.getCode(),ReturnMessageEnum.FAIL.getMessage());
+		}
+		
+		public String getMessage() {
+			return message;
+		}
+	
+		public void setMessage(String message) {
+			this.message = message;
+		}
+	}
+	
+	
+	
+	/**
+	 * 回执${comments}说明
+	 * 
+	 */
+	@ApiModel("回执${comments}说明")
+	public static class ${className}Info {
+		private static final long serialVersionUID = 1L;
+		
+	#foreach ($column in $columns)
+		@ApiModelProperty("$column.comments")
+		private $column.attrType $column.attrname;
+	#end
+	
+	#foreach ($column in $columns)
+	
+		/**
+		 * 设置：${column.comments}
+		 */
+		public void set${column.attrName}($column.attrType $column.attrname) {
+			this.$column.attrname = $column.attrname;
+		}
+		
+		/**
+		 * 获取：${column.comments}
+		 */
+		public $column.attrType get${column.attrName}() {
+			return $column.attrname;
+		}
+	#end
+		@Override
+		public String toString(){
+			StringBuilder builder = new StringBuilder();
+			builder.append("${package}.entity.${className}Entity [")
+	#foreach ($column in $columns)
+	#if($velocityCount==0)
+			.append("$column.attrname=").append($column.attrname)
+	#else
+			.append(",${column.attrname}=").append($column.attrname)
+	#end 
+	#end
+			.append("]");
+			return builder.toString();
+		}
+	}
+}

@@ -1,0 +1,90 @@
+<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Swagger UI</title>
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./swagger-ui.css">
+<link rel="icon" type="image/png" href="./favicon-32x32.png"
+	sizes="32x32" />
+<link rel="icon" type="image/png" href="./favicon-16x16.png"
+	sizes="16x16" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="./css/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="./css/ui.jqgrid.css" />
+<link rel="stylesheet" href="./css/main.css">
+<style>
+html {
+	box-sizing: border-box;
+	overflow: -moz-scrollbars-vertical;
+	overflow-y: scroll;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	margin: 0;
+	background: #fafafa;
+}
+
+/* Table Head */
+table.gridtable thead th {
+	background-color: rgb(128, 102, 160);
+	color: #fff;
+	border-bottom-width: 2;
+	border: solid 1px #add9c0;
+	text-align: center;
+	width:150px;
+}
+
+/* Column Style */
+table.gridtable td td {
+	color: #000;
+}
+/* Heading and Column Style */
+table.gridtable {
+	font-family: verdana, arial, sans-serif;
+	font-size: 11px;
+	color: #333333;
+	border-width: 1px;
+	border-color: #666666;
+	table-layout: fixed;
+	width: 100%;
+}
+
+table.gridtable tr td {
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(128, 102, 160);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 11px;
+}
+
+
+/* Padding and font style */
+table.gridtable td tr {
+	padding: 5px 10px;
+	font-size: 12px;
+	font-family: Verdana;
+	font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+	<div id="swagger-ui"></div>
+	<script src="./swagger-ui-bundle.js"> </script>
+	<script src="./swagger-ui-standalone-preset.js"> </script>
+	<script type="text/ecmascript" src="./libs/jquery.min.js"></script>
+	<script src="./libs/springfox.js"> 
+  </script>
+</body>
+</html>

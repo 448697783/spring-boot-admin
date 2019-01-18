@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin.modules.testcase.dao.ParamterDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="admin.modules.testcase.entity.ParamterEntity" id="paramterMap">
+        <result property="parameterName" column="parameter_name"/>
+        <result property="id" column="id"/>
+        <result property="parameterType" column="parameter_type"/>
+        <result property="parameterIn" column="parameter_in"/>
+        <result property="context" column="context"/>
+        <result property="parameterDescribe" column="parameter_describe"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="admin.modules.testcase.entity.ParamterEntity">
+		select * from paramter where parameter_name = #{value}
+	</select>
+
+	<sql id="Base_Column_List">
+        parameter_name",         id",         parameter_type",         parameter_in"	</sql>
+	
+	<select id="queryList" resultType="admin.modules.testcase.entity.ParamterEntity">
+				select * from paramter where id = #{id}
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(1) from paramter 
+	</select>
+	 
+	<insert id="save" parameterType="admin.modules.testcase.entity.ParamterEntity">
+		insert into paramter
+		(
+			parameter_name, 
+			id, 
+			parameter_type, 
+			parameter_in,
+			parameter_describe,
+			context,
+		)
+		values
+		(
+			#{parameterName}, 
+			#{id}, 
+			#{parameterType}, 
+			#{parameterIn},
+			#{parameterDescribe},
+			#{context}
+		)
+	</insert>
+	 
+	 <insert id="insertBacth">
+		insert into paramter
+		(
+			parameter_name, 
+			id, 
+			parameter_type, 
+			parameter_describe,
+			context,
+			parameter_in
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+			#{item.parameterName}, 
+			#{item.id}, 
+			#{item.parameterType}, 
+			#{item.parameterDescribe}, 
+			#{item.context},
+			#{item.parameterIn}
+		)
+		</foreach>
+	</insert>
+	 
+	<update id="update" parameterType="admin.modules.testcase.entity.ParamterEntity">
+		update paramter 
+		<set>
+			<if test="id != null">id = #{id}, </if>
+			<if test="parameterType != null">parameter_type = #{parameterType}, </if>
+			<if test="parameterIn != null">parameter_in = #{parameterIn}</if>
+		</set>
+		where parameter_name = #{parameterName}
+	</update>
+	
+	<delete id="delete">
+		delete from paramter where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from paramter where parameter_name in 
+		<foreach item="parameterName" collection="array" open="(" separator="," close=")">
+			#{parameterName}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,77 @@
+package ${package}.modules.${module}.entity;
+
+
+import java.io.Serializable;
+import java.util.Date;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className}Entity implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+#foreach ($column in $columns)
+	//$column.comments
+	private $column.attrType $column.attrname;
+#end
+
+#foreach ($column in $columns)
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("${package}.entity.${className}Entity [")
+#foreach ($column in $columns)
+#if($velocityCount==0)
+		.append("$column.attrname=").append($column.attrname)
+#else
+		.append(",${column.attrname}=").append($column.attrname)
+#end 
+#end
+		.append("]");
+		return builder.toString();
+	}
+	
+	public static enum ${className}Enum{
+#foreach($column in $columns)
+#if (!$velocityHasNext)
+		${column.columnName}("${column.attrname}","${column.comments}");
+#else
+		${column.columnName}("${column.attrname}","${column.comments}"),
+#end
+#end
+		private String fieldName;
+		private String remark;
+		${className}Enum(String fieldName,String remark){
+			this.fieldName = fieldName;
+			this.remark = remark;
+		}
+		
+		public String get(){
+			return this.fieldName;
+		}
+		
+		public String getRemark(){
+			return this.remark;
+		}
+	}
+	
+}

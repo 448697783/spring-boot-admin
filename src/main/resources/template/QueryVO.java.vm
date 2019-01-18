@@ -1,0 +1,310 @@
+package ${package}.modules.${module}.vo;
+import ${package}.common.baseenum.BaseEnum.ReturnMessageEnum;
+import ${package}.modules.${module}.entity.${className}Entity;
+import java.io.Serializable;
+import java.util.ArrayList;
+import ${package}.common.utils.BeanCopierUtils;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.List;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.math.BigDecimal;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
+
+import java.math.BigDecimal;
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@ApiModel("查询${comments}参数")
+public class ${className}QueryVO {
+#foreach ($column in $columns)
+#if (!${column.characterMaximumLength})
+#else
+	${column.characterMaximumLength}
+#end
+#if (!${column.numericPrecision})
+#else
+	${column.numericPrecision}
+#end
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+	@ApiModelProperty(value="$column.comments 格式yyyy-MM-dd HH:mm:ss",example="2018-10-18 18:18:18")
+	@ApiParam(value="$column.comments 格式yyyy-MM-dd HH:mm:ss",defaultValue = "2018-10-18 18:18:18") 
+	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+#else
+	@ApiModelProperty(value="$column.comments",example="填写例子")
+	@ApiParam(value="$column.comments",defaultValue="填写例子")
+#end
+	private $column.attrType $column.attrname;
+	
+#end
+	/**
+	* 默认第一页
+	**/
+	@ApiModelProperty(value="一页展示数量",example="1")
+	@ApiParam(value="一页展示数量",defaultValue="1")
+	private Long page=1L;
+	
+	/**
+	* 默认100行数据
+	**/
+	@ApiModelProperty(value="一页展示多少条数据",example="100")
+	@ApiParam(value="一页展示多少条数据",defaultValue="100")
+	private Long rows=100L;
+	
+#foreach ($column in $columns)
+
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+	public ${className}QResultVO ok(List<${className}Entity> ${classname}EntityList) {
+		return ${className}QResultVO.ok(${classname}EntityList,this);
+	}
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("${package}.entity.${className}Entity [")
+#foreach ($column in $columns)
+#if($velocityCount==0)
+		.append("$column.attrname=").append($column.attrname)
+#else
+		.append(",${column.attrname}=").append($column.attrname)
+#end 
+#end
+		.append(",page=").append(page)
+		.append(",rows=").append(rows)
+		.append("]");
+		return builder.toString();
+	}
+	
+	public static enum ${className}Enum{
+#foreach($column in $columns)
+#if (!$velocityHasNext)
+		${column.columnName}("${column.attrname}","${column.comments}");
+#else
+		${column.columnName}("${column.attrname}","${column.comments}"),
+#end
+#end
+		private String fieldName;
+		private String remark;
+		${className}Enum(String fieldName,String remark){
+			this.fieldName = fieldName;
+			this.remark = remark;
+		}
+		
+		public String get(){
+			return this.fieldName;
+		}
+		
+		public String getRemark(){
+			return this.remark;
+		}
+	}
+	
+	@ApiModel("查询${comments}结果集")
+	public static class ${className}QResultVO {
+
+		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
+		private String code;
+		@ApiModelProperty(value="返回信息描述")
+		private String message;
+		/**
+		* 默认第一页
+		**/
+		@ApiModelProperty(value="一页展示数量",example="1")
+		@ApiParam(value="一页展示数量",defaultValue="1")
+		private Long page=1L;
+		
+		/**
+		* 默认100行数据
+		**/
+		@ApiModelProperty(value="一页展示多少条数据",example="100")
+		@ApiParam(value="一页展示多少条数据",defaultValue="100")
+		private Long rows=100L;
+		
+		/**
+		* 总行数
+		**/
+		@ApiModelProperty(value="总行数",example="100")
+		@ApiParam(value="总行数",defaultValue="100")
+		private Long count;
+		
+		public ${className}QResultVO(String code,String message){
+			this.code = code;
+			this.message = message;
+		}
+		public ${className}QResultVO(){
+		}
+		
+		@ApiModelProperty(value="查询列表")
+		private List<${className}Result> resultList;
+		public ${className}QResultVO(List<${className}Entity> ${classname}EntityList){
+			this.code = ReturnMessageEnum.SUCCESS.getCode();
+			this.message =ReturnMessageEnum.SUCCESS.getMessage();
+			if(${classname}EntityList==null||${classname}EntityList.size()==0){
+				return;
+			}
+			${className}Result result = null;
+			resultList = new ArrayList<${className}Result>(${classname}EntityList.size());
+			for (${className}Entity tempEntity : ${classname}EntityList) {
+				result = new ${className}Result();
+				BeanCopierUtils.copyProperties( tempEntity,result);
+				resultList.add(result);
+			}
+		}
+		
+		public List<${className}Result> getResultList() {
+			return resultList;
+		}
+		
+		public void setResultList(List<${className}Result> resultList) {
+			this.resultList = resultList;
+		}
+		
+		public String getCode() {
+			return code;
+		}
+	
+		public void setCode(String code) {
+			this.code = code;
+		}
+		public static ${className}QResultVO ok(List<${className}Entity> ${classname}EntityList,${className}QueryVO ${classname}QueryVO) {
+			${className}QResultVO ${classname}QResultVO = new ${className}QResultVO(${classname}EntityList);
+			${classname}QResultVO.setPage(${classname}QueryVO.getPage());
+			${classname}QResultVO.setRows(${classname}QueryVO.getRows());
+			return ${classname}QResultVO;
+		}
+	
+		public static ${className}QResultVO  fail() {
+			 ${className}QResultVO vo = new ${className}QResultVO(null);
+			 vo.setCode(ReturnMessageEnum.FAIL.getCode());
+			 vo.setMessage(ReturnMessageEnum.FAIL.getMessage());
+			 return vo;
+		}
+		
+		public String getMessage() {
+			return message;
+		}
+	
+		public void setMessage(String message) {
+			this.message = message;
+		}
+		
+		public Long getPage() {
+			return page;
+		}
+		public void setPage(Long page) {
+			this.page = page;
+		}
+		public Long getRows() {
+			return rows;
+		}
+		public void setRows(Long rows) {
+			this.rows = rows;
+		}
+		public Long getCount() {
+			return count;
+		}
+		public void setCount(Long count) {
+			this.count = count;
+		}
+	}
+		/**
+	 * 回执${comments}说明
+	 * 
+	 */
+	@ApiModel("返回${comments}字段说明")
+	public static class ${className}Result {
+		
+#foreach ($column in $columns)
+#if ($column.attrType=="Date")
+		@ApiModelProperty(value="$column.comments 格式yyyy-MM-dd HH:mm:ss",example="填写例子")
+		@ApiParam(value="$column.comments 格式yyyy-MM-dd HH:mm:ss",defaultValue = "填写例子") 
+		@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+#else
+		@ApiModelProperty(value="$column.comments",example="填写例子")
+		@ApiParam(value="$column.comments",defaultValue="填写例子")
+#end
+		private $column.attrType $column.attrname;
+#end
+	
+	#foreach ($column in $columns)
+	
+		/**
+		 * 设置：${column.comments}
+		 */
+		public void set${column.attrName}($column.attrType $column.attrname) {
+			this.$column.attrname = $column.attrname;
+		}
+		
+		/**
+		 * 获取：${column.comments}
+		 */
+		public $column.attrType get${column.attrName}() {
+			return $column.attrname;
+		}
+#end
+		@Override
+		public String toString(){
+			StringBuilder builder = new StringBuilder();
+			builder.append("${package}.entity.${className}Entity [")
+#foreach ($column in $columns)
+#if($velocityCount==0)
+			.append("$column.attrname=").append($column.attrname)
+#else
+			.append(",${column.attrname}=").append($column.attrname)
+#end 
+#end
+			.append("]");
+			return builder.toString();
+		}
+	}
+	
+	public long getPage() {
+		// TODO Auto-generated method stub
+		return page;
+	}
+
+	public void setPage(long page) {
+		this.page = page;
+	}
+
+	public long getRows() {
+		// TODO Auto-generated method stub
+		return rows;
+	}
+
+	public void setRows(long rows) {
+		this.rows = rows;
+	}
+	
+	public long getStartRow() {
+		return (page-1)*rows;
+	}
+	
+	public long getEndRow() {
+		return page*rows+1;
+	}
+}

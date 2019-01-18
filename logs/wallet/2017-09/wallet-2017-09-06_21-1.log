@@ -1,0 +1,2 @@
+[2017-09-06 21:56:27,855] [INFO] [AutoSwitchDSAspect.java:51] [admin.common.aspect.AutoSwitchDSAspect.before] [http-nio-8080-exec-13]: 数据源切换为:slave
+[2017-09-06 21:56:28,017] [INFO] [AutoSwitchDSAspect.java:56] [admin.common.aspect.AutoSwitchDSAspect.after] [http-nio-8080-exec-13]: 数据源切换为:master

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin.modules.generator.dao.ModuleDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="admin.modules.generator.entity.ModuleEntity" id="moduleMap">
+        <result property="menuId" column="menu_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="perms" column="perms"/>
+        <result property="type" column="type"/>
+        <result property="icon" column="icon"/>
+        <result property="orderNum" column="order_num"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="admin.modules.generator.entity.ModuleEntity">
+		select * from module where menu_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="admin.modules.generator.entity.ModuleEntity">
+		select * from module
+                order by order_num desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from module 
+	</select>
+	 
+	<insert id="insert" parameterType="admin.modules.generator.entity.ModuleEntity" useGeneratedKeys="true" keyProperty="menuId">
+		insert into module
+		(
+			`parent_id`, 
+			`name`, 
+			`url`, 
+			`perms`, 
+			`type`, 
+			`icon`, 
+			`order_num`
+		)
+		values
+		(
+			#{parentId}, 
+			#{name}, 
+			#{url}, 
+			#{perms}, 
+			#{type}, 
+			#{icon}, 
+			#{orderNum}
+		)
+	</insert>
+	<select id="queryListParentId" resultType="admin.modules.sys.entity.SysMenuEntity">
+		select * from sys_menu where parent_id = #{parentId} order by order_num asc 
+	</select>
+	<select id="queryListByName" resultType="admin.modules.generator.entity.ModuleEntity">
+		select * from module where
+		<foreach item="name" collection="array" open="(" separator=" or " close=")">
+			 name like '${name}%'
+		</foreach> 
+	</select>
+	<update id="update" parameterType="admin.modules.generator.entity.ModuleEntity">
+		update module 
+		<set>
+			<if test="parentId != null">`parent_id` = #{parentId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="url != null">`url` = #{url}, </if>
+			<if test="perms != null">`perms` = #{perms}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="icon != null">`icon` = #{icon}, </if>
+			<if test="orderNum != null">`order_num` = #{orderNum}</if>
+		</set>
+		where menu_id = #{menuId}
+	</update>
+	
+	<delete id="delete">
+		delete from module where menu_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from module where menu_id in 
+		<foreach item="menuId" collection="array" open="(" separator="," close=")">
+			#{menuId}
+		</foreach>
+	</delete>
+	<select id="queryNotButtonList" resultType="admin.modules.generator.entity.ModuleEntity">
+		select * from sys_menu where type != 2 order by order_num asc 
+	</select>
+	
+	<select id="queryListByIDs" resultType="admin.modules.generator.entity.ModuleEntity">
+		select * from module where menu_id in 
+		<foreach item="ids" collection="array" open="(" separator="," close=")">
+			#{ids}
+		</foreach>
+	</select>
+
+</mapper>

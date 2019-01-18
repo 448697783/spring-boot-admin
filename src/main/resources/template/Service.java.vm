@@ -1,0 +1,40 @@
+package ${package}.modules.${module}.service;
+
+import ${package}.modules.${module}.entity.${className}Entity;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface I${className}Service {
+
+#if($isSql)
+	List<${className}Entity> query${className}EntityListForPage(${className}Entity ${classname}Entity,Long startRow, Long endRow);
+	
+	Long query${className}EntityListForPageCount(${className}Entity ${classname}Entity);
+#else
+	List<${className}Entity> query${className}EntityListForPage(${className}Entity ${classname}Entity,Long startRow, Long endRow);
+	
+	Long query${className}EntityListForPageCount(${className}Entity ${classname}Entity);
+	
+	List<${className}Entity> query${className}EntityListAll(${className}Entity ${classname}Entity);
+	
+	int save${className}Entity(${className}Entity ${classname}Entity);
+	
+	int save${className}Entity(List<${className}Entity> ${classname}Entitys);
+	
+	int edit${className}Entity(${className}Entity ${classname}Entity);
+	
+	int edit${className}Entity(List<${className}Entity> ${classname}Entitys);
+	
+	int remove${className}Entity(${className}Entity ${classname}Entity);
+	
+	int remove${className}Entity(List<${className}Entity> ${classname}Entity);
+#end
+}
