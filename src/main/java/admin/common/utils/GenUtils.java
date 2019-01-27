@@ -12,6 +12,8 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.validation.constraints.DecimalMin;
+
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -44,13 +46,13 @@ public class GenUtils {
 		MultiDataSource multiDataSource = (MultiDataSource) SpringContextUtils.getBean("datasource");
 		HikariDataSource bean = (HikariDataSource) multiDataSource.getDataSource();
 		List<String> templates = new ArrayList<String>();
-		if (bean.getJdbcUrl().indexOf("oracle")!=-1) {
+		if (bean.getDriverClassName().indexOf("oracle")!=-1) {
 			if(vo.isDao()){
-				templates.add("template/Dao.java.vm");
+				templates.add("template/OraclDao.java.vm");
 //				templates.add("template/OracleDao.xml.vm");
 			}
 		}
-		if(bean.getJdbcUrl().indexOf("oracle")==-1){
+		if(bean.getDriverClassName().indexOf("oracle")==-1){
 			if(vo.isDao()){
 				templates.add("template/Dao.java.vm");
 //				templates.add("template/Dao.xml.vm");
@@ -109,7 +111,7 @@ public class GenUtils {
 		for(Map<String, Object> column : columns){
 			ColumnEntity columnEntity = new ColumnEntity();
 			columnEntity.setColumnName(column.get("COLUMNNAME")==null?null:column.get("COLUMNNAME").toString());
-			String type = column.get("DATATYPE")==null?null:column.get("DATATYPE").toString();
+			String type = column.get("DATATYPE")==null?null:column.get("DATATYPE").toString().toUpperCase();
 			String scale = column.get("DATA_SCALE")==null?null:column.get("DATA_SCALE").toString();
 			String pre = column.get("DATA_PRECISION")==null?null:column.get("DATA_PRECISION").toString();
 			String len = column.get("DATA_LENGTH")==null?null:column.get("DATA_LENGTH").toString();
@@ -120,21 +122,29 @@ public class GenUtils {
 				column.get("COLUMNNAME");
 			}
 			switch (type) {
+			case "FLOAT":
+			case "DOUBLE":
+			case "DECIMAL":
+				columnEntity.setDataType(JdbcType.DECIMAL.name().replaceAll("\\(.*\\)", ""));
+				break;
+			case "BIGINT":
+				columnEntity.setDataType(JdbcType.BIGINT.name().replaceAll("\\(.*\\)", ""));
+				break;
+			case "INT":
+				columnEntity.setDataType(JdbcType.INTEGER.name().replaceAll("\\(.*\\)", ""));
+				break;
 			case "NUMBER":
 				if(StringUtils.isNotBlank(scale)){
 					if(Integer.valueOf(scale)==0){
 						if(StringUtils.isNotBlank(pre)&&Integer.valueOf(pre)<=10){
 							columnEntity.setDataType(JdbcType.INTEGER.name().replaceAll("\\(.*\\)", ""));
 						}else if(StringUtils.isNotBlank(pre)&&Integer.valueOf(pre)>10){
-							System.out.println(pre+"11111111111111");
 							columnEntity.setDataType(JdbcType.BIGINT.name().replaceAll("\\(.*\\)", ""));
 						}else{
 							columnEntity.setDataType(JdbcType.BIGINT.name().replaceAll("\\(.*\\)", ""));
 						}
-					}else if(Integer.valueOf(scale)<7&&Integer.valueOf(scale)>0){
-						columnEntity.setDataType(JdbcType.FLOAT.name().replaceAll("\\(.*\\)", ""));
-					}else if(Integer.valueOf(scale)>7){
-						columnEntity.setDataType(JdbcType.DOUBLE.name().replaceAll("\\(.*\\)", ""));
+					}else {
+						columnEntity.setDataType(JdbcType.DECIMAL.name().replaceAll("\\(.*\\)", ""));
 					}
 				}else{
 					columnEntity.setDataType(JdbcType.BIGINT.name().replaceAll("\\(.*\\)", ""));
@@ -146,11 +156,16 @@ public class GenUtils {
 				columnEntity.setDataType(JdbcType.DATE.name().replaceAll("\\(.*\\)", ""));
 				break;
 			case "VARCHAR2":
+			case "VARCHAR":
 			case "CHAR":
+			case "TEXT":
+			case "LONGTEXT":
+			case "MEDIUMTEXT":
+			case "TINYTEXT":
 				columnEntity.setDataType(JdbcType.VARCHAR.name().replaceAll("\\(.*\\)", ""));
 				break;
 			default:
-				columnEntity.setDataType(column.get("DATATYPE").toString().replaceAll("\\(.*\\)", "").toString());
+				columnEntity.setDataType(type);
 				break;
 			}
 //			columnEntity.setDataType(column.get("DATATYPE"));
@@ -188,7 +203,7 @@ public class GenUtils {
 				columnEntity.setNumericPrecision(column.get("NUMERIC_PRECISION")==null?null:"@Min(value=0,message=\""+column.get("COLUMNCOMMENT")+"值应大于0\")\n\t@Max(value="+tempLen+",message=\""+column.get("COLUMNCOMMENT")+"值应小于"+tempLen+"\")");
 				break;
 			case "BigDecimal":
-				columnEntity.setNumericPrecision(column.get("NUMERIC_PRECISION")==null?null:"@DecimalMax(value=0,message=\""+column.get("COLUMNCOMMENT")+"值应大于0\")\n\t@DecimalMax(value="+tempLen+",message=\""+column.get("COLUMNCOMMENT")+"值应小于"+tempLen+"\")");
+				columnEntity.setNumericPrecision(column.get("NUMERIC_PRECISION")==null?null:"@DecimalMin(value=\"0\",message=\""+column.get("COLUMNCOMMENT")+"值应大于0\")\n\t@DecimalMax(value=\""+tempLen.toString().replace("L", "")+"\",message=\""+column.get("COLUMNCOMMENT")+"值应小于"+tempLen.toString().replace("L", "")+"\")");
 				break;
 			case "String":
 				columnEntity.setCharacterMaximumLength(column.get("CHARACTER_MAXIMUM_LENGTH")==null?null:"@Size(min=0,max="+column.get("CHARACTER_MAXIMUM_LENGTH")+",message=\""+column.get("COLUMNCOMMENT")+"长度为0-"+column.get("CHARACTER_MAXIMUM_LENGTH")+"个字符\")");
@@ -198,7 +213,7 @@ public class GenUtils {
 			default:
 				break;
 			}
-			columnEntity.setIsNullable(column.get("IS_NULLABLE")==null?null:("N".equals(column.get("IS_NULLABLE").toString())?"@NotNull(message=\""+column.get("COLUMNCOMMENT")+"不能为空\")":""));
+			columnEntity.setIsNullable(column.get("IS_NULLABLE")==null?null:("NO".startsWith(column.get("IS_NULLABLE").toString())?"@NotNull(message=\""+column.get("COLUMNCOMMENT")+"不能为空\")":""));
 
 			//列名转换成Java属性名
 			String attrName = columnToJava(columnEntity.getColumnName());

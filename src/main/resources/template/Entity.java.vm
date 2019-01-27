@@ -21,6 +21,40 @@ public class ${className}Entity implements Serializable {
 	private $column.attrType $column.attrname;
 #end
 
+	//当需要根据时间范围查询时使用,不适用时请删除
+	private Date startTime;
+	
+	//当需要根据时间范围查询时使用,不适用时请删除
+	private Date endTime;
+	
+	/**
+	 * 设置：开始时间
+	 */
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+	
+	/**
+	 * 获取：开始时间
+	 */
+	public Date getStartTime() {
+		return startTime;
+	}
+	
+	/**
+	 * 设置：结束时间
+	 */
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+	
+	/**
+	 * 获取：结束时间
+	 */
+	public Date getEndTime() {
+		return endTime;
+	}
+
 #foreach ($column in $columns)
 	/**
 	 * 设置：${column.comments}
@@ -46,6 +80,8 @@ public class ${className}Entity implements Serializable {
 		.append(",${column.attrname}=").append($column.attrname)
 #end 
 #end
+		.append(",startTime=").append(startTime)
+		.append(",endTime=").append(endTime)
 		.append("]");
 		return builder.toString();
 	}

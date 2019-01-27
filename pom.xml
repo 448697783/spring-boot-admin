@@ -211,13 +211,6 @@
 			<version>2.0.0.M2</version>
 		</dependency>
 	</dependencies>
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<url>http://10.16.43.209:8081/nexus/content/repositories/releases</url>
-			<layout>default</layout>
-		</repository>
-	</distributionManagement>
 	<build>
 		<extensions>
 			<extension>
@@ -274,11 +267,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>thirdparty</id>
-			<name>thirdparty</name>
-			<url>http://10.16.43.209:8081/nexus/content/repositories/thirdparty/</url>
-		</repository>
+
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>

@@ -36,14 +36,21 @@
 		<div class="panel-heading">${comments}</div>
 		<form class="form-horizontal">
 		#foreach($column in $columns)
-		#if($column.columnName != $pk.columnName)
+#if($column.columnName != $pk.columnName)
 			<div class="form-group">
 				<div class="col-sm-2 control-label">${column.comments}</div>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" v-model="${classname}.${column.attrname}" placeholder="${column.comments}"/>
 				</div>
 			</div>
-		#end
+#else
+			<div style="display:none;" class="form-group">
+				<div class="col-sm-2 control-label">${column.comments}</div>
+				<div class="col-sm-10">
+					<input type="hidden" class="form-control" v-model="${classname}.${column.attrname}" placeholder="${column.comments}"/>
+				</div>
+			</div>
+#end
 		#end
 			<div class="form-group">
 				<div class="col-sm-2 control-label"></div> 

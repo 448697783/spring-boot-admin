@@ -30,7 +30,7 @@ public class BaseExceptionHandler {
 	public R handleCheckException(CheckException e){
 		R r = new R();
 		r.put("code", e.getCode());
-		r.put("msg", e.getMessage());
+		r.put("message", e.getMessage());
 		ContextLog.error(r.toString(), e);
 		return r;
 	}
@@ -39,7 +39,7 @@ public class BaseExceptionHandler {
 	public R handleException(Exception e){
 		R r = new R();
 		r.put("code", "500");
-		r.put("msg", "系统繁忙,请稍后再试");
+		r.put("message", "系统繁忙,请稍后再试");
 		ContextLog.error(r.toString(), e);
 		return r;
 	}
@@ -48,7 +48,7 @@ public class BaseExceptionHandler {
 	public R handleHttpMessageNotReadableException(HttpMessageNotReadableException e){
 		R r = new R();
 		r.put("code", "500");
-		r.put("msg", "检查参数类型是否正确");
+		r.put("message", "检查参数类型是否正确");
 		ContextLog.error(r.toString(), e);
 		return r;
 	}
@@ -57,7 +57,7 @@ public class BaseExceptionHandler {
 	public R handleBindException(Exception e){
 		R r = new R();
 		r.put("code", "500");
-		r.put("msg", "检查参数格式是否正确");
+		r.put("message", "检查参数格式是否正确");
 		ContextLog.error(r.toString(), e);
 		return r;
 	}
@@ -66,7 +66,7 @@ public class BaseExceptionHandler {
 	public R handleBusinessException(BusinessException e){
 		R r = new R();
 		r.put("code", "500");
-		r.put("msg", e.getMessage());
+		r.put("message", e.getMessage());
 		ContextLog.error(r.toString(), e);
 		return r;
 	}

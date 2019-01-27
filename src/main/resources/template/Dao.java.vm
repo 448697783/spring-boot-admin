@@ -31,12 +31,7 @@ public interface ${className}Dao {
 		
 	@Select({
 			"<script>",
-			"SELECT * FROM ",  
-			"(  ",
-			"SELECT A.* ", 
-			"FROM (",
 			"select",
-			        "ROWNUM RN, ",
 #foreach($column in $columns)
 					"$column.columnName#if($velocityCount != $columns.size()), #end",
 #end
@@ -44,13 +39,14 @@ public interface ${className}Dao {
 				"(${tableName}) F",
 			"<where>",
 #foreach($column in $columns)
-				"<if test='entity.$column.attrname != null AND entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#if ($column.attrType=="String")
+				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#else
+				"<if test='entity.$column.attrname != null '>and $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#end
 #end
 			"</where>",
-			") A ",
-			"WHERE <![CDATA[ ROWNUM < #{endRow}  ]]>",
-			") B",
-			"WHERE <![CDATA[ RN > #{startRow} ]]>",
+			"limit #{startRow},#{endRow}  ",
 			"</script>"
     })
 	List<${className}Entity> selectEntityListForPage(@Param("entity")${className}Entity ${classname}Entity,@Param("startRow")Long startRow,@Param("endRow")Long endRow);
@@ -63,7 +59,11 @@ public interface ${className}Dao {
 				"(${tableName}) F",
 			"<where>",
 #foreach($column in $columns)
-				"<if test='entity.$column.attrname != null AND entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#if ($column.attrType=="String")
+				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#else
+				"<if test='entity.$column.attrname != null '>and $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#end
 #end
 			"</where>",
 			"</script>"
@@ -71,28 +71,24 @@ public interface ${className}Dao {
 	Long selectEntityListForPageCount(@Param("entity")${className}Entity ${classname}Entity);
 #else
 
-	@Select({
+		@Select({
 			"<script>",
-			"SELECT * FROM ",  
-			"(  ",
-			"SELECT A.* ", 
-			"FROM (",
 			"select",
-			        "ROWNUM RN, ",
 #foreach($column in $columns)
 					"$column.columnName#if($velocityCount != $columns.size()), #end",
 #end
 			"from",
-				"(${tableName}) F",
+				"${tableName} F",
 			"<where>",
 #foreach($column in $columns)
-				"<if test='entity.$column.attrname != null AND entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#if ($column.attrType=="String")
+				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#else
+				"<if test='entity.$column.attrname != null '>and $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#end
 #end
 			"</where>",
-			") A ",
-			"WHERE <![CDATA[ ROWNUM < #{endRow}  ]]>",
-			") B",
-			"WHERE <![CDATA[ RN > #{startRow} ]]>",
+			"limit #{startRow},#{endRow}  ",
 			"</script>"
     })
 	List<${className}Entity> selectEntityListForPage(@Param("entity")${className}Entity ${classname}Entity,@Param("startRow")Long startRow,@Param("endRow")Long endRow);
@@ -102,11 +98,14 @@ public interface ${className}Dao {
 			"select",
 			        "count(1) ",
 			"from",
-				"(${tableName}) F",
+				"${tableName} F",
 			"<where>",
 #foreach($column in $columns)
-				"<if test='entity.$column.attrname != null AND entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
-#end
+#if ($column.attrType=="String")
+				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#else
+				"<if test='entity.$column.attrname != null '>and $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#end#end
 			"</where>",
 			"</script>"
     })
@@ -122,22 +121,16 @@ public interface ${className}Dao {
 				"${tableName}",
 			"<where>",
 #foreach($column in $columns)
-				"<if test='$column.attrname != null AND $column.attrname != \"\" '>AND $column.columnName = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#if ($column.attrType=="String")
+				"<if test='$column.attrname != null and $column.attrname != \"\" '>AND $column.columnName = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#else
+				"<if test='$column.attrname != null '>and $column.columnName = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#end
 #end
 			"</where>",
 			"</script>"
     })
 	List<${className}Entity> selectEntityListAll(${className}Entity ${classname}Entity);
-
-	@Select({
-			"<script>",
-			"select",
-					"SEQ_${tableName}.nextval",
-			"from",
-				"dual",
-			"</script>"
-    })
-	Long selectSequenceId();
 
 	@Insert({
 			"insert into ${tableName}",
