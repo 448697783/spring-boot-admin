@@ -177,7 +177,7 @@
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.4</version>
+			<version>11.2.0.3</version>
 		</dependency>
 
 		<dependency>
@@ -252,6 +252,18 @@
 
 	<repositories>
 		<repository>
+			<id>maven-ali</id>
+			<url>https://maven.aliyun.com/repository/spring</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+			<enabled>true</enabled>
+			<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+		</repository>
+		<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
 			<url>https://repo.spring.io/snapshot</url>
@@ -267,7 +279,6 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
