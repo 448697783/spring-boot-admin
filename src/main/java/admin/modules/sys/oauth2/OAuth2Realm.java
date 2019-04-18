@@ -24,8 +24,8 @@ import admin.modules.sys.service.ShiroService;
 /**
  * 认证
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-05-20 14:00
  */
 @Component
@@ -41,7 +41,7 @@ public class OAuth2Realm extends AuthorizingRealm {
     }
 
     /**
-     * 授权(验证权限时调用)
+          * 授权(验证权限时调用)
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -56,7 +56,7 @@ public class OAuth2Realm extends AuthorizingRealm {
     }
 
     /**
-     * 认证(登录时调用)
+          * 认证(登录时调用)
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {

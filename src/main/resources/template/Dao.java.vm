@@ -33,17 +33,26 @@ public interface ${className}Dao {
 			"<script>",
 			"select",
 #foreach($column in $columns)
-					"$column.columnName#if($velocityCount != $columns.size()), #end",
+					"`$column.columnName`#if($velocityCount != $columns.size()), #end",
 #end
 			"from",
 				"(${tableName}) F",
 			"<where>",
 #foreach($column in $columns)
 #if ($column.attrType=="String")
-				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #else
-				"<if test='entity.$column.attrname != null '>and $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null '>and `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #end
+#end
+#if ($role)
+				"<if test='entity.sysRoleDeptEntity != null and entity.sysRoleDeptEntity.size() != 0'>",
+					"and dept_id in (",
+					"<foreach collection='entity.sysRoleDeptEntity' item='item' index='index' separator=',' >",
+						"#{item.deptId}",
+					"</foreach>",
+					")",
+				"</if>",
 #end
 			"</where>",
 			"limit #{startRow},#{endRow}  ",
@@ -60,10 +69,19 @@ public interface ${className}Dao {
 			"<where>",
 #foreach($column in $columns)
 #if ($column.attrType=="String")
-				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #else
-				"<if test='entity.$column.attrname != null '>and $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null '>and `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #end
+#end
+#if ($role)
+				"<if test='entity.sysRoleDeptEntity != null and entity.sysRoleDeptEntity.size() != 0'>",
+					"and dept_id in (",
+					"<foreach collection='entity.sysRoleDeptEntity' item='item' index='index' separator=',' >",
+						"#{item.deptId}",
+					"</foreach>",
+					")",
+				"</if>",
 #end
 			"</where>",
 			"</script>"
@@ -75,17 +93,26 @@ public interface ${className}Dao {
 			"<script>",
 			"select",
 #foreach($column in $columns)
-					"$column.columnName#if($velocityCount != $columns.size()), #end",
+					"`$column.columnName`#if($velocityCount != $columns.size()), #end",
 #end
 			"from",
 				"${tableName} F",
 			"<where>",
 #foreach($column in $columns)
 #if ($column.attrType=="String")
-				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #else
-				"<if test='entity.$column.attrname != null '>and $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null '>and `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #end
+#end
+#if ($role)
+				"<if test='entity.sysRoleDeptEntity != null and entity.sysRoleDeptEntity.size() != 0'>",
+					"and dept_id in (",
+					"<foreach collection='entity.sysRoleDeptEntity' item='item' index='index' separator=',' >",
+						"#{item.deptId}",
+					"</foreach>",
+					")",
+				"</if>",
 #end
 			"</where>",
 			"limit #{startRow},#{endRow}  ",
@@ -102,10 +129,19 @@ public interface ${className}Dao {
 			"<where>",
 #foreach($column in $columns)
 #if ($column.attrType=="String")
-				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null and entity.$column.attrname != \"\" '>AND `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #else
-				"<if test='entity.$column.attrname != null '>and $column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null '>and `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #end#end
+#if ($role)
+				"<if test='entity.sysRoleDeptEntity != null and entity.sysRoleDeptEntity.size() != 0'>",
+					"and dept_id in (",
+					"<foreach collection='entity.sysRoleDeptEntity' item='item' index='index' separator=',' >",
+						"#{item.deptId}",
+					"</foreach>",
+					")",
+				"</if>",
+#end
 			"</where>",
 			"</script>"
     })
@@ -115,17 +151,26 @@ public interface ${className}Dao {
 			"<script>",
 			"select",
 #foreach($column in $columns)
-					"$column.columnName#if($velocityCount != $columns.size()), #end",
+					"`$column.columnName`#if($velocityCount != $columns.size()), #end",
 #end
 			"from",
 				"${tableName}",
 			"<where>",
 #foreach($column in $columns)
 #if ($column.attrType=="String")
-				"<if test='$column.attrname != null and $column.attrname != \"\" '>AND $column.columnName = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='$column.attrname != null and $column.attrname != \"\" '>AND `$column.columnName` = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #else
-				"<if test='$column.attrname != null '>and $column.columnName = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='$column.attrname != null '>and `$column.columnName` = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #end
+#end
+#if ($role)
+				"<if test='entity.sysRoleDeptEntity != null and entity.sysRoleDeptEntity.size() != 0'>",
+					"and dept_id in (",
+					"<foreach collection='entity.sysRoleDeptEntity' item='item' index='index' separator=',' >",
+						"#{item.deptId}",
+					"</foreach>",
+					")",
+				"</if>",
 #end
 			"</where>",
 			"</script>"
@@ -136,13 +181,17 @@ public interface ${className}Dao {
 			"insert into ${tableName}",
 				"(",
 #foreach($column in $columns)
-					"$column.columnName#if($velocityCount != $columns.size()), #end",
+					"`$column.columnName`#if($velocityCount != $columns.size()), #end",
 #end
 				")",
 			"values",
 				"(",
 #foreach($column in $columns)
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+					"#{$column.attrname,jdbcType=TIMESTAMP}#if($velocityCount != $columns.size()), #end",
+#else
 					"#{$column.attrname,jdbcType=$column.dataType}#if($velocityCount != $columns.size()), #end",
+#end
 #end
 				")"
     })
@@ -153,7 +202,7 @@ public interface ${className}Dao {
 			"insert into ${tableName}",
 				"(",
 #foreach($column in $columns)
-				"$column.columnName#if($velocityCount != $columns.size()), #end",
+				"`$column.columnName`#if($velocityCount != $columns.size()), #end",
 #end
 				")",
 			"values",
@@ -174,7 +223,7 @@ public interface ${className}Dao {
 				"<set>",
 #foreach($column in $columns)
 #if($column.columnName != $pk.columnName)
-					"<if test='entity.$column.attrname != null'>$column.columnName = #{entity.$column.attrname}#if($velocityCount != $columns.size()), #end</if>",
+						"`$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()), #end",
 #end
 #end
 				"</set>",
@@ -190,7 +239,7 @@ public interface ${className}Dao {
 					"<set>",
 #foreach($column in $columns)
 #if($column.columnName != $pk.columnName)
-						"<if test='list.$column.attrname != null'>$column.columnName = #{obj.$column.attrname}#if($velocityCount != $columns.size()), #end</if>",
+						"`$column.columnName` = #{obj.$column.attrname}#if($velocityCount != $columns.size()), #end",
 #end
 #end
 					"</set>",
@@ -205,9 +254,16 @@ public interface ${className}Dao {
 				"delete from ${tableName}",
 				"<where>",
 #foreach($column in $columns)
-					"<if test='entity.$column.attrname != null'>$column.columnName = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#if($column.columnName != $pk.columnName)
+#if ($column.attrType=="String")
+				"<if test='entity.$column.attrname != null  and entity.$column.attrname  != \"\" '> and `$column.columnName` = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#else
+				"<if test='entity.$column.attrname != null  '> and `$column.columnName` = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+#end
+#end
 #end
 				"</where>",
+				"and ${pk.columnName} = #{obj.${pk.attrname}}",
 			"</script>"
 	})
 	int deleteEntity(@Param("entity")${className}Entity ${classname}Entity);
@@ -218,9 +274,17 @@ public interface ${className}Dao {
 			"delete from ${tableName}",
 			"<where>",
 #foreach($column in $columns)
-				"<if test='obj.$column.attrname != null'>$column.columnName = #{obj.$column.attrname}#if($velocityCount != $columns.size())#end</if>",
+#if($column.columnName != $pk.columnName)
+#if ($column.attrType=="String")
+
+				"<if test='obj.$column.attrname != null  and obj.$column.attrname  != \"\" '> and `$column.columnName` = #{obj.$column.attrname}#if($velocityCount != $columns.size())#end</if>",
+#else
+				"<if test='obj.$column.attrname != null  '> and `$column.columnName` = #{obj.$column.attrname}#if($velocityCount != $columns.size())#end</if>",
+#end
+#end
 #end
 			"</where>",
+			"and ${pk.columnName} = #{obj.${pk.attrname}}",
 		"</foreach >",
 		"</script>"
 	})

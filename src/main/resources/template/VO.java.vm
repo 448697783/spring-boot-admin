@@ -1,5 +1,5 @@
 package ${package}.modules.${module}.vo;
-import ${package}.common.baseenum.BaseEnum.ReturnMessageEnum;
+import ${package}.common.baseenum.BaseEnum.ReturnMsgEnum;
 import ${package}.modules.${module}.entity.${className}Entity;
 import java.io.Serializable;
 import ${package}.common.utils.BeanCopierUtils;
@@ -104,11 +104,11 @@ public class ${className}VO implements Serializable {
 		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
 		private String code;
 		@ApiModelProperty(value="返回信息描述")
-		private String message;
+		private String msg;
 		
-		public Query${className}ReturnResult(String code,String message){
+		public Query${className}ReturnResult(String code,String msg){
 			this.code = code;
-			this.message = message;
+			this.msg = msg;
 		}
 		
 		private List<${className}Info> ${classname}Info;
@@ -117,8 +117,8 @@ public class ${className}VO implements Serializable {
 			BeanCopierUtils.copyProperties( ${classname}EntityList,${classname}Info);
 			
 			this.${classname}Info = ${classname}Info;
-			this.code = ReturnMessageEnum.SUCCESS.getCode();
-			this.message =ReturnMessageEnum.SUCCESS.getMessage();
+			this.code = ReturnMsgEnum.SUCCESS.getCode();
+			this.msg =ReturnMsgEnum.SUCCESS.getMsg();
 		}
 		
 		public String getCode() {
@@ -129,19 +129,19 @@ public class ${className}VO implements Serializable {
 			this.code = code;
 		}
 		public static ${className}ReturnInfo ok() {
-			return new ${className}ReturnInfo(ReturnMessageEnum.SUCCESS.getCode(),ReturnMessageEnum.SUCCESS.getMessage());
+			return new ${className}ReturnInfo(ReturnMsgEnum.SUCCESS.getCode(),ReturnMsgEnum.SUCCESS.getMsg());
 		}
 	
 		public static ${className}ReturnInfo  error() {
-			return new ${className}ReturnInfo(ReturnMessageEnum.FAIL.getCode(),ReturnMessageEnum.FAIL.getMessage());
+			return new ${className}ReturnInfo(ReturnMsgEnum.FAIL.getCode(),ReturnMsgEnum.FAIL.getMsg());
 		}
 		
-		public String getMessage() {
-			return message;
+		public String getMsg() {
+			return msg;
 		}
 	
-		public void setMessage(String message) {
-			this.message = message;
+		public void setMsg(String msg) {
+			this.msg = msg;
 		}
 	}
 	

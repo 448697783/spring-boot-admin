@@ -81,7 +81,7 @@ public class CtrLogAspect  {
 		finally {
 			long time = System.currentTimeMillis() - beginTime;
 			//记录执行后返回日志
-			resultCtrLog(point, result,time,number);
+			resultCtrLog(point, result.toString(),time,number);
 			
 		}
 		return result;
@@ -89,7 +89,7 @@ public class CtrLogAspect  {
 	private void resultCtrLog(ProceedingJoinPoint joinPoint,Object result,long time,long number){
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();	
 		request.setAttribute(LogTypeEnum.WHICH_NUMBER_KEY.getValue(),request.getAttribute(LogTypeEnum.WHICH_NUMBER_KEY.getValue())!=null?Integer.valueOf(request.getAttribute(LogTypeEnum.WHICH_NUMBER_KEY.getValue()).toString())+1:1);
-		log.info("请求唯一标识->{}-{} 返回结果->{} 方法执行时间->{}",request.getAttribute(LogTypeEnum.WHICH_MARK_KEY.getValue()),number,result, time);
+		log.info("请求唯一标识->{}-{} 返回结果->{} 方法执行时间->{}",request.getAttribute(LogTypeEnum.WHICH_MARK_KEY.getValue()),number,result.toString(), time);
 	}
 	
 	private void intiCtrLog(ProceedingJoinPoint joinPoint,long beginTime, int number){

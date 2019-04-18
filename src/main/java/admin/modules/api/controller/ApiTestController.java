@@ -12,8 +12,8 @@ import admin.modules.api.entity.UserEntity;
 /**
  * API测试接口
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-23 15:47
  */
 @RestController

@@ -45,7 +45,6 @@ $.ajaxSetup({
         }
     }
 });
-
 //jqgrid全局配置
 $.extend($.jgrid.defaults, {
     ajaxGridOptions : {
@@ -53,6 +52,12 @@ $.extend($.jgrid.defaults, {
             "token": token
         }
     }
+//    loadError: function(xhr,status,error){  
+//    	if(xhrstatus){
+//    		
+//    	}
+//        alert(1) 
+//    }
 });
 
 //权限判断
@@ -90,6 +95,7 @@ function getSelectedRow() {
     var grid = $("#jqGrid");
     var rowKey = grid.getGridParam("selrow");
     if(!rowKey){
+    	alert("请至少选择一条记录");
     	return null;
     }
     

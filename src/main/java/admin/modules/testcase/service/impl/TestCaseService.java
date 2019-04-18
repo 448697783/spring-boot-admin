@@ -6,6 +6,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import admin.common.utils.ShiroUtils;
 import admin.modules.sys.dao.SysRoleDeptDao;
 import admin.modules.sys.entity.SysRoleDeptEntity;
 import admin.modules.sys.entity.SysUserEntity;
@@ -30,7 +31,7 @@ public class TestCaseService {
 	}
 	public List<TestCaseEntity> getTestCaseEntity(String controllerName,String describe) {
 		
-        SysUserEntity sysUserEntity = ((SysUserEntity) SecurityUtils.getSubject().getPrincipal());
+        SysUserEntity sysUserEntity = ShiroUtils.getUserEntity();
         TestCaseEntity testCase = new TestCaseEntity();
         if(sysUserEntity.getRoleIdList().size()>0) {
         	List<SysRoleDeptEntity> sysRoleDeptEntity = sysRoleDeptDao.querySysRoleDeptBacth(sysUserEntity.getRoleIdList());

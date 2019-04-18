@@ -22,8 +22,8 @@ import com.alibaba.druid.wall.WallFilter;
 /**
  * Druid配置
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-04-21 0:00
  */
 @Service

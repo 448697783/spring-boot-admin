@@ -8,9 +8,15 @@ import java.util.Map;
 #if($isSql)
 import ${package}.modules.${module}.vo.${className}QueryVO;
 #end
+#if($role)
+import ${package}.modules.sys.dao.SysRoleDeptDao;
+import ${package}.modules.sys.entity.SysRoleDeptEntity;
+
+#end
 import ${package}.modules.${module}.dao.${className}Dao;
 import ${package}.modules.${module}.entity.${className}Entity;
 import ${package}.modules.${module}.service.I${className}Service;
+import ${package}.common.utils.ShiroUtils;
 import ${package}.common.annotation.AutoRetry;
 import ${package}.common.exception.AutoRetryException;
 
@@ -21,35 +27,62 @@ import ${package}.common.exception.AutoRetryException;
 public class ${className}ServiceImpl implements I${className}Service {
 	@Autowired
 	private ${className}Dao ${classname}Dao;
+#if ($role)	
+	@Autowired
+	private SysRoleDeptDao sysRoleDeptDao;
+#end	
 #if($isSql)
 	@Override
 	public List<${className}Entity> query${className}EntityListForPage(${className}Entity ${classname}Entity,Long startRow, Long endRow){
+#if($role)
+        List<SysRoleDeptEntity> sysRoleDeptEntity = sysRoleDeptDao.querySysRoleDeptBacth(ShiroUtils.getUserEntity().getRoleIdList());
+        ${classname}Entity.setSysRoleDeptEntity(sysRoleDeptEntity);
+#end
 		return ${classname}Dao.selectEntityListForPage(${classname}Entity,startRow,endRow);
 	}
 	
 	@Override
 	public Long query${className}EntityListForPageCount(${className}Entity ${classname}Entity){
+#if($role)
+        List<SysRoleDeptEntity> sysRoleDeptEntity = sysRoleDeptDao.querySysRoleDeptBacth(ShiroUtils.getUserEntity().getRoleIdList());
+        ${classname}Entity.setSysRoleDeptEntity(sysRoleDeptEntity);
+#end
 		return ${classname}Dao.selectEntityListForPageCount(${classname}Entity);
 	}
 #else	
 	
 	@Override
 	public List<${className}Entity> query${className}EntityListForPage(${className}Entity ${classname}Entity,Long startRow, Long endRow){
+#if($role)
+        List<SysRoleDeptEntity> sysRoleDeptEntity = sysRoleDeptDao.querySysRoleDeptBacth(ShiroUtils.getUserEntity().getRoleIdList());
+        ${classname}Entity.setSysRoleDeptEntity(sysRoleDeptEntity);
+#end
 		return ${classname}Dao.selectEntityListForPage(${classname}Entity,startRow,endRow);
 	}
 	
 	@Override
 	public Long query${className}EntityListForPageCount(${className}Entity ${classname}Entity){
+#if($role)
+        List<SysRoleDeptEntity> sysRoleDeptEntity = sysRoleDeptDao.querySysRoleDeptBacth(ShiroUtils.getUserEntity().getRoleIdList());
+        ${classname}Entity.setSysRoleDeptEntity(sysRoleDeptEntity);
+#end
 		return ${classname}Dao.selectEntityListForPageCount(${classname}Entity);
 	}
 	
 	@Override
 	public List<${className}Entity> query${className}EntityListAll(${className}Entity ${classname}Entity){
+#if($role)
+        List<SysRoleDeptEntity> sysRoleDeptEntity = sysRoleDeptDao.querySysRoleDeptBacth(ShiroUtils.getUserEntity().getRoleIdList());
+        ${classname}Entity.setSysRoleDeptEntity(sysRoleDeptEntity);
+#end
 		return ${classname}Dao.selectEntityListAll(${classname}Entity);
 	}
 	
 	@Override
 	public int save${className}Entity(${className}Entity ${classname}Entity){
+#if ($role)
+		${classname}Entity.setDeptId(ShiroUtils.getDeptId());
+#end
 		return ${classname}Dao.insertEntity(${classname}Entity);
 	}
 	

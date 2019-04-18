@@ -26,8 +26,8 @@ import admin.modules.sys.service.SysRoleService;
 /**
  * 角色管理
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年11月8日 下午2:18:33
  */
 @RestController

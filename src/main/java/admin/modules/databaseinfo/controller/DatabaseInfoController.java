@@ -38,7 +38,7 @@ import admin.modules.databaseinfo.service.IDatabaseInfoService;
  * 数据库信息表
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-06-15 17:49:11
  */
 @RestController

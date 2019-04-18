@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * 测试用例
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-06-15 20:06:11
  */
 public class TestEntity implements Serializable {

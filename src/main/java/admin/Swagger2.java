@@ -3,7 +3,6 @@ package admin;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -14,8 +13,12 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Parameter;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;  
 
@@ -44,15 +47,53 @@ public class Swagger2 {
         .required(false).build(); //header中的ticket参数非必填，传空也可以  
         pars.add(ticketPar.build());    //根据每个方法名也知道当前方法在设置什么参数  
     	   
-        return new Docket(DocumentationType.SWAGGER_2)
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .useDefaultResponseMessages(false)
+//                .apiInfo(apiInfo())
+//                .select()
+//                .apis(RequestHandlerSelectors.basePackage("admin.modules"))
+//                .paths(PathSelectors.any())
+//                .build()
+//                .securitySchemes(securitySchemes())
+//                .securityContexts(securityContexts());
+//                .globalOperationParameters(pars);
+        
+        return new Docket(DocumentationType.SWAGGER_2).
+                useDefaultResponseMessages(false)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("admin.modules"))
-                .paths(PathSelectors.any())
-                .build();
-//                .globalOperationParameters(pars);
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.regex("^(?!auth).*$"))
+                .build()
+                .securitySchemes(securitySchemes())
+                .securityContexts(securityContexts())
+                ;
     }
 
+    private List<ApiKey> securitySchemes() {
+    	ArrayList arr= new ArrayList();
+    	arr.add(new ApiKey("Authorization", "token", "header"));
+    	return arr;
+    }
+
+    private List<SecurityContext> securityContexts() {
+    	ArrayList arr= new ArrayList();
+        SecurityContext build = SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.regex("^(?!auth).*$"))
+                .build();
+        arr.add(build);
+        return arr;
+    }
+
+    List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(new SecurityReference("Authorization", authorizationScopes));
+        return  arrayList;
+    }
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")

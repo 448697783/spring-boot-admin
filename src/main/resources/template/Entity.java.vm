@@ -1,10 +1,12 @@
 package ${package}.modules.${module}.entity;
+import ${package}.modules.sys.entity.SysRoleDeptEntity;
 
 
 import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * ${comments}
@@ -21,6 +23,10 @@ public class ${className}Entity implements Serializable {
 	private $column.attrType $column.attrname;
 #end
 
+#if ($role)
+	//  数据权限
+	private List<SysRoleDeptEntity> sysRoleDeptEntity;
+#end	
 	//当需要根据时间范围查询时使用,不适用时请删除
 	private Date startTime;
 	
@@ -109,5 +115,13 @@ public class ${className}Entity implements Serializable {
 			return this.remark;
 		}
 	}
-	
+#if ($role)	
+	public List<SysRoleDeptEntity> getSysRoleDeptEntity() {
+		return sysRoleDeptEntity;
+	}
+
+	public void setSysRoleDeptEntity(List<SysRoleDeptEntity> sysRoleDeptEntity) {
+		this.sysRoleDeptEntity = sysRoleDeptEntity;
+	}
+#end
 }

@@ -3,8 +3,8 @@ package admin.modules.automatic.entity;
 /**
  * 列的属性
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年12月20日 上午12:01:45
  */
 public class ColumnEntity {

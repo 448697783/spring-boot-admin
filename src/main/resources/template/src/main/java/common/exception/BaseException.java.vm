@@ -1,6 +1,5 @@
 package ${packageName}.common.exception;
 
-
 /**
  * 基础异常
  * @date: 2016年10月12日 上午10:40:11

@@ -1,5 +1,5 @@
 package admin.modules.test.vo;
-import admin.common.baseenum.BaseEnum.ReturnMessageEnum;
+import admin.common.baseenum.BaseEnum.ReturnMsgEnum;
 import admin.modules.test.entity.TestEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.math.BigDecimal;
  * 测试用例
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-06-15 20:06:11
  */
 @ApiModel("查询测试用例参数")
@@ -206,8 +206,8 @@ public class TestQueryVO {
 		@ApiModelProperty(value="查询列表")
 		private List<TestResult> resultList;
 		public TestQResultVO(List<TestEntity> TestEntityList){
-			this.code = ReturnMessageEnum.SUCCESS.getCode();
-			this.message =ReturnMessageEnum.SUCCESS.getMessage();
+			this.code = ReturnMsgEnum.SUCCESS.getCode();
+			this.message =ReturnMsgEnum.SUCCESS.getMsg();
 			if(TestEntityList==null||TestEntityList.size()==0){
 				return;
 			}
@@ -241,8 +241,8 @@ public class TestQueryVO {
 	
 		public static TestQResultVO  fail() {
 			 TestQResultVO vo = new TestQResultVO(null);
-			 vo.setCode(ReturnMessageEnum.FAIL.getCode());
-			 vo.setMessage(ReturnMessageEnum.FAIL.getMessage());
+			 vo.setCode(ReturnMsgEnum.FAIL.getCode());
+			 vo.setMessage(ReturnMsgEnum.FAIL.getMsg());
 			 return vo;
 		}
 		

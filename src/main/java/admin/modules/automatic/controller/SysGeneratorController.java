@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,8 +31,8 @@ import admin.modules.automatic.vo.CoderGeneratorVO;
 /**
  * 代码生成器
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年12月19日 下午9:12:58
  */
 @RestController
@@ -45,7 +46,7 @@ public class SysGeneratorController {
 	 */
 	@ResponseBody
 	@RequestMapping("/list")
-	@AuthIgnore
+	@RequiresPermissions("sys:generator:list")
 	public R list(@RequestParam Map<String, Object> params){
 		if(params.get("aliase")!=null) {
 			MultiDataSource.switchSource(params.get("aliase").toString());
@@ -69,7 +70,7 @@ public class SysGeneratorController {
 	 * 生成代码
 	 */
 	@RequestMapping("/code")
-	@AuthIgnore
+	@RequiresPermissions("sys:generator:code")
 	public void code(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String body = request.getParameter("text");
 		CoderGeneratorVO vo = (CoderGeneratorVO) JSONObject.toJavaObject(JSONObject.parseObject(body), CoderGeneratorVO.class);
@@ -95,8 +96,8 @@ public class SysGeneratorController {
 	 * 生成代码
 	 */
 	@RequestMapping("/queryTableColums")
-	@AuthIgnore
 	@ResponseBody
+	@RequiresPermissions("sys:generator:queryTableColums")
 	public R queryTableColums(String tableName,String aliase) throws IOException{
 		if(aliase!=null) {
 			MultiDataSource.switchSource(aliase);

@@ -89,6 +89,7 @@ public class CtrLogAspect  {
 		return result;
 	}
 	private void resultCtrLog(ProceedingJoinPoint joinPoint,Object result,long time,long number){
+		result=result==null?"":result.toString();
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();	
 		request.setAttribute(LogTypeEnum.WHICH_NUMBER_KEY.getValue(),request.getAttribute(LogTypeEnum.WHICH_NUMBER_KEY.getValue())!=null?Integer.valueOf(request.getAttribute(LogTypeEnum.WHICH_NUMBER_KEY.getValue()).toString())+1:1);
 		log.info("请求唯一标识->{}-{} 返回结果->{} 方法执行时间->{}",request.getAttribute(LogTypeEnum.WHICH_MARK_KEY.getValue()),number,result, time);

@@ -8,8 +8,8 @@ import java.util.Map;
 /**
  * 返回数据
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年10月27日 下午9:59:27
  */
 public class R extends HashMap<String, Object> {

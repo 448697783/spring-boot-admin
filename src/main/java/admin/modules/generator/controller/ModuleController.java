@@ -11,6 +11,7 @@ import javax.validation.constraints.Max;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,11 +39,11 @@ import admin.modules.generator.service.SpringBootTemplate;
  * 菜单管理
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2017-09-07 00:18:45
  */
 @Controller
-@RequestMapping("module")
+@RequestMapping("sys/module")
 public class ModuleController {
 //	@Autowired
 //	private moduleService moduleService;
@@ -55,6 +56,7 @@ public class ModuleController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
+	@RequiresPermissions("sys:module:list")
 	public List<ModuleEntity> list(){
 		List<ModuleEntity> menuList = moduleService.queryList(new HashMap<>());
 
@@ -66,6 +68,7 @@ public class ModuleController {
 	 */
 	@RequestMapping("/select")
 	@ResponseBody
+	@RequiresPermissions("sys:module:select")
 	public R select(){
 		//查询列表数据
 		List<ModuleEntity> menuList = moduleService.queryNotButtonList();
@@ -86,6 +89,7 @@ public class ModuleController {
 	 */
 	@RequestMapping("/info/{menuId}")
 	@ResponseBody
+	@RequiresPermissions("sys:module:info")
 	public R info(@PathVariable("menuId") Long menuId){
 		ModuleEntity menu = moduleService.queryObject(menuId);
 		return R.ok().put("menu", menu);
@@ -96,6 +100,7 @@ public class ModuleController {
 	 */
 	@SysLog("保存菜单")
 	@RequestMapping("/save")
+	@RequiresPermissions("sys:module:save")
 	@ResponseBody
 	public R save(@RequestBody ModuleEntity menu){
 		//数据校验
@@ -111,6 +116,7 @@ public class ModuleController {
 	 */
 	@SysLog("修改菜单")
 	@RequestMapping("/update")
+	@RequiresPermissions("sys:module:update")
 	@ResponseBody
 	public R update(@RequestBody ModuleEntity menu){
 		//数据校验
@@ -126,6 +132,7 @@ public class ModuleController {
 	 */
 	@SysLog("删除菜单")
 	@RequestMapping("/delete")
+	@RequiresPermissions("sys:module:delete")
 	@ResponseBody
 	public R delete(long menuId){
 
@@ -142,7 +149,8 @@ public class ModuleController {
 	/**
 	 * 生成spring模版代码
 	 */
-	@RequestMapping("/generator/springbootproject")
+	@RequestMapping("/springbootproject")
+	@RequiresPermissions("sys:module:springbootproject")
 	@AuthIgnore
 	public void code(HttpServletRequest request, HttpServletResponse response) throws IOException{
 //		String[] tableNames = new String[]{};

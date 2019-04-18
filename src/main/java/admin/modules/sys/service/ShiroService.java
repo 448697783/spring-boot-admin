@@ -7,8 +7,8 @@ import admin.modules.sys.entity.SysUserTokenEntity;
 
 /**
  * shiro相关接口
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-06-06 8:49
  */
 public interface ShiroService {

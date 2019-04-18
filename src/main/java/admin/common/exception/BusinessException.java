@@ -27,19 +27,19 @@ public class BusinessException extends BaseException {
 	}
 	
 	public BusinessException(BusinessExceptionEnum businessExceptionEnum){
-		super(businessExceptionEnum.Message());
+		super(businessExceptionEnum.msg());
 		this.code = businessExceptionEnum.Code();
 	}
 	
 	public BusinessException(BusinessExceptionEnum businessExceptionEnum,Exception orgException){
-		super(businessExceptionEnum.Message());
+		super(businessExceptionEnum.msg());
 		this.code = businessExceptionEnum.Code();
 		this.orgException = orgException;
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public BusinessException(BusinessExceptionEnum businessExceptionEnum,Class clazz){
-		super(businessExceptionEnum.Message());
+		super(businessExceptionEnum.msg());
 		this.code = businessExceptionEnum.Code();
 		this.clazz = clazz;
 		this.className = clazz.getName();
@@ -47,7 +47,7 @@ public class BusinessException extends BaseException {
 	
 	@SuppressWarnings("rawtypes")
 	public BusinessException(BusinessExceptionEnum businessExceptionEnum,Class clazz,Exception orgException){
-		super(businessExceptionEnum.Message());
+		super(businessExceptionEnum.msg());
 		this.code = businessExceptionEnum.Code();
 		this.clazz = clazz;
 		this.className = clazz.getName();
@@ -55,8 +55,8 @@ public class BusinessException extends BaseException {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public BusinessException(String message,Class clazz){
-		super(message);
+	public BusinessException(String msg,Class clazz){
+		super(msg);
 		this.clazz = clazz;
 		this.className = clazz.getName();
 	}

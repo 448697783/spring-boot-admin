@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + '${pathName}/query${className}List',
+        url: baseURL + '${url}/query${className}List',
         datatype: "json",
         colModel: [			
 #foreach($column in $columns)
@@ -24,8 +24,8 @@ $(function () {
         jsonReader : {
             root: "resultList",
             page: "page",
-            count: "count",
-            rows: "rows"
+            total: "totalPage",
+            records: "count"
         },
         prmNames : {
             page:"page", 
@@ -71,7 +71,7 @@ var vm = new Vue({
             vm.getInfo(${pk.attrname})
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.${classname}.${pk.attrname}? "${pathName}/edit${className}" : "${pathName}/save${className}";
+			var url = vm.${classname}.${pk.attrname}? "${url}/edit${className}" : "${url}/save${className}";
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
@@ -79,11 +79,11 @@ var vm = new Vue({
 			    data: JSON.stringify(vm.${classname}),
 			    success: function(r){
 			    	if(r.code == 200){
-						alert(r.message, function(index){
+						alert(r.msg, function(index){
 							vm.reload();
 						});
 					}else{
-						alert(r.message);
+						alert(r.msg);
 					}
 				}
 			});
@@ -102,16 +102,16 @@ var vm = new Vue({
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: baseURL + "${pathName}/delete${className}List",
+				    url: baseURL + "${url}/delete${className}List",
                     contentType: "application/json",
-				    data: JSON.stringify(${pk.attrname}s),
+				    data: JSON.stringify(arr),
 				    success: function(r){
 						if(r.code == 200){
-							alert(r.message, function(index){
+							alert(r.msg, function(index){
 								$("#jqGrid").trigger("reloadGrid");
 							});
 						}else{
-							alert(r.message);
+							alert(r.msg);
 						}
 					}
 				});
@@ -121,18 +121,18 @@ var vm = new Vue({
 			var rowData = $("#jqGrid").jqGrid('getRowData',${pk.attrname});
 			$.ajax({
 				type: "POST",
-			    url: baseURL + "${pathName}/query${className}List",
+			    url: baseURL + "${url}/query${className}List",
                 contentType: "application/x-www-form-urlencoded",
 			    data: rowData,
 			    success: function(r){
 					if(r.code == 200){
-						if(r.resultList.length==0){
-							alter("数据不存在");
+						if(!r.resultList||r.resultList.length==0){
+							alert("数据不存在");
 							return;
 						}
 		                vm.${classname}  = r.resultList[0];
 					}else{
-						alert(r.message);
+						alert(r.msg);
 					}
 				}
 			});

@@ -1,18 +1,17 @@
 spring:
-    datasource:
-        url: jdbc:mysql://localhost:3306/renren_fastplus?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-        username: renren
-        password: 123456
-        #连接池的配置信息
-        initialSize: 10
-        minIdle: 10
-        maxActive: 100
-        maxWait: 60000
-        timeBetweenEvictionRunsMillis: 60000
-        minEvictableIdleTimeMillis: 300000
-        validationQuery: SELECT 1 FROM DUAL
-        testWhileIdle: true
-        testOnBorrow: false
-        testOnReturn: false
-        poolPreparedStatements: true
-        maxPoolPreparedStatementPerConnectionSize: 20
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+    username: root
+    password: dic*#9dc-dme58
+    openMulti: true
+    idle-timeout: 30000
+    multi:
+    - key: takeout
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/takeout?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      username: root
+      password: dic*#9dc-dme58
+      idle-timeout: 20000

@@ -17,8 +17,8 @@ import net.sf.json.JSONObject;
 
 /**
  * 腾讯云存储
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-26 20:51
  */
 public class QcloudCloudStorageService extends CloudStorageService{

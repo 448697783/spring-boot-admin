@@ -69,7 +69,7 @@ public class JsonResultUtil {
     public static JsonResult error(BusinessExceptionEnum error) {
     	JsonResult jsonResult = new JsonResult();
         jsonResult.setFlag(0);
-        jsonResult.setMsg(error.Message());
+        jsonResult.setMsg(error.msg());
         jsonResult.setCode(error.Code());
         return jsonResult;
     }

@@ -10,8 +10,8 @@ import java.util.Properties;
 /**
  * 定时任务配置
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-04-20 23:38
  */
 //@Configuration

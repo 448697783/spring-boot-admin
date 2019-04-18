@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,8 +32,8 @@ import io.swagger.annotations.ResponseHeader;
 /**
  * 登录相关
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年11月10日 下午1:15:31
  */
 @RestController
@@ -43,7 +45,7 @@ public class SysLoginController {
 	@Autowired
 	private SysUserTokenService sysUserTokenService;
 
-	@RequestMapping(value="/captcha.jpg")
+	@GetMapping(value="/captcha.jpg",produces=MediaType.IMAGE_JPEG_VALUE)
 	@ResponseHeader
 	@ApiOperation(value="获取验证码",produces="application/octet-stream",httpMethod="GET",tags="用户登陆")
 	public void captcha(HttpServletResponse response)throws ServletException, IOException {
@@ -66,7 +68,7 @@ public class SysLoginController {
 	 * 登录
 	 */
 	@RequestMapping(value = "/sys/login", method = RequestMethod.POST)
-	@ApiOperation(value="用户登陆",produces="application/json",httpMethod="GET",tags="用户登陆")
+	@ApiOperation(value="用户登陆",produces="application/json",httpMethod="POST",tags="用户登陆")
 	public Map<String, Object> login(String username, String password, String captcha)throws IOException {
 		String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
 		if(!captcha.equalsIgnoreCase(kaptcha)){

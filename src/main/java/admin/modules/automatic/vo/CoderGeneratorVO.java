@@ -19,6 +19,7 @@ public class CoderGeneratorVO {
 	private boolean xml;
 	private boolean html;
 	private boolean menu;
+	private boolean role;
 	private String sql;
 	
 	public boolean isEntity() {
@@ -122,5 +123,11 @@ public class CoderGeneratorVO {
 	}
 	public void setSql(String sql) {
 		this.sql = sql;
+	}
+	public boolean isRole() {
+		return role;
+	}
+	public void setRole(boolean role) {
+		this.role = role;
 	}
 }

@@ -29,8 +29,8 @@ import admin.modules.sys.service.SysUserService;
 /**
  * 系统用户
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年10月31日 上午10:40:10
  */
 @RestController

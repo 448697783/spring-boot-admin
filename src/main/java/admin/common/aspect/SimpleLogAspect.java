@@ -57,6 +57,7 @@ public class SimpleLogAspect{
 		return result;
 	}
 	private void resultSimpleLog(ProceedingJoinPoint joinPoint,Object result,long time,int number){
+		result=result==null?"":result.toString();
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();		
 		log.info("请求唯一标识->{}-{} 返回结果->{} 方法执行时间->{}",request.getAttribute(LogTypeEnum.WHICH_MARK_KEY.getValue()),number,result, time);
 	}

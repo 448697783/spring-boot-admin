@@ -9,10 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import javax.validation.constraints.DecimalMin;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
@@ -36,8 +35,8 @@ import admin.modules.automatic.vo.CoderGeneratorVO;
 /**
  * 代码生成器   工具类
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年12月19日 下午11:40:24
  */
 public class GenUtils {
@@ -48,7 +47,7 @@ public class GenUtils {
 		List<String> templates = new ArrayList<String>();
 		if (bean.getDriverClassName().indexOf("oracle")!=-1) {
 			if(vo.isDao()){
-				templates.add("template/OraclDao.java.vm");
+				templates.add("template/OracleDao.java.vm");
 //				templates.add("template/OracleDao.xml.vm");
 			}
 		}
@@ -185,9 +184,6 @@ public class GenUtils {
 					column.put("DATATYPE","BigDecimal");
 				}
 				for(int i=0;i<len1;i++) {
-					if(i>17) {
-						break;
-					}
 					tempLen.append("9");
 				}
 				if(len1>9)
@@ -197,11 +193,11 @@ public class GenUtils {
 			String attrType = config.getString(columnEntity.getDataType(), "unknowType");
 			switch (attrType) {
 			case "Integer":
-			case "Long":
 			case "Float":
 			case "Double":
 				columnEntity.setNumericPrecision(column.get("NUMERIC_PRECISION")==null?null:"@Min(value=0,message=\""+column.get("COLUMNCOMMENT")+"值应大于0\")\n\t@Max(value="+tempLen+",message=\""+column.get("COLUMNCOMMENT")+"值应小于"+tempLen+"\")");
 				break;
+			case "Long":
 			case "BigDecimal":
 				columnEntity.setNumericPrecision(column.get("NUMERIC_PRECISION")==null?null:"@DecimalMin(value=\"0\",message=\""+column.get("COLUMNCOMMENT")+"值应大于0\")\n\t@DecimalMax(value=\""+tempLen.toString().replace("L", "")+"\",message=\""+column.get("COLUMNCOMMENT")+"值应小于"+tempLen.toString().replace("L", "")+"\")");
 				break;
@@ -254,7 +250,10 @@ public class GenUtils {
 		map.put("columns", tableEntity.getColumns());
 		map.put("package",packageName);
 		map.put("isSql",StringUtils.isNotBlank(vo.getSql())&&(vo.getTables()==null||vo.getTables().size()!=0)?true:false);
+		map.put("role",vo.isRole());
 		map.put("module",(!StringUtils.isNotEmpty(vo.getModeName())?getModules(table.get("TABLENAME")).toLowerCase():vo.getModeName()));
+		map.put("url",(!StringUtils.isNotEmpty(vo.getModeName())?getModules(table.get("TABLENAME")).toLowerCase():vo.getModeName()).replaceAll("\\.", "/"));
+		map.put("shrio",(!StringUtils.isNotEmpty(vo.getModeName())?getModules(table.get("TABLENAME")).toLowerCase():vo.getModeName()).replaceAll("\\.", ":"));
 
 		map.put("author", config.getString("author"));
 		map.put("email", config.getString("email"));
@@ -374,12 +373,12 @@ public class GenUtils {
 
 		if(template.contains("list.html.vm")){
 			return projectName+"/src/main" + File.separator + "resources" + File.separator + "views" + File.separator
-					+ "modules" + File.separator + module + File.separator +  tableEntity.getClassname() + ".html";
+					+ "modules" + File.separator + module.replaceAll("\\.", Matcher.quoteReplacement(File.separator)) + File.separator +  tableEntity.getClassname() + ".html";
 		}
 		
 		if(template.contains("list.js.vm")){
 			return projectName+"/src/main" + File.separator + "resources" + File.separator + "static" + File.separator + "js" + File.separator
-					+ "modules" + File.separator + module + File.separator +  tableEntity.getClassname() + ".js";
+					+ "modules" + File.separator + module.replaceAll("\\.", Matcher.quoteReplacement(File.separator)) + File.separator +  tableEntity.getClassname() + ".js";
 		}
 
 		if(template.contains("menu.sql.vm")){

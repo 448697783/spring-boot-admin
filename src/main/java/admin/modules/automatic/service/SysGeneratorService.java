@@ -35,8 +35,8 @@ import admin.modules.automatic.vo.CoderGeneratorVO;
 /**
  * 代码生成器
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年12月19日 下午3:33:38
  */
 @Service
@@ -49,6 +49,7 @@ public class SysGeneratorService {
 	private OracleDao oracleDao;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	@Autowired
 	
 
 	public List<Map<String, Object>> queryList(Map<String, Object> map) {
@@ -193,7 +194,7 @@ public class SysGeneratorService {
 		    	map.put("CREATETIME",  DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 		    	map.put("TABLENAME",vo.getSql().trim().replaceFirst("select.*from", ""));
 //		    }
-			GenUtils.generatorCode(map, columns, zip, vo.getProjectName(), vo.getPackageName(),vo);
+		    	GenUtils.generatorCode(map, columns, zip, vo.getProjectName(), vo.getPackageName(),vo);
 
 		}else {
 			for (String tableName : vo.getTables()) {

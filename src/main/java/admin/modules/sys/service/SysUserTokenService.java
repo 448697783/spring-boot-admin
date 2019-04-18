@@ -6,8 +6,8 @@ import admin.modules.sys.entity.SysUserTokenEntity;
 /**
  * 用户Token
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-23 15:22:07
  */
 public interface SysUserTokenService {

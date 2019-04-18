@@ -27,8 +27,8 @@ import admin.modules.generator.entity.ModuleEntity;
 /**
  * 代码生成器   工具类
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年12月19日 下午11:40:24
  */
 @Service

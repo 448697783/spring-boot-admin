@@ -31,14 +31,19 @@ import ${package}.modules.${module}.vo.${className}DeleteVO.*;
 import ${package}.modules.${module}.vo.${className}EditVO;
 import ${package}.modules.${module}.vo.${className}EditVO.*;
 #end
+#if($role)
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+#end
 import ${package}.modules.${module}.service.I${className}Service;
 
+#if($role)
+//INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '${comments}', 'modules/${url}/${classname}.html', NULL, 1, 'fa fa-file-code-o', 1);
+//INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '查看', NULL, '${shrio}:query${className}List', 2, NULL, 0);
+//INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '新增', NULL, '${shrio}:save${className},${shrio}:save${className}List', 2, NULL, 0);
+//INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '修改', NULL, '${shrio}:edit${className},${shrio}:edit${className}List', 2, NULL, 0);
+//INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '删除', NULL, '${shrio}:delete${className},${shrio}:delete${className}List', 2, NULL, 0);
+#end
 
-//INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (31, 1, '${comments}', 'modules/${module}/${classname}.html', NULL, 1, 'fa fa-file-code-o', 1);
-//INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (32, 31, '查看', NULL, '${module}:query${className}List', 2, NULL, 0);
-//INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (33, 31, '新增', NULL, '${module}:save${className}', 2, NULL, 0);
-//INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (34, 31, '修改', NULL, '${module}:edit${className}', 2, NULL, 0);
-//INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (35, 31, '删除', NULL, '${module}:delete${className}', 2, NULL, 0);
 /**
  * ${comments}
  * 
@@ -48,7 +53,7 @@ import ${package}.modules.${module}.service.I${className}Service;
  */
 @RestController
 @Api(value="${comments}",tags={"${comments}"})
-@RequestMapping("${module}/")
+@RequestMapping("${url}/")
 public class ${className}Controller {
 	@Autowired
 	private I${className}Service ${classname}Service;
@@ -60,6 +65,7 @@ public class ${className}Controller {
 	@RequestMapping(value="/query${className}List",method= {RequestMethod.POST,RequestMethod.GET})
 	@CtrlLog("查询${comments}")
 	@ApiOperation(value="查询${comments}",notes="注意问题点")
+	@RequiresPermissions("${shrio}:query${className}List")
 	@ResponseBody
 	public ${className}QResultVO query${className}List(@ApiParam("查询${comments}参数")${className}QueryVO  ${classname}QueryVO){
 		ValidatorUtils.validateEntity(${classname}QueryVO);
@@ -78,6 +84,7 @@ public class ${className}Controller {
 	 */
 	@RequestMapping(value="/query${className}List",method= {RequestMethod.POST,RequestMethod.GET})
 	@CtrlLog("查询${comments}")
+	@RequiresPermissions("${shrio}:query${className}List")
 	@ApiOperation(value="查询${comments}",notes="注意问题点")
 	@ResponseBody
 	public ${className}QResultVO query${className}List(@ApiParam("查询${comments}参数")${className}QueryVO  ${classname}QueryVO){
@@ -98,6 +105,7 @@ public class ${className}Controller {
 	 */
 	@RequestMapping(value="/save${className}",method= {RequestMethod.POST,RequestMethod.GET})
 	@CtrlLog("保存${comments}")
+	@RequiresPermissions("${shrio}:save${className}")
 	@ApiOperation(value="保存${comments}",notes="注意问题点")
 	@ResponseBody
 	public ${className}SResultVO save${className}(@ApiParam("保存${comments}参数")@RequestBody(required=false) ${className}SaveVO  ${classname}SaveVO){
@@ -115,6 +123,7 @@ public class ${className}Controller {
 	 */
 	@RequestMapping(value="/save${className}List",method= {RequestMethod.POST,RequestMethod.GET})
 	@CtrlLog("保存${comments}")
+	@RequiresPermissions("${shrio}:save${className}List")
 	@ApiOperation(value="保存${comments}",notes="注意问题点")
 	@ResponseBody
 	public ${className}SResultVO save${className}List(@ApiParam("保存${comments}参数")@RequestBody(required=false) List<${className}SaveVO>  ${classname}SaveVOList){
@@ -138,6 +147,7 @@ public class ${className}Controller {
 	 */
 	@RequestMapping(value="/edit${className}",method= {RequestMethod.POST,RequestMethod.GET})
 	@CtrlLog("更新${comments}")
+	@RequiresPermissions("${shrio}:edit${className}")
 	@ApiOperation(value="更新${comments}",notes="注意问题点")
 	@ResponseBody
 	public ${className}EResultVO edit${className}(@ApiParam("更新${comments}参数")@RequestBody(required=false)${className}EditVO ${classname}EditVO){
@@ -155,6 +165,7 @@ public class ${className}Controller {
 	 */
 	@RequestMapping(value="/update${className}List",method= {RequestMethod.POST,RequestMethod.GET})
 	@CtrlLog("更新${comments}")
+	@RequiresPermissions("${shrio}:edit${className}List")
 	@ApiOperation(value="更新${comments}",notes="注意问题点")
 	@ResponseBody
 	public ${className}EResultVO edit${className}List(@ApiParam("更新${comments}参数")@RequestBody(required=false) List<${className}EditVO> ${classname}EditVOList){
@@ -177,9 +188,10 @@ public class ${className}Controller {
 	 */
 	@RequestMapping(value="/delete${className}",method= {RequestMethod.POST,RequestMethod.GET})
 	@CtrlLog("删除${comments}")
+	@RequiresPermissions("${shrio}:delete${className}")
 	@ApiOperation(value="删除${comments}",notes="注意问题点")
 	@ResponseBody
-	public ${className}DResultVO delete${className}(@ApiParam("更新${comments}参数")${className}DeleteVO ${classname}DeleteVO){
+	public ${className}DResultVO delete${className}(@ApiParam("更新${comments}参数") ${className}DeleteVO ${classname}DeleteVO){
 		ValidatorUtils.validateEntity(${classname}DeleteVO);
 		${className}Entity ${classname}Entity = new ${className}Entity();
 		BeanCopierUtils.copyProperties( ${classname}DeleteVO,${classname}Entity);
@@ -194,9 +206,10 @@ public class ${className}Controller {
 	 */
 	@RequestMapping(value="/delete${className}List",method= {RequestMethod.POST,RequestMethod.GET})
 	@CtrlLog("删除${comments}")
+	@RequiresPermissions("${shrio}:delete${className}List")
 	@ApiOperation(value="删除${comments}",notes="注意问题点")
 	@ResponseBody
-	public ${className}DResultVO delete${className}List(@ApiParam("更新${comments}参数")List<${className}DeleteVO> ${classname}DeleteVOList){
+	public ${className}DResultVO delete${className}List(@ApiParam("更新${comments}参数") @RequestBody List<${className}DeleteVO> ${classname}DeleteVOList){
 		ValidatorUtils.validateEntity(${classname}DeleteVOList);
 		${className}Entity entity = null;
 		List<${className}Entity> entitys = new ArrayList<${className}Entity>(${classname}DeleteVOList.size());

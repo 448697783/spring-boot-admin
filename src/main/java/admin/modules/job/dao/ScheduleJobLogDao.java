@@ -8,8 +8,8 @@ import admin.modules.job.entity.ScheduleJobLogEntity;
 /**
  * 定时任务日志
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年12月1日 下午10:30:02
  */
 @Mapper

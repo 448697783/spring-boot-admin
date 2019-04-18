@@ -16,7 +16,7 @@ import ${packageName}.datasource.MultiDataSource;
 public class AutoSwitchDatasourceAspect {
 
 	
-	@Pointcut("@annotation(com.common.annotation.DataSource)")
+	@Pointcut("@annotation(${packageName}.common.annotation.DataSource)")
 	public void logPointCut() { 
 		
 	}

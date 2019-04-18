@@ -10,8 +10,8 @@ import admin.modules.sys.entity.SysUserEntity;
 /**
  * Shiro工具类
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年11月12日 上午9:49:19
  */
 public class ShiroUtils {
@@ -30,6 +30,10 @@ public class ShiroUtils {
 
 	public static Long getUserId() {
 		return getUserEntity().getUserId();
+	}
+	
+	public static Long getDeptId() {
+		return getUserEntity().getDeptId();
 	}
 	
 	public static void setSessionAttribute(Object key, Object value) {

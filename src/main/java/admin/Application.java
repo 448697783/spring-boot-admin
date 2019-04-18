@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Import;
 import admin.config.registrar.MultiDataSourceRegister;
 
 
+
 @SpringBootApplication
 @Import(MultiDataSourceRegister.class)
 public class Application extends SpringBootServletInitializer {
@@ -21,5 +22,6 @@ public class Application extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(Application.class);
 	}
+	
 	
 }

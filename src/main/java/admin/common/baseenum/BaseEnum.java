@@ -25,14 +25,14 @@ public class BaseEnum {
 		NOTLIKE(" not like "),//
 		LIKE(" like ");
 		
-		private String message;
+		private String msg;
 		
-		ConditionEnum(String message){
-			this.message = message;
+		ConditionEnum(String msg){
+			this.msg = msg;
 		}
 		
 		public String get(){
-			return message;
+			return msg;
 		}
 	}
 	
@@ -40,14 +40,14 @@ public class BaseEnum {
 		NOTNULL(" is not null "),
 		ISNULL(" is null ");
 		
-		private String message;
+		private String msg;
 		
-		IsNullEnum(String message){
-			this.message = message;
+		IsNullEnum(String msg){
+			this.msg = msg;
 		}
 		
 		public String get(){
-			return message;
+			return msg;
 		}
 	}
 	
@@ -70,14 +70,14 @@ public class BaseEnum {
 		DESC(" desc "),
 		ASC(" asc ");
 		
-		private String message;
+		private String msg;
 		
-		DESCEnum(String message){
-			this.message = message;
+		DESCEnum(String msg){
+			this.msg = msg;
 		}
 		
 		public String get(){
-			return message;
+			return msg;
 		}
 	}
 	
@@ -85,14 +85,14 @@ public class BaseEnum {
 		IN(" in "),
 		NOTIN(" not in ");
 		
-		private String message;
+		private String msg;
 		
-		IsInEnum(String message){
-			this.message = message;
+		IsInEnum(String msg){
+			this.msg = msg;
 		}
 		
 		public String get(){
-			return message;
+			return msg;
 		}
 	}
 	
@@ -100,14 +100,14 @@ public class BaseEnum {
 		BT(" between "),
 		NOTBT(" not between ");
 		
-		private String message;
+		private String msg;
 		
-		IsBTEnum(String message){
-			this.message = message;
+		IsBTEnum(String msg){
+			this.msg = msg;
 		}
 		
 		public String get(){
-			return message;
+			return msg;
 		}
 	}
 	
@@ -121,14 +121,14 @@ public class BaseEnum {
 		AND(" and "),
 		OR(" or ");
 		
-		private String message;
+		private String msg;
 		
-		AndOrEnum(String message){
-			this.message = message;
+		AndOrEnum(String msg){
+			this.msg = msg;
 		}
 		
 		public String get(){
-			return message;
+			return msg;
 		}
 	}
 	
@@ -142,14 +142,14 @@ public class BaseEnum {
 		ADD(" + "),
 		SUBTRACT(" - ");
 		
-		private String message;
+		private String msg;
 		
-		IsAdd(String message){
-			this.message = message;
+		IsAdd(String msg){
+			this.msg = msg;
 		}
 		
 		public String get(){
-			return message;
+			return msg;
 		}
 	}
 	
@@ -173,12 +173,12 @@ public class BaseEnum {
 		
 		private String type;
 		private int code;
-		private String message;
+		private String msg;
 		
 		BusinessExceptionEnum(String type,int code,String remark){
 			this.type = type;
 			this.code = code;
-			this.message = remark;
+			this.msg = remark;
 		}
 
 		public String Type() {
@@ -189,8 +189,8 @@ public class BaseEnum {
 			return code;
 		}
 
-		public String Message() {
-			return message;
+		public String msg() {
+			return msg;
 		}
 	}
 	
@@ -211,12 +211,12 @@ public class BaseEnum {
 		
 		private String type;
 		private int code;
-		private String message;
+		private String msg;
 		
 		CheckExceptionEnum(String type,int code,String remark){
 			this.type = type;
 			this.code = code;
-			this.message = remark;
+			this.msg = remark;
 		}
 
 		public String Type() {
@@ -227,8 +227,8 @@ public class BaseEnum {
 			return code;
 		}
 
-		public String getMessage() {
-			return message;
+		public String getMsg() {
+			return msg;
 		}
 	}
 	public enum CheckParameterExceptionEnum{
@@ -238,19 +238,19 @@ public class BaseEnum {
 
 		
 		private int code;
-		private String message;
+		private String msg;
 		
 		CheckParameterExceptionEnum(int code,String remark){
 			this.code = code;
-			this.message = remark;
+			this.msg = remark;
 		}
 
 		public int getCode() {
 			return code;
 		}
 
-		public String getMessage() {
-			return message;
+		public String getMsg() {
+			return msg;
 		}
 	}
 	/**
@@ -266,12 +266,12 @@ public class BaseEnum {
 		
 		private String type;
 		private int code;
-		private String message;
+		private String msg;
 		
 		DBExceptionEnum(String type,int code,String remark){
 			this.type = type;
 			this.code = code;
-			this.message = remark;
+			this.msg = remark;
 		}
 
 		public String Type() {
@@ -282,8 +282,8 @@ public class BaseEnum {
 			return code;
 		}
 
-		public String Message() {
-			return message;
+		public String msg() {
+			return msg;
 		}
 	}
 	
@@ -303,14 +303,14 @@ public class BaseEnum {
 	 * @author hejianhui@wegooooo.com
 	 * @date: 2016年10月13日 下午8:01:33
 	 */
-	public enum ReturnMessageEnum{
+	public enum ReturnMsgEnum{
 		SUCCESS("200","成功"),
 		FAIL("9999","网络繁忙,请稍后再试!");
 		private String code;
-		private String message;
-		ReturnMessageEnum(String code,String message){
+		private String msg;
+		ReturnMsgEnum(String code,String msg){
 			this.setCode(code);
-			this.setMessage(message);
+			this.setMsg(msg);
 		}
 		public String getCode() {
 			return code;
@@ -318,11 +318,11 @@ public class BaseEnum {
 		public void setCode(String code) {
 			this.code = code;
 		}
-		public String getMessage() {
-			return message;
+		public String getMsg() {
+			return msg;
 		}
-		public void setMessage(String message) {
-			this.message = message;
+		public void setMsg(String msg) {
+			this.msg = msg;
 		}
 	}
 }

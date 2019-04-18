@@ -65,12 +65,10 @@ $!{reids}
 $!{statsd}
 $!{swagger2}
 $!{commons-io}
+	
 	</dependencies>
-	<build>
-$!{scp}
-	</build>
-
+	<repositories>
 $!{aliyun-nexus}
 $!{spring-maven}
-
+	</repositories>
 </project>

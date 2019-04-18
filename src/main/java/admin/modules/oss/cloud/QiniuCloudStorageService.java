@@ -6,8 +6,8 @@ import admin.common.exception.BusinessException;
 
 /**
  * 七牛云存储
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-25 15:41
  */
 public class QiniuCloudStorageService extends CloudStorageService{

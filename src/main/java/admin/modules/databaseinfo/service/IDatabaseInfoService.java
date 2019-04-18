@@ -9,7 +9,7 @@ import java.util.Map;
  * 数据库信息表
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-06-15 17:49:11
  */
 public interface IDatabaseInfoService {

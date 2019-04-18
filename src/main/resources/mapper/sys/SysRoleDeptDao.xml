@@ -22,11 +22,18 @@
 			`dept_id`
 		from 
 		    sys_role_dept
-		where  role_id in (
-		<foreach collection="list" item="item" index="index" separator="," >
-			#{item}
-		</foreach>
-		)
+		<if test = 'list != null and list.size() != 0'>    
+			where  role_id in (
+			<foreach collection="list" item="item" index="index" separator="," >
+				#{item}
+			</foreach>
+			)
+		</if>
+		<if test = 'list == null or list.size() == 0'>    
+			where  role_id in (
+			-1
+			)
+		</if>
 	</select>
 	<delete id="delete">
 		delete from sys_role_dept where role_id = #{value}

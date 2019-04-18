@@ -50,7 +50,7 @@ $(function () {
             jQuery("#edit").jqGrid('setCaption',
                 "Invoice Detail: " + ids).trigger(
                 'reloadGrid');
-        }
+        },
     });
 });
 
@@ -139,7 +139,7 @@ var vm = new Vue({
 							vm.items = r.resultList;
 						}
 					}else{
-//						alert(r.msg);
+						alert(r.msg);
 					}
 				}
 			});

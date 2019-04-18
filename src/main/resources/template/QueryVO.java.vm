@@ -1,9 +1,10 @@
 package ${package}.modules.${module}.vo;
-import ${package}.common.baseenum.BaseEnum.ReturnMessageEnum;
+import ${package}.common.baseenum.BaseEnum.ReturnMsgEnum;
 import ${package}.modules.${module}.entity.${className}Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import ${package}.common.utils.BeanCopierUtils;
+import ${package}.common.utils.DateUtils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -127,19 +128,27 @@ public class ${className}QueryVO {
 	@Override
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
-		builder.append("${package}.entity.${className}Entity [")
+		builder.append("${package}.modules.${module}.vo.${className}QueryVO ={")
 #foreach ($column in $columns)
-#if($velocityCount==0)
+#if($velocityCount==1)
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+		.append("$column.attrname=").append(DateUtils.format($column.attrname, DateUtils.DATE_TIME_PATTERN))
+#else
 		.append("$column.attrname=").append($column.attrname)
+#end
+#else
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+		.append(",$column.attrname=").append(DateUtils.format($column.attrname, DateUtils.DATE_TIME_PATTERN))
 #else
 		.append(",${column.attrname}=").append($column.attrname)
+#end
 #end 
 #end
-		.append(",startTime=").append(startTime)
-		.append(",endTime=").append(endTime)
+		.append(",startTime=").append(DateUtils.format(startTime, DateUtils.DATE_TIME_PATTERN))
+		.append(",endTime=").append(DateUtils.format(endTime, DateUtils.DATE_TIME_PATTERN))
 		.append(",page=").append(page)
 		.append(",rows=").append(rows)
-		.append("]");
+		.append("}");
 		return builder.toString();
 	}
 	
@@ -173,7 +182,7 @@ public class ${className}QueryVO {
 		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
 		private String code;
 		@ApiModelProperty(value="返回信息描述")
-		private String message;
+		private String msg;
 		/**
 		* 默认第一页
 		**/
@@ -195,9 +204,9 @@ public class ${className}QueryVO {
 		@ApiParam(value="总行数",defaultValue="100")
 		private Long count;
 		
-		public ${className}QResultVO(String code,String message){
+		public ${className}QResultVO(String code,String msg){
 			this.code = code;
-			this.message = message;
+			this.msg = msg;
 		}
 		public ${className}QResultVO(){
 		}
@@ -205,8 +214,8 @@ public class ${className}QueryVO {
 		@ApiModelProperty(value="查询列表")
 		private List<${className}Result> resultList;
 		public ${className}QResultVO(List<${className}Entity> ${classname}EntityList){
-			this.code = ReturnMessageEnum.SUCCESS.getCode();
-			this.message =ReturnMessageEnum.SUCCESS.getMessage();
+			this.code = ReturnMsgEnum.SUCCESS.getCode();
+			this.msg =ReturnMsgEnum.SUCCESS.getMsg();
 			if(${classname}EntityList==null||${classname}EntityList.size()==0){
 				return;
 			}
@@ -217,6 +226,21 @@ public class ${className}QueryVO {
 				BeanCopierUtils.copyProperties( tempEntity,result);
 				resultList.add(result);
 			}
+		}
+		
+		@Override
+		public String toString(){
+			StringBuilder builder = new StringBuilder();
+			builder.append("${package}.modules.${module}.vo.${className}QResultVO ={")
+			.append("code=").append(code)
+			.append(",msg=").append(msg)
+			.append(",page=").append(page)
+			.append(",rows=").append(rows)
+			.append(",resultList ={")
+			.append(resultList)
+			.append("}")
+			.append("}");
+			return builder.toString();
 		}
 		
 		public List<${className}Result> getResultList() {
@@ -243,17 +267,17 @@ public class ${className}QueryVO {
 	
 		public static ${className}QResultVO  fail() {
 			 ${className}QResultVO vo = new ${className}QResultVO(null);
-			 vo.setCode(ReturnMessageEnum.FAIL.getCode());
-			 vo.setMessage(ReturnMessageEnum.FAIL.getMessage());
+			 vo.setCode(ReturnMsgEnum.FAIL.getCode());
+			 vo.setMsg(ReturnMsgEnum.FAIL.getMsg());
 			 return vo;
 		}
 		
-		public String getMessage() {
-			return message;
+		public String getMsg() {
+			return msg;
 		}
 	
-		public void setMessage(String message) {
-			this.message = message;
+		public void setMsg(String msg) {
+			this.msg = msg;
 		}
 		
 		public Long getPage() {
@@ -270,6 +294,9 @@ public class ${className}QueryVO {
 		}
 		public Long getCount() {
 			return count;
+		}
+		public Long getTotalPage() {
+			return (count+rows-1)/rows;
 		}
 		public void setCount(Long count) {
 			this.count = count;
@@ -313,15 +340,15 @@ public class ${className}QueryVO {
 		@Override
 		public String toString(){
 			StringBuilder builder = new StringBuilder();
-			builder.append("${package}.entity.${className}Entity [")
+			builder.append("${package}.modules.${module}.vo.${className}Result ={")
 #foreach ($column in $columns)
-#if($velocityCount==0)
+#if($velocityCount==1)
 			.append("$column.attrname=").append($column.attrname)
 #else
 			.append(",${column.attrname}=").append($column.attrname)
 #end 
 #end
-			.append("]");
+			.append("}");
 			return builder.toString();
 		}
 	}

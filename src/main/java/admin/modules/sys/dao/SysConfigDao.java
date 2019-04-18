@@ -9,8 +9,8 @@ import admin.modules.sys.entity.SysConfigEntity;
 /**
  * 系统配置信息
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年12月4日 下午6:46:16
  */
 @Mapper

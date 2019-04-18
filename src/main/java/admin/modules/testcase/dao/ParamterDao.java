@@ -9,7 +9,7 @@ import admin.modules.testcase.entity.ParamterEntity;
  * 
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-05-15 18:38:02
  */
 @Mapper

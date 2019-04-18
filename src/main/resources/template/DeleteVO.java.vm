@@ -1,9 +1,10 @@
 package ${package}.modules.${module}.vo;
-import ${package}.common.baseenum.BaseEnum.ReturnMessageEnum;
+import ${package}.common.baseenum.BaseEnum.ReturnMsgEnum;
 import ${package}.modules.${module}.entity.${className}Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import ${package}.common.utils.BeanCopierUtils;
+import ${package}.common.utils.DateUtils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -71,15 +72,23 @@ public class ${className}DeleteVO {
 	@Override
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
-		builder.append("${package}.entity.${className}Entity [")
+		builder.append("${package}.modules.${module}.vo.${className}DeleteVO ={")
 #foreach ($column in $columns)
-#if($velocityCount==0)
-		.append("$column.attrname=").append($column.attrname)
+#if($velocityCount==1)
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+		.append("$column.attrname=").append(DateUtils.format($column.attrname, DateUtils.DATE_TIME_PATTERN))
 #else
-		.append(",${column.attrname}=").append($column.attrname)
+		.append("$column.attrname=").append($column.attrname)
+#end
+#else
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+		.append(",$column.attrname=").append(DateUtils.format($column.attrname, DateUtils.DATE_TIME_PATTERN))
+#else
+		.append(",$column.attrname=").append($column.attrname)
+#end
 #end 
 #end
-		.append("]");
+		.append("}");
 		return builder.toString();
 	}
 	
@@ -110,16 +119,26 @@ public class ${className}DeleteVO {
 	@ApiModel("修改${comments}信息,返回执行结果")
 	public static class ${className}DResultVO {
 
-		private static ${className}DResultVO success = new ${className}DResultVO(ReturnMessageEnum.SUCCESS.getCode(),ReturnMessageEnum.SUCCESS.getMessage());
-		private static ${className}DResultVO fail = new ${className}DResultVO(ReturnMessageEnum.FAIL.getCode(),ReturnMessageEnum.FAIL.getMessage());
+		private static ${className}DResultVO success = new ${className}DResultVO(ReturnMsgEnum.SUCCESS.getCode(),ReturnMsgEnum.SUCCESS.getMsg());
+		private static ${className}DResultVO fail = new ${className}DResultVO(ReturnMsgEnum.FAIL.getCode(),ReturnMsgEnum.FAIL.getMsg());
 		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
 		private String code;
 		@ApiModelProperty(value="返回修改结果信息")
-		private String message;
+		private String msg;
 		
-		public ${className}DResultVO(String code,String message){
+		public ${className}DResultVO(String code,String msg){
 			this.code = code;
-			this.message = message;
+			this.msg = msg;
+		}
+		
+		@Override
+		public String toString(){
+			StringBuilder builder = new StringBuilder();
+			builder.append("${package}.modules.${module}.vo.${className}DResultVO =")
+			.append("code=").append(code)
+			.append(",msg=").append(msg)
+			.append("}");
+			return builder.toString();
 		}
 		
 		public ${className}DResultVO(){
@@ -140,12 +159,12 @@ public class ${className}DeleteVO {
 			return fail;
 		}
 		
-		public String getMessage() {
-			return message;
+		public String getMsg() {
+			return msg;
 		}
 	
-		public void setMessage(String message) {
-			this.message = message;
+		public void setMsg(String msg) {
+			this.msg = msg;
 		}
 	}
 }

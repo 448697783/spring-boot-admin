@@ -2,16 +2,23 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/takeout?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
     username: root
-    password: dic*#9dc-dme58
+    password: x5
     openMulti: true
     idle-timeout: 30000
     multi:
     - key: takeout
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/takeout?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      url: jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
       username: root
-      password: dic*#9dc-dme58
+      password: x5
       idle-timeout: 20000
+    - key: sohupay
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@10.16.40.152:1521:sohupay
+      username: WALLET
+      password: JdbcDZNauX5Z
+      idle-timeout: 2000000

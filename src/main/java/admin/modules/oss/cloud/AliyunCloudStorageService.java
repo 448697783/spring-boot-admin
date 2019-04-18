@@ -9,8 +9,8 @@ import admin.common.exception.BusinessException;
 
 /**
  * 阿里云存储
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-26 16:22
  */
 public class AliyunCloudStorageService extends CloudStorageService{

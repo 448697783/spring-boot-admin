@@ -98,8 +98,8 @@
    					 <label for="role"> role </label>
 			</div>
 		</div>
-		<a class="btn btn-primary" @click="query"><i class="glyphicon glyphicon-search" ></i>查询</a>
-		<a class="btn btn-primary" @click="generator"><i class="glyphicon glyphicon-download-alt"></i>生成代码</a>
+		<a class="btn btn-primary" v-if="hasPermission('sys:generator:list')" @click="query"><i class="glyphicon glyphicon-search" ></i>查询</a>
+		<a class="btn btn-primary" v-if="hasPermission('sys:generator:code')" @click="generator"><i class="glyphicon glyphicon-download-alt"></i>生成代码</a>
 	</div>
     <table id="jqGrid"></table>
     <div id="jqGridPager"></div>

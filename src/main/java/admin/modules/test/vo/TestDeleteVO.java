@@ -1,5 +1,5 @@
 package admin.modules.test.vo;
-import admin.common.baseenum.BaseEnum.ReturnMessageEnum;
+import admin.common.baseenum.BaseEnum.ReturnMsgEnum;
 import admin.modules.test.entity.TestEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.math.BigDecimal;
  * 测试用例
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-06-15 20:06:11
  */
 @ApiModel("删除测试用例参数")
@@ -183,8 +183,8 @@ public class TestDeleteVO {
 	@ApiModel("修改测试用例信息,返回执行结果")
 	public static class TestDResultVO {
 
-		private static TestDResultVO success = new TestDResultVO(ReturnMessageEnum.SUCCESS.getCode(),ReturnMessageEnum.SUCCESS.getMessage());
-		private static TestDResultVO fail = new TestDResultVO(ReturnMessageEnum.FAIL.getCode(),ReturnMessageEnum.FAIL.getMessage());
+		private static TestDResultVO success = new TestDResultVO(ReturnMsgEnum.SUCCESS.getCode(),ReturnMsgEnum.SUCCESS.getMsg());
+		private static TestDResultVO fail = new TestDResultVO(ReturnMsgEnum.FAIL.getCode(),ReturnMsgEnum.FAIL.getMsg());
 		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
 		private String code;
 		@ApiModelProperty(value="返回修改结果信息")

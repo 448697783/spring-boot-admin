@@ -23,10 +23,10 @@
 <div id="rrapp" v-cloak>
 	<div v-show="showList">
 		<div class="grid-btn">
-			<a v-if="hasPermission('${pathName}:save${className}')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
-			<a v-if="hasPermission('${pathName}:edit${className}')" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
-			<a v-if="hasPermission('${pathName}:delete${className}')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-			<a v-if="hasPermission('${pathName}:query${className}List')" class="btn btn-primary" @click="query"><i class="fa fa-trash-o"></i>&nbsp;查询</a>
+			<a v-if="hasPermission('${shrio}:query${className}List')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			<a v-if="hasPermission('${shrio}:save${className}')" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			<a v-if="hasPermission('${shrio}:edit${className}')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			<a v-if="hasPermission('${shrio}:delete${className}')" class="btn btn-primary" @click="query"><i class="fa fa-trash-o"></i>&nbsp;查询</a>
 		</div>
 	    <table id="jqGrid"></table>
 	    <div id="jqGridPager"></div>
@@ -61,6 +61,6 @@
 	</div>
 </div>
 
-<script src="../../js/modules/${module}/${pathName}.js"></script>
+<script src="../../js/modules/${url}/${pathName}.js"></script>
 </body>
 </html>

@@ -20,8 +20,8 @@ public class DateConverterConfig implements Converter<String, Date> {
     static{
         formarts.add("yyyy-MM");
         formarts.add("yyyy-MM-dd");
-        formarts.add("yyyy-MM-dd hh:mm");
-        formarts.add("yyyy-MM-dd hh:mm:ss");
+        formarts.add("yyyy-MM-dd HH:mm");
+        formarts.add("yyyy-MM-dd HH:mm:ss");
     }
 
     @Override
@@ -30,14 +30,14 @@ public class DateConverterConfig implements Converter<String, Date> {
         if ("".equals(value)) {
             return null;
         }
-        if(source.matches("^\\d{4}-\\d{1,2}$")){
-            return parseDate(source, formarts.get(0));
-        }else if(source.matches("^\\d{4}-\\d{1,2}-\\d{1,2}$")){
-            return parseDate(source, formarts.get(1));
+        if(source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")){
+            return parseDate(source, formarts.get(3));
         }else if(source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}$")){
             return parseDate(source, formarts.get(2));
-        }else if(source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")){
-            return parseDate(source, formarts.get(3));
+        }else if(source.matches("^\\d{4}-\\d{1,2}-\\d{1,2}$")){
+            return parseDate(source, formarts.get(1));
+        }else if(source.matches("^\\d{4}-\\d{1,2}$")){
+            return parseDate(source, formarts.get(0));
         }else {
             throw new IllegalArgumentException("Invalid boolean value '" + source + "'");
         }
@@ -54,6 +54,7 @@ public class DateConverterConfig implements Converter<String, Date> {
         try {
             DateFormat dateFormat = new SimpleDateFormat(format);
             date = dateFormat.parse(dateStr);
+            dateFormat.format(date);
         } catch (Exception e) {
 
         }

@@ -1,5 +1,5 @@
 package admin.modules.databaseinfo.vo;
-import admin.common.baseenum.BaseEnum.ReturnMessageEnum;
+import admin.common.baseenum.BaseEnum.ReturnMsgEnum;
 import admin.modules.databaseinfo.entity.DatabaseInfoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.math.BigDecimal;
  * 数据库信息表
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-06-15 17:49:11
  */
 @ApiModel("查询数据库信息表参数")
@@ -182,8 +182,8 @@ public class DatabaseInfoQueryVO {
 		@ApiModelProperty(value="查询列表")
 		private List<DatabaseInfoResult> resultList;
 		public DatabaseInfoQResultVO(List<DatabaseInfoEntity> databaseInfoEntityList){
-			this.code = ReturnMessageEnum.SUCCESS.getCode();
-			this.message =ReturnMessageEnum.SUCCESS.getMessage();
+			this.code = ReturnMsgEnum.SUCCESS.getCode();
+			this.message =ReturnMsgEnum.SUCCESS.getMsg();
 			if(databaseInfoEntityList==null||databaseInfoEntityList.size()==0){
 				return;
 			}
@@ -217,8 +217,8 @@ public class DatabaseInfoQueryVO {
 	
 		public static DatabaseInfoQResultVO  fail() {
 			 DatabaseInfoQResultVO vo = new DatabaseInfoQResultVO(null);
-			 vo.setCode(ReturnMessageEnum.FAIL.getCode());
-			 vo.setMessage(ReturnMessageEnum.FAIL.getMessage());
+			 vo.setCode(ReturnMsgEnum.FAIL.getCode());
+			 vo.setMessage(ReturnMsgEnum.FAIL.getMsg());
 			 return vo;
 		}
 		

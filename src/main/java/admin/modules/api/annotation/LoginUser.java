@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 /**
  * 登录用户信息
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-23 20:39
  */
 @Target(ElementType.PARAMETER)

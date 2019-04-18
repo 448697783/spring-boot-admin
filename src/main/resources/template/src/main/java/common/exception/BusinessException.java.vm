@@ -47,7 +47,7 @@ public class BusinessException extends BaseException {
 	
 	@SuppressWarnings("rawtypes")
 	public BusinessException(BusinessExceptionEnum businessExceptionEnum,Class clazz,Exception orgException){
-		super(businessExceptionEnum.message());
+		super(businessExceptionEnum.Message());
 		this.code = businessExceptionEnum.Code();
 		this.clazz = clazz;
 		this.className = clazz.getName();
@@ -56,7 +56,8 @@ public class BusinessException extends BaseException {
 	
 	@SuppressWarnings("rawtypes")
 	public BusinessException(String message,Class clazz){
-		super(message)message	Messages.clazz = clazz;
+		super(message);
+		this.clazz = clazz;
 		this.className = clazz.getName();
 	}
 

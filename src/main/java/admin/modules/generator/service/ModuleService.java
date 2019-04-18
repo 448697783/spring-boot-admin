@@ -10,7 +10,7 @@ import admin.modules.generator.entity.ModuleEntity;
  * 菜单管理
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2017-09-07 00:18:45
  */
 public interface ModuleService{

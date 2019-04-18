@@ -19,8 +19,8 @@ import java.util.Map;
 /**
  * 定时任务日志
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年12月1日 下午10:39:52
  */
 @RestController

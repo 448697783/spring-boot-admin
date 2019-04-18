@@ -30,7 +30,7 @@ var vm = new Vue({
     methods: {
         getMenu: function(){
             //加载菜单树
-            $.get(baseURL + "module/select", function(r){
+            $.get(baseURL + "sys/module/select", function(r){
                 ztree = $.fn.zTree.init($("#menuTree"), setting, r.menuList);
                 var node = ztree.getNodeByParam("menuId", vm.menu.parentId);
                 ztree.selectNode(node);
@@ -54,7 +54,7 @@ var vm = new Vue({
                 return ;
             }
 
-            $.get(baseURL + "module/info/"+menuId, function(r){
+            $.get(baseURL + "sys/module/info/"+menuId, function(r){
                 vm.showList = false;
                 vm.title = "修改";
                 vm.menu = r.menu;
@@ -71,7 +71,7 @@ var vm = new Vue({
             confirm('确定要删除选中的记录？', function(){
                 $.ajax({
                     type: "POST",
-                    url: baseURL + "module/delete",
+                    url: baseURL + "sys/module/delete",
                     data: "menuId=" + menuId,
                     success: function(r){
                         if(r.code === 0){
@@ -86,7 +86,7 @@ var vm = new Vue({
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.menu.menuId == null ? "module/save" : "module/update";
+            var url = vm.menu.menuId == null ? "sys/module/save" : "sys/module/update";
             $.ajax({
                 type: "POST",
                 url: baseURL + url,
@@ -121,7 +121,7 @@ var vm = new Vue({
         			str+=','
         		}
         	}
-        	location.href = baseURL+"module/generator/springbootproject?dis="+str+"&projectName="+vm.menu.projectName+"&packageName="+vm.menu.packageName+"&token="+token;
+        	location.href = baseURL+"sys/module/springbootproject?dis="+str+"&projectName="+vm.menu.projectName+"&packageName="+vm.menu.packageName+"&token="+token;
         },
         menuTree: function(){
             layer.open({
@@ -214,7 +214,7 @@ function getMenuIds () {
 
 $(function () {
     var colunms = Menu.initColumn();
-    var table = new TreeTable(Menu.id, baseURL + "module/list", colunms);
+    var table = new TreeTable(Menu.id, baseURL + "sys/module/list", colunms);
     table.setExpandColumn(2);
     table.setIdField("menuId");
     table.setCodeField("menuId");

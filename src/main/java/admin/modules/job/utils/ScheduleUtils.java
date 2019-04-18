@@ -20,8 +20,8 @@ import admin.modules.job.entity.ScheduleJobEntity;
 /**
  * 定时任务工具类
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年11月30日 下午12:44:59
  */
 public class ScheduleUtils {

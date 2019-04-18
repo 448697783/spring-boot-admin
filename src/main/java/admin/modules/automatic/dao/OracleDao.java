@@ -11,8 +11,8 @@ import admin.mapper.base.BaseMappper;
 /**
  * 代码生成器
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年12月19日 下午3:32:04
  */
 @Mapper

@@ -1,29 +1,15 @@
 package admin.modules.databaseinfo.vo;
-import admin.common.baseenum.BaseEnum.ReturnMessageEnum;
-import admin.modules.databaseinfo.entity.DatabaseInfoEntity;
-import java.io.Serializable;
-import java.util.ArrayList;
-import admin.common.utils.BeanCopierUtils;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.util.List;
-import java.util.Date;
-import java.math.BigDecimal;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import admin.common.baseenum.BaseEnum.ReturnMsgEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
-
-import java.math.BigDecimal;
 /**
  * 数据库信息表
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-06-15 17:49:11
  */
 @ApiModel("删除数据库信息表参数")
@@ -163,8 +149,8 @@ public class DatabaseInfoDeleteVO {
 	@ApiModel("修改数据库信息表信息,返回执行结果")
 	public static class DatabaseInfoDResultVO {
 
-		private static DatabaseInfoDResultVO success = new DatabaseInfoDResultVO(ReturnMessageEnum.SUCCESS.getCode(),ReturnMessageEnum.SUCCESS.getMessage());
-		private static DatabaseInfoDResultVO fail = new DatabaseInfoDResultVO(ReturnMessageEnum.FAIL.getCode(),ReturnMessageEnum.FAIL.getMessage());
+		private static DatabaseInfoDResultVO success = new DatabaseInfoDResultVO(ReturnMsgEnum.SUCCESS.getCode(),ReturnMsgEnum.SUCCESS.getMsg());
+		private static DatabaseInfoDResultVO fail = new DatabaseInfoDResultVO(ReturnMsgEnum.FAIL.getCode(),ReturnMsgEnum.FAIL.getMsg());
 		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
 		private String code;
 		@ApiModelProperty(value="返回修改结果信息")

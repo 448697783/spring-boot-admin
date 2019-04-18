@@ -1,5 +1,5 @@
 package admin.modules.databaseinfo.vo;
-import admin.common.baseenum.BaseEnum.ReturnMessageEnum;
+import admin.common.baseenum.BaseEnum.ReturnMsgEnum;
 import admin.modules.databaseinfo.entity.DatabaseInfoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.math.BigDecimal;
  * 数据库信息表
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-06-15 17:49:11
  */
 @ApiModel("保存数据库信息表参数")
@@ -166,9 +166,9 @@ public class DatabaseInfoSaveVO {
 	
 	@ApiModel("保存数据库信息表信息,返回执行结果")
 	public static class DatabaseInfoSResultVO {
-		private static DatabaseInfoSResultVO fail = new DatabaseInfoSResultVO(ReturnMessageEnum.FAIL.getCode(),ReturnMessageEnum.FAIL.getMessage());
+		private static DatabaseInfoSResultVO fail = new DatabaseInfoSResultVO(ReturnMsgEnum.FAIL.getCode(),ReturnMsgEnum.FAIL.getMsg());
 
-		private static DatabaseInfoSResultVO success= new DatabaseInfoSResultVO(ReturnMessageEnum.SUCCESS.getCode(),ReturnMessageEnum.SUCCESS.getMessage());
+		private static DatabaseInfoSResultVO success= new DatabaseInfoSResultVO(ReturnMsgEnum.SUCCESS.getCode(),ReturnMsgEnum.SUCCESS.getMsg());
 
 		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
 		private String code;

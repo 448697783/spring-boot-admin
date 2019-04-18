@@ -12,8 +12,8 @@ import admin.modules.api.service.UserService;
 
 /**
  * 注册
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-26 17:27
  */
 @RestController

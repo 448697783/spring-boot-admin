@@ -16,8 +16,8 @@ import admin.modules.api.service.UserService;
 
 /**
  * 有@LoginUser注解的方法参数，注入当前登录用户
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-23 22:02
  */
 @Component

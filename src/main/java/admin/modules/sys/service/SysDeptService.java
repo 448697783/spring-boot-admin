@@ -8,8 +8,8 @@ import admin.modules.sys.entity.SysDeptEntity;
 /**
  * 部门管理
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-06-20 15:23:47
  */
 public interface SysDeptService {
@@ -34,5 +34,9 @@ public interface SysDeptService {
 	 * 获取子部门ID(包含本部门ID)，用于数据过滤
 	 */
 	String getSubDeptIdList(Long deptId);
+	/**
+	  * 根据当前用户，获取获取该用户所在子部门ID(包含本部门ID)，用于数据过滤
+	 */
+	String getSubDeptIdList();
 
 }

@@ -9,8 +9,8 @@ import admin.modules.sys.entity.SysUserEntity;
 /**
  * Controller公共组件
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年11月9日 下午9:42:26
  */
 public abstract class AbstractController {

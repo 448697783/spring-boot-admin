@@ -8,8 +8,8 @@ import admin.modules.job.entity.ScheduleJobEntity;
 /**
  * 定时任务
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年11月28日 上午9:55:32
  */
 public interface ScheduleJobService {

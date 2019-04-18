@@ -78,4 +78,10 @@ public class SysDeptServiceImpl implements SysDeptService {
 			deptIdList.add(deptId);
 		}
 	}
+
+	@Override
+	public String getSubDeptIdList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

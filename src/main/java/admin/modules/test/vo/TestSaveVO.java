@@ -1,5 +1,5 @@
 package admin.modules.test.vo;
-import admin.common.baseenum.BaseEnum.ReturnMessageEnum;
+import admin.common.baseenum.BaseEnum.ReturnMsgEnum;
 import admin.modules.test.entity.TestEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.math.BigDecimal;
  * 测试用例
  * 
  * @author wanghonghui
- * @email sunlightcs@gmail.com
+ * @email 448697783@qq.com
  * @date 2018-06-15 20:06:11
  */
 @ApiModel("保存测试用例参数")
@@ -187,9 +187,9 @@ public class TestSaveVO {
 	
 	@ApiModel("保存测试用例信息,返回执行结果")
 	public static class TestSResultVO {
-		private static TestSResultVO fail = new TestSResultVO(ReturnMessageEnum.FAIL.getCode(),ReturnMessageEnum.FAIL.getMessage());
+		private static TestSResultVO fail = new TestSResultVO(ReturnMsgEnum.FAIL.getCode(),ReturnMsgEnum.FAIL.getMsg());
 
-		private static TestSResultVO success= new TestSResultVO(ReturnMessageEnum.SUCCESS.getCode(),ReturnMessageEnum.SUCCESS.getMessage());
+		private static TestSResultVO success= new TestSResultVO(ReturnMsgEnum.SUCCESS.getCode(),ReturnMsgEnum.SUCCESS.getMsg());
 
 		@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
 		private String code;

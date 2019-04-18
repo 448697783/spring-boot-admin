@@ -10,10 +10,10 @@ public class ReturnInfo {
 	@ApiModelProperty(value="状态码",allowableValues="200:成功,其他表示失败")
 	private String code;
 	@ApiModelProperty(value="返回信息")
-	private String message;
-	public ReturnInfo(String code,String message) {
+	private String msg;
+	public ReturnInfo(String code,String msg) {
 		this.code=code;
-		this.message=message;
+		this.msg=msg;
 	}
 	
 	public ReturnInfo() {
@@ -35,11 +35,11 @@ public class ReturnInfo {
 		return new ReturnInfo("9","失败");
 	}
 	
-	public String getMessage() {
-		return message;
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 }

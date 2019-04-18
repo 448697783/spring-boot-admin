@@ -8,8 +8,8 @@ import admin.modules.sys.entity.SysLogEntity;
 /**
  * 系统日志
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-08 10:40:56
  */
 @Mapper

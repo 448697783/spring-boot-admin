@@ -23,8 +23,8 @@ import admin.modules.sys.service.SysMenuService;
 /**
  * 系统菜单
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2016年10月27日 下午9:58:15
  */
 @RestController

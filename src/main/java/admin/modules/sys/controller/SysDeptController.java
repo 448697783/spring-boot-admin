@@ -20,8 +20,8 @@ import admin.modules.sys.service.SysDeptService;
 /**
  * 部门管理
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-06-20 15:23:47
  */
 @RestController

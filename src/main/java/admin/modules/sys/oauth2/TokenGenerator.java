@@ -8,8 +8,8 @@ import admin.common.exception.BusinessException;
 /**
  * 生成token
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-05-20 14:41
  */
 public class TokenGenerator {

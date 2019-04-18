@@ -96,7 +96,14 @@
   <div class="swagger-ui-wrap">
     <a id="logo" href="http://swagger.io"><img class="logo__img" alt="swagger" height="30" width="30" src="images/logo_small.png" /><span class="logo__title">swagger</span></a>
     <form id='api_selector'>
-      <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
+      <div class='input'><select class="form-control"  placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl">
+      						<option>http://127.0.0.1:8081/super/v2/api-docs</option>
+      						<option>http://127.0.0.1:8081/super/swagger/index.yaml</option>
+		                    <option>option 3</option>
+		                    <option>option 4</option>
+		                    <option>option 5</option>
+		                  </select>
+       </div>
       <div id='auth_container'></div>
       <div class='input'><a id="explore" class="header__btn" href="#" data-sw-translate>Explore</a></div>
     </form>

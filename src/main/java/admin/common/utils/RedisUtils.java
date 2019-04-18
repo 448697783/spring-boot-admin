@@ -17,8 +17,8 @@ import com.alibaba.fastjson.JSON;
 /**
  * Redis工具类
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-07-17 21:12
  */
 @Component

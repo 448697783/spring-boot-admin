@@ -7,8 +7,8 @@ import admin.modules.sys.service.SysConfigService;
 
 /**
  * 文件上传Factory
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author wanghonghui
+ * @email 448697783@qq.com
  * @date 2017-03-26 10:18
  */
 public final class OSSFactory {
