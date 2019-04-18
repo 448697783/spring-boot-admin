@@ -1,6 +1,9 @@
 package io.renren;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class MyLinkList<T extends Object> {
 	private Node<T> head;
@@ -85,29 +88,33 @@ public class MyLinkList<T extends Object> {
 		return size;
 	}
 	public static void main(String[] args) {
-//		a.get(10);
-		MyLinkList<String> list = new MyLinkList<String>();
-		list.add("1");
-		list.add("2");
-		list.add("3");
-		list.add("4");
-		list.add("5");
-		list.add("6");
-		list.add("7");
-		Iterator<String> iterator = list.getIterator();
-		System.out.println("原：");
+//		MyLinkList<String> list = new MyLinkList<String>();
+//		list.add("1");
+//		list.add("2");
+//		list.add("3");
+//		list.add("4");
+//		list.add("5");
+//		list.add("6");
+//		list.add("7");
+//		Iterator<String> iterator = list.getIterator();
+//		System.out.println("原：");
+//
+//		while(iterator.hasNext()) {
+//			System.out.println(iterator.next());
+//		}
+//		list.reversal();
+//		System.out.println("reversal后：");
+//
+//		Iterator<String> iterator1 = list.getIterator();
+//		while(iterator1.hasNext()) {
+//			System.out.println(iterator1.next());
+//		}
 
-		while(iterator.hasNext()) {
-			System.out.println(iterator.next());
+		Map<String, String> emptyMap = Collections.emptyMap();
+		emptyMap.put("a", "c");
+		if(emptyMap instanceof HashMap) {
+			
 		}
-		list.reversal();
-		System.out.println("reversal后：");
-
-		Iterator<String> iterator1 = list.getIterator();
-		while(iterator1.hasNext()) {
-			System.out.println(iterator1.next());
-		}
-	}
 }
 class Iterator<T> {
 	private Node<T> node;
@@ -179,8 +186,5 @@ class Node<T extends Object>{
 	public void setPrevious(Node<T> previous) {
 		this.previous = previous;
 	}
-	
-	
-	
-
+}
 }

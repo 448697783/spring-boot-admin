@@ -5,21 +5,29 @@ import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
+import java.util.UUID;
 
 public class Test {
 
     public static void main(String[] args) throws IOException {
 
-    	int[] array = {1,2,3,4,5,6,7,8,9,10,10};
-
-    	int a = array[0];
-    	for (int i = 1; i < array.length; i++) {
-			a = a^array[i];
-		}
-    	
-    	
-    	ThreadLocal thread = new ThreadLocal<>();
-    	System.out.println(a^array.length);
+    	System.out.println(UUID.randomUUID().toString());
+    	System.out.println(UUID.randomUUID().toString());
+    	System.out.println(UUID.randomUUID().toString());
+    	System.out.println(UUID.randomUUID().toString());
+    	System.out.println(UUID.randomUUID().toString());
+    	System.out.println(UUID.randomUUID().toString());
+    	System.out.println(UUID.randomUUID().toString());
+//    	int[] array = {1,2,3,4,5,6,7,8,9,10,10};
+//
+//    	int a = array[0];
+//    	for (int i = 1; i < array.length; i++) {
+//			a = a^array[i];
+//		}
+//    	
+//    	
+//    	ThreadLocal thread = new ThreadLocal<>();
+//    	System.out.println(a^array.length);
 //        Selector selector = Selector.open();
 //        ServerSocketChannel socketChannel = ServerSocketChannel.open();
 //        socketChannel.bind(new InetSocketAddress(8080));
