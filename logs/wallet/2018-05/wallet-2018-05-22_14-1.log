@@ -1,4 +1,0 @@
-[2018-05-22 14:28:35,046] [ERROR] [ContextLog.java:60] [admin.common.aspect.ContextLog.error] [http-nio-8081-exec-30]: 请求唯一标识->null-1 异常描述->{msg=parameter-> limit 不能为NULL, code=9000} 
-admin.common.exception.CheckException: parameter-> limit 不能为NULL
-[2018-05-22 14:28:36,268] [ERROR] [ContextLog.java:60] [admin.common.aspect.ContextLog.error] [http-nio-8081-exec-20]: 请求唯一标识->null-1 异常描述->{msg=parameter-> limit 不能为NULL, code=9000} 
-admin.common.exception.CheckException: parameter-> limit 不能为NULL
