@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.3.187:3306/admin?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
     username: root
     password: dic*#9dc-dme58
     openMulti: true
@@ -11,7 +11,7 @@ spring:
     - key: takeout
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/takeout?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      url: jdbc:mysql://192.168.3.187:3306/takeout?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
       username: root
       password: dic*#9dc-dme58
       idle-timeout: 20000
