@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.3.187:3306/admin?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
     username: root
-    password: x5
+    password: abc123456
     openMulti: true
     idle-timeout: 30000
     multi:
@@ -13,5 +13,5 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://192.168.3.187:3306/admin?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
       username: root
-      password: x5
+      password: abc123456
       idle-timeout: 20000
