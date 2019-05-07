@@ -26228,6 +26228,8 @@ $.extend({
 				}
 			}
 		}
+
+		sign = str.replace(/@MD5\(.+(,.+)*\)/g,$.md5(sign))
 //		sign = str.replace(/@MD5\(.+(,.+)*\)/g,sign)
 //		var signList = sign.split("+");
 //		sign = "";
@@ -26238,7 +26240,7 @@ $.extend({
 //				sign+=signList[k].trim();
 //			}
 //		}
-		return $.md5(sign);
+		return sign;
    },
    replaceRC : function(str){
 	   if(str==""){
