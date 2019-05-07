@@ -23611,7 +23611,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 				var colThead = table.find("thead[class='colThead']").children('th');
 				for (var j = 0; j < len-1; j++) {
 					var ccc =tds.children().eq(j).text();
-					var tepCcc = $.replaceMD5(ccc,temp);
+					var tepCcc = $.replaceMD5(colThead.eq(j).text(),temp);
 					if(tepCcc!='MD5')
 						temp[colThead.eq(j).text()]=tepCcc;
 				}
@@ -23726,7 +23726,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 			  var colThead = table.find("thead[class='colThead']").children('th');
 			  for (var j = 0; j < len-1; j++) {
 				  var ccc =tds.children().eq(j).text();
-				  var tepCcc = $.replaceMD5(ccc,temp);
+				  var tepCcc = $.replaceMD5(colThead.eq(j).text(),temp);
 				  if(tepCcc!='MD5')
 					  temp[colThead.eq(j).text()]=tepCcc;
 			  }
