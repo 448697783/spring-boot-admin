@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="${packageName}.modules.sys.dao.SysRoleDeptDao">
+
+	<insert id="insertBacth">
+		insert into sys_role_dept
+		(
+			`role_id`, 
+			`dept_id`
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+			#{item.roleId}, 
+			#{item.deptId} 
+		)
+		</foreach>
+	</insert>
+	<select id="querySysRoleDeptBacth" resultType="${packageName}.modules.sys.entity.SysRoleDeptEntity">
+		select
+			`dept_id`
+		from 
+		    sys_role_dept
+		<if test = 'list != null and list.size() != 0'>    
+			where  role_id in (
+			<foreach collection="list" item="item" index="index" separator="," >
+				#{item}
+			</foreach>
+			)
+		</if>
+		<if test = 'list == null or list.size() == 0'>    
+			where  role_id in (
+			-1
+			)
+		</if>
+	</select>
+	<delete id="delete">
+		delete from sys_role_dept where role_id = #{value}
+	</delete>
+	
+	<select id="queryDeptIdList" resultType="long">
+		select dept_id from sys_role_dept where role_id = #{value}
+	</select>
+
+</mapper>
