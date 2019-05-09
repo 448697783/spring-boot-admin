@@ -164,9 +164,9 @@ public interface ${className}Dao {
 #end
 #end
 #if ($role)
-				"<if test='entity.sysRoleDeptEntity != null and entity.sysRoleDeptEntity.size() != 0'>",
+				"<if test='sysRoleDeptEntity != null and sysRoleDeptEntity.size() != 0'>",
 					"and dept_id in (",
-					"<foreach collection='entity.sysRoleDeptEntity' item='item' index='index' separator=',' >",
+					"<foreach collection='sysRoleDeptEntity' item='item' index='index' separator=',' >",
 						"#{item.deptId}",
 					"</foreach>",
 					")",
