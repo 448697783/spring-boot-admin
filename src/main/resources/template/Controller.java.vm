@@ -36,13 +36,13 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 #end
 import ${package}.modules.${module}.service.I${className}Service;
 
-#if($role)
+
 //INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '${comments}', 'modules/${url}/${classname}.html', NULL, 1, 'fa fa-file-code-o', 1);
 //INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '查看', NULL, '${shrio}:query${className}List', 2, NULL, 0);
 //INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '新增', NULL, '${shrio}:save${className},${shrio}:save${className}List', 2, NULL, 0);
 //INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '修改', NULL, '${shrio}:edit${className},${shrio}:edit${className}List', 2, NULL, 0);
 //INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ( 1, '删除', NULL, '${shrio}:delete${className},${shrio}:delete${className}List', 2, NULL, 0);
-#end
+
 
 /**
  * ${comments}
