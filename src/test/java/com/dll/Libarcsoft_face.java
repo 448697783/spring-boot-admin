@@ -1,8 +1,5 @@
 package com.dll;
 
-import org.xvolks.jnative.JNative;
-import org.xvolks.jnative.exceptions.NativeException;
-
 public class Libarcsoft_face   {  
 	static {
 		System.loadLibrary("libarcsoft_face_engine");
@@ -21,26 +18,26 @@ public class Libarcsoft_face   {
 	}
 	
 	public static void main(String[] args) {
-		JNative jnt = null;
-		try {
-			jnt = new JNative("libarcsoft_face_engine", "ArcSoft_FIC_Activate");
-			jnt.setParameter(0,"EPYPDAeuoGdzbfzGdhpaLuVq912t9V1Z7Zqvuruyw4UD");
-			jnt.setParameter(1,"CSy8MCHWFeASU8oWZPH2FDRc9ABZYuW6zFN5SEio65xJ");
-			jnt.invoke();
-		} catch (NativeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				jnt.dispose();
-			} catch (IllegalAccessException | NativeException e) {
-				e.printStackTrace();
-			}
-		}
+//		JNative jnt = null;
+//		try {
+//			jnt = new JNative("libarcsoft_face_engine", "ArcSoft_FIC_Activate");
+//			jnt.setParameter(0,"EPYPDAeuoGdzbfzGdhpaLuVq912t9V1Z7Zqvuruyw4UD");
+//			jnt.setParameter(1,"CSy8MCHWFeASU8oWZPH2FDRc9ABZYuW6zFN5SEio65xJ");
+//			jnt.invoke();
+//		} catch (NativeException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		finally {
+//			try {
+//				jnt.dispose();
+//			} catch (IllegalAccessException | NativeException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 }  
 
