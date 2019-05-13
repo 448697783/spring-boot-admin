@@ -192,7 +192,8 @@ public class SysGeneratorService {
 //		    	columns.addAll(queryColumns(tempTableName));
 		    	map.put("COMMENTS", "联合查询");
 		    	map.put("CREATETIME",  DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
-		    	map.put("TABLENAME",vo.getSql().trim().replaceFirst("select.*from", ""));
+		    	map.put("TABLENAME",vo.getSql().trim());
+//		    	map.put("TABLENAME",vo.getSql().trim().replaceFirst("select.*from", ""));
 //		    }
 		    	GenUtils.generatorCode(map, columns, zip, vo.getProjectName(), vo.getPackageName(),vo);
 
