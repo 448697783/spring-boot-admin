@@ -61,6 +61,6 @@
 	</div>
 </div>
 
-<script src="../../js/modules/${url}/${pathName}.js"></script>
+<script src="../../js/modules/${url}/${className}.js"></script>
 </body>
 </html>
