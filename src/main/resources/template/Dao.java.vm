@@ -190,7 +190,11 @@ public interface ${className}Dao {
 #if ($column.attrType=="Date"||$column.attrType=="Timestamp")
 					"#{$column.attrname,jdbcType=TIMESTAMP}#if($velocityCount != $columns.size()), #end",
 #else
+#if ($column.attrname=="versionOptimizedLock")
+					"1#if($velocityCount != $columns.size()), #end",
+#else
 					"#{$column.attrname,jdbcType=$column.dataType}#if($velocityCount != $columns.size()), #end",
+#end
 #end
 #end
 				")"
@@ -209,7 +213,15 @@ public interface ${className}Dao {
 			"<foreach collection ='list' item='obj' separator =','>",
 				"(",
 #foreach($column in $columns)
-					"#{obj.$column.attrname,jdbcType=$column.dataType}#if($velocityCount != $columns.size()), #end",
+#if (obj.$column.attrType=="Date"||obj.$column.attrType=="Timestamp")
+					"#{obj.$column.attrname,jdbcType=TIMESTAMP}#if($velocityCount != $columns.size()), #end",
+#else
+#if (obj.$column.attrname=="versionOptimizedLock")
+					"1#if(obj.$velocityCount != obj.$columns.size()), #end",
+#else
+					"#{obj.$column.attrname,jdbcType=obj.$column.dataType}#if(obj.$velocityCount != obj.$columns.size()), #end",
+#end
+#end
 #end
 				")",
 			"</foreach >",
@@ -222,12 +234,12 @@ public interface ${className}Dao {
 			"update ${tableName}",
 				"<set>",
 #foreach($column in $columns)
-#if($column.columnName != $pk.columnName)
+#if($column.columnName != $pk.columnName || $column.columnName !="versionOptimizedLock")
 						"`$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()), #end",
 #end
 #end
 				"</set>",
-				"where ${pk.columnName} = #{entity.${pk.attrname}}",
+				"where ${pk.columnName} = #{entity.${pk.attrname}} and versionOptimizedLock = #{entity.versionOptimizedLock}",
 			"</script>"
 	})
 	int updateEntity(@Param("entity")${className}Entity ${classname}Entity);
@@ -238,12 +250,12 @@ public interface ${className}Dao {
 				"update ${tableName}",
 					"<set>",
 #foreach($column in $columns)
-#if($column.columnName != $pk.columnName)
+#if($column.columnName != $pk.columnName || $column.columnName !="versionOptimizedLock")
 						"`$column.columnName` = #{obj.$column.attrname}#if($velocityCount != $columns.size()), #end",
 #end
 #end
 					"</set>",
-					"where ${pk.columnName} = #{entity.${pk.attrname}}",
+					"where ${pk.columnName} = #{entity.${pk.attrname}} and versionOptimizedLock = #{entity.versionOptimizedLock}",
 			"</foreach >",
 			"</script>"
 	})
