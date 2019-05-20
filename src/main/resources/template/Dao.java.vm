@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Options;
+
 import java.util.List;
 
 #set($t="String")	
@@ -199,6 +201,7 @@ public interface ${className}Dao {
 #end
 				")"
     })
+    @Options(useGeneratedKeys=true,keyProperty="id")
 	int insertEntity(${className}Entity ${classname}Entity);
 	
 	@Insert({
@@ -213,20 +216,17 @@ public interface ${className}Dao {
 			"<foreach collection ='list' item='obj' separator =','>",
 				"(",
 #foreach($column in $columns)
-#if (obj.$column.attrType=="Date"||obj.$column.attrType=="Timestamp")
-					"#{obj.$column.attrname,jdbcType=TIMESTAMP}#if($velocityCount != $columns.size()), #end",
+#if ($column.attrname=="versionOptimizedLock")
+					"1#if($velocityCount != $columns.size()), #end",
 #else
-#if (obj.$column.attrname=="versionOptimizedLock")
-					"1#if(obj.$velocityCount != obj.$columns.size()), #end",
-#else
-					"#{obj.$column.attrname,jdbcType=obj.$column.dataType}#if(obj.$velocityCount != obj.$columns.size()), #end",
-#end
+					"#{obj.$column.attrname,jdbcType=$column.dataType}#if($velocityCount != $columns.size()), #end",
 #end
 #end
 				")",
 			"</foreach >",
 			"</script>",
     })
+    @Options(useGeneratedKeys=true,keyProperty="id")
 	int batchInsertEntity(@Param("list")List<${className}Entity> ${classname}Entitys);
 	
 	@Update({
@@ -234,12 +234,15 @@ public interface ${className}Dao {
 			"update ${tableName}",
 				"<set>",
 #foreach($column in $columns)
-#if($column.columnName != $pk.columnName || $column.columnName !="versionOptimizedLock")
+#if($column.columnName != $pk.columnName && $column.columnName != "version_optimized_lock")
 						"`$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()), #end",
+#end
+#if($column.columnName == "version_optimized_lock")
+						"`version_optimized_lock` = version_optimized_lock+1#if($velocityCount != $columns.size()), #end",
 #end
 #end
 				"</set>",
-				"where ${pk.columnName} = #{entity.${pk.attrname}} and versionOptimizedLock = #{entity.versionOptimizedLock}",
+				"where ${pk.columnName} = #{entity.${pk.attrname}} and version_optimized_lock=#{entity.versionOptimizedLock}",
 			"</script>"
 	})
 	int updateEntity(@Param("entity")${className}Entity ${classname}Entity);
@@ -250,12 +253,15 @@ public interface ${className}Dao {
 				"update ${tableName}",
 					"<set>",
 #foreach($column in $columns)
-#if($column.columnName != $pk.columnName || $column.columnName !="versionOptimizedLock")
+#if($column.columnName != $pk.columnName && $column.columnName != "version_optimized_lock")
 						"`$column.columnName` = #{obj.$column.attrname}#if($velocityCount != $columns.size()), #end",
+#end
+#if($column.columnName == "version_optimized_lock")
+						"`version_optimized_lock` = version_optimized_lock+1#if($velocityCount != $columns.size()), #end",
 #end
 #end
 					"</set>",
-					"where ${pk.columnName} = #{entity.${pk.attrname}} and versionOptimizedLock = #{entity.versionOptimizedLock}",
+					"where ${pk.columnName} = #{entity.${pk.attrname}} and version_optimized_lock=#{entity.versionOptimizedLock}",
 			"</foreach >",
 			"</script>"
 	})
@@ -288,7 +294,6 @@ public interface ${className}Dao {
 #foreach($column in $columns)
 #if($column.columnName != $pk.columnName)
 #if ($column.attrType=="String")
-
 				"<if test='obj.$column.attrname != null  and obj.$column.attrname  != \"\" '> and `$column.columnName` = #{obj.$column.attrname}#if($velocityCount != $columns.size())#end</if>",
 #else
 				"<if test='obj.$column.attrname != null  '> and `$column.columnName` = #{obj.$column.attrname}#if($velocityCount != $columns.size())#end</if>",

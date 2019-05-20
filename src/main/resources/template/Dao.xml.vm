@@ -43,7 +43,7 @@
 		insert into ${tableName}
 		(
 #foreach($column in $columns)
-#if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
+#if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment' || )
 			$column.columnName#if($velocityCount != $columns.size()), #end
 
 #end			
