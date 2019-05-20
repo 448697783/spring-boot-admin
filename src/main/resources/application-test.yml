@@ -12,6 +12,14 @@ spring:
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://192.168.3.187:3306/unified_crtify?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
-      username: root
-      password: abc123456
+      username: unified_crtify
+      password: unified_crtify
+      idle-timeout: 20000
+    multi:
+    - key: mars
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.3.187:3306/mars?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      username: mars
+      password: mars
       idle-timeout: 20000
