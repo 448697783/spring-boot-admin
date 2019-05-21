@@ -15,7 +15,6 @@ spring:
       username: unified_crtify
       password: unified_crtify
       idle-timeout: 20000
-    multi:
     - key: mars
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
