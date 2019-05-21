@@ -51,6 +51,13 @@
       }
       window.swaggerUi = new SwaggerUi({
         url: url,
+        //添加一下代码，具体添加位置，可以看截图
+        apisSorter: "alpha", // can also be a function ,设置排序
+        operationsSorter : function(a,b){
+            //自定义排序规格，按方法说明来进行排序
+            return a.summary.localeCompare(b.summary);    
+        	
+        }, // can also be 'alpha' or a function
         dom_id: "swagger-ui-container",
         supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
         onComplete: function(swaggerApi, swaggerUi){
