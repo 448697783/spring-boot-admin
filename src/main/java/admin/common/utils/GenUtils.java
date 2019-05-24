@@ -251,9 +251,9 @@ public class GenUtils {
 		map.put("package",packageName);
 		map.put("isSql",StringUtils.isNotBlank(vo.getSql())&&(vo.getTables()==null||vo.getTables().size()!=0)?true:false);
 		map.put("role",vo.isRole());
-		map.put("module",(!StringUtils.isNotEmpty(vo.getModeName())?getModules(table.get("TABLENAME")).toLowerCase():vo.getModeName()));
-		map.put("url",(!StringUtils.isNotEmpty(vo.getModeName())?getModules(table.get("TABLENAME")).toLowerCase():vo.getModeName()).replaceAll("\\.", "/"));
-		map.put("shrio",(!StringUtils.isNotEmpty(vo.getModeName())?getModules(table.get("TABLENAME")).toLowerCase():vo.getModeName()).replaceAll("\\.", ":"));
+		map.put("module",(!StringUtils.isNotEmpty(vo.getModeName())?tableEntity.getClassname():vo.getModeName()));
+		map.put("url",(!StringUtils.isNotEmpty(vo.getModeName())?tableEntity.getClassname():vo.getModeName()).replaceAll("\\.", "/"));
+		map.put("shrio",(!StringUtils.isNotEmpty(vo.getModeName())?tableEntity.getClassname():vo.getModeName()).replaceAll("\\.", ":"));
 
 		map.put("author", config.getString("author"));
 		map.put("email", config.getString("email"));
@@ -265,21 +265,23 @@ public class GenUtils {
 		fromVelocityToZipSteam(zip,projectName, packageName.replace(".", "/")+"/modules/"+map.get("module"), tableEntity, context, templates);
 	}
 	
-	private static String getModules(String tableName){
-//		Pattern pattern = Pattern.compile("_(.*?)(_|$)");// 匹配的模式
-//		if (StringUtils.isNotBlank(tableName)) {
-//			Matcher m = pattern.matcher(tableName);
-//			while (m.find()) {
-//				if (StringUtils.isNotBlank(m.group(1))) {
-//					return m.group(1).toLowerCase();
-//				}
+//	private static String getModules(String tableName,String [] tablePrefix){
+////		
+//		for (String string : tablePrefix) {
+//			if(StringUtils.isNotBlank(string)){
+////			String[] split = tablePrefix.split("_");
+////			if(split.length){
+////				
+////			}
+//				tableName = tableName.replace(string, "");
 //			}
-//		}else{
-//			return "module";
+//			
 //		}
-		return tableName.replace("_", "");
-//		return tableName;
-	}
+//		return columnToJava(tableName);
+//	
+//		return tableName.replace("_", "");
+////		return tableName;
+//	}
 
 	public static void fromVelocityToZipSteam(ZipOutputStream zip,String projectName, String  pack, TableEntity tableEntity,
 			VelocityContext context, List<String> templates) {
