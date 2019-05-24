@@ -102,7 +102,7 @@ public class GenUtils {
 		tableEntity.setTableName(table.get("TABLENAME"));
 		tableEntity.setComments(table.get("TABLECOMMENT")==null?"":table.get("TABLECOMMENT"));
 		//表名转换成Java类名
-		String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix"));
+		String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix").split(","));
 		tableEntity.setClassName(!StringUtils.isNotEmpty(vo.getTableAliase())?className:vo.getTableAliase());
 		tableEntity.setClassname(!StringUtils.isNotEmpty(vo.getTableAliase())?WordUtils.uncapitalize(className):WordUtils.uncapitalize(vo.getTableAliase()));
 		//列信息
@@ -314,13 +314,16 @@ public class GenUtils {
 	/**
 	 * 表名转换成Java类名
 	 */
-	public static String tableToJava(String tableName, String tablePrefix) {
-		if(StringUtils.isNotBlank(tablePrefix)){
+	public static String tableToJava(String tableName, String[] tablePrefix) {
+		for (String string : tablePrefix) {
+			if(StringUtils.isNotBlank(string)){
 //			String[] split = tablePrefix.split("_");
 //			if(split.length){
 //				
 //			}
-			tableName = tableName.replace(tablePrefix, "");
+				tableName = tableName.replace(string, "");
+			}
+			
 		}
 		return columnToJava(tableName);
 	}
