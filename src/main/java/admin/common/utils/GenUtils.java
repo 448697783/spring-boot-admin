@@ -102,7 +102,7 @@ public class GenUtils {
 		tableEntity.setTableName(table.get("TABLENAME"));
 		tableEntity.setComments(table.get("TABLECOMMENT")==null?"":table.get("TABLECOMMENT"));
 		//表名转换成Java类名
-		String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix").split(","));
+		String className = tableToJava(tableEntity.getTableName(), config.getStringArray("tablePrefix"));
 		tableEntity.setClassName(!StringUtils.isNotEmpty(vo.getTableAliase())?className:vo.getTableAliase());
 		tableEntity.setClassname(!StringUtils.isNotEmpty(vo.getTableAliase())?WordUtils.uncapitalize(className):WordUtils.uncapitalize(vo.getTableAliase()));
 		//列信息
