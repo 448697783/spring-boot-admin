@@ -23,10 +23,10 @@
 <div id="rrapp" v-cloak>
 	<div v-show="showList">
 		<div class="grid-btn">
-			<a v-if="hasPermission('testcase1:saveTestcase1')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
-			<a v-if="hasPermission('testcase1:editTestcase1')" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
-			<a v-if="hasPermission('testcase1:deleteTestcase1')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-			<a v-if="hasPermission('testcase1:queryTestcase1List')" class="btn btn-primary" @click="query"><i class="fa fa-trash-o"></i>&nbsp;查询</a>
+			<a v-if="hasPermission('testcase1:queryTestcase1List')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			<a v-if="hasPermission('testcase1:saveTestcase1')" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			<a v-if="hasPermission('testcase1:editTestcase1')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			<a v-if="hasPermission('testcase1:deleteTestcase1')" class="btn btn-primary" @click="query"><i class="fa fa-trash-o"></i>&nbsp;查询</a>
 		</div>
 	    <table id="jqGrid"></table>
 	    <div id="jqGridPager"></div>
@@ -41,10 +41,28 @@
 					<input type="text" class="form-control" v-model="testcase1.controllerName" placeholder="controller名称"/>
 				</div>
 			</div>
+					<div class="form-group">
+				<div class="col-sm-2 control-label"></div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="testcase1.describe" placeholder=""/>
+				</div>
+			</div>
+					<div class="form-group">
+				<div class="col-sm-2 control-label"></div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="testcase1.method" placeholder=""/>
+				</div>
+			</div>
 					<div style="display:none;" class="form-group">
 				<div class="col-sm-2 control-label">主键</div>
 				<div class="col-sm-10">
 					<input type="hidden" class="form-control" v-model="testcase1.testCaseId" placeholder="主键"/>
+				</div>
+			</div>
+					<div class="form-group">
+				<div class="col-sm-2 control-label"></div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="testcase1.deptId" placeholder=""/>
 				</div>
 			</div>
 					<div class="form-group">
@@ -69,30 +87,6 @@
 				<div class="col-sm-2 control-label">状态0:成功1:失败2:未执行</div>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" v-model="testcase1.status" placeholder="状态0:成功1:失败2:未执行"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label">a</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.a" placeholder="a"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label">b</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.b" placeholder="b"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label">c</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.c" placeholder="c"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label">d</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.d" placeholder="d"/>
 				</div>
 			</div>
 					<div class="form-group">

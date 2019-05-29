@@ -274,9 +274,9 @@ public interface ${className}Dao {
 #foreach($column in $columns)
 #if($column.columnName != $pk.columnName)
 #if ($column.attrType=="String")
-				"<if test='entity.$column.attrname != null  and entity.$column.attrname  != \"\" '> and `$column.columnName` = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null  and entity.$column.attrname  != \"\" '> and `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #else
-				"<if test='entity.$column.attrname != null  '> and `$column.columnName` = #{$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
+				"<if test='entity.$column.attrname != null  '> and `$column.columnName` = #{entity.$column.attrname}#if($velocityCount != $columns.size()) #end</if>",
 #end
 #end
 #end

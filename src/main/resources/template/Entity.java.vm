@@ -3,7 +3,6 @@ import ${package}.modules.sys.entity.SysRoleDeptEntity;
 
 
 import java.io.Serializable;
-import java.util.Date;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
@@ -28,36 +27,36 @@ public class ${className}Entity implements Serializable {
 	private List<SysRoleDeptEntity> sysRoleDeptEntity;
 #end	
 	//当需要根据时间范围查询时使用,不适用时请删除
-	private Date startTime;
+	private Timestamp startTime;
 	
 	//当需要根据时间范围查询时使用,不适用时请删除
-	private Date endTime;
+	private Timestamp endTime;
 	
 	/**
 	 * 设置：开始时间
 	 */
-	public void setStartTime(Date startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 	
 	/**
 	 * 获取：开始时间
 	 */
-	public Date getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
 	
 	/**
 	 * 设置：结束时间
 	 */
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 	
 	/**
 	 * 获取：结束时间
 	 */
-	public Date getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
 

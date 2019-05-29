@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.List;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.math.BigDecimal;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -56,8 +55,8 @@ public class ${className}QueryVO {
 	/**
 	* 默认第一页
 	**/
-	@ApiModelProperty(value="一页展示数量",example="1")
-	@ApiParam(value="一页展示数量",defaultValue="1")
+	@ApiModelProperty(value="第几页",example="1")
+	@ApiParam(value="第几页",defaultValue="1")
 	private Long page=1L;
 	
 	/**
@@ -71,39 +70,39 @@ public class ${className}QueryVO {
 	@ApiModelProperty(value="开始时间 格式yyyy-MM-dd HH:mm:ss",example="2018-10-18 18:18:18")
 	@ApiParam(value="开始时间 格式yyyy-MM-dd HH:mm:ss",defaultValue = "2018-10-18 18:18:18") 
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date startTime;
+	private Timestamp startTime;
 	
 	//当需要根据时间范围查询时使用,不适用时请删除
 	@ApiModelProperty(value="结束时间 格式yyyy-MM-dd HH:mm:ss",example="2018-10-18 18:18:18")
 	@ApiParam(value="结束时间 格式yyyy-MM-dd HH:mm:ss",defaultValue = "2018-10-18 18:18:18") 
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date endTime;
+	private Timestamp endTime;
 	
 	/**
 	 * 设置：开始时间
 	 */
-	public void setStartTime(Date startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 	
 	/**
 	 * 获取：开始时间
 	 */
-	public Date getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
 	
 	/**
 	 * 设置：结束时间
 	 */
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 	
 	/**
 	 * 获取：结束时间
 	 */
-	public Date getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
 #foreach ($column in $columns)

@@ -26219,13 +26219,13 @@ $.extend({
 		var rtemp = matchRCs[0].replace('@MD5(','').replace(")","")
 		var sign="";
 //		alert(rtemp);
-		var temp = rtemp.split("+");
+		var temp = rtemp.split("'+'");
 
 		for (var k = 0; k< temp.length; k++) {
 			if(temp[k]&&temp[k].trim()){
 				if(arr[temp[k].trim()]){
-					sign+=arr[temp[k].trim()];
-				}else if(temp[k].trim().indexOf("'")>-1){
+//					sign+=arr[temp[k].trim()];
+				}else {
 					sign+=temp[k].trim().replace(/'/g,"");
 				}
 			}
