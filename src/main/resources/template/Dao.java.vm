@@ -261,7 +261,7 @@ public interface ${className}Dao {
 #end
 #end
 					"</set>",
-					"where ${pk.columnName} = #{entity.${pk.attrname}} and version_optimized_lock=#{entity.versionOptimizedLock}",
+					"where ${pk.columnName} = #{obj.${pk.attrname}} and version_optimized_lock=#{obj.versionOptimizedLock}",
 			"</foreach >",
 			"</script>"
 	})

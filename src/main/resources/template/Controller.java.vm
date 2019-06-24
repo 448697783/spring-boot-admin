@@ -71,7 +71,7 @@ public class ${className}Controller {
 		ValidatorUtils.validateEntity(${classname}QueryVO);
 		${className}Entity ${classname}Entity = new ${className}Entity();
 		BeanCopierUtils.copyProperties(${classname}QueryVO, ${classname}Entity);
-		List<${className}Entity> ${classname}List = ${classname}Service.query${className}EntityListForPage(${classname}Entity,${classname}QueryVO.getStartRow(),${classname}QueryVO.getEndRow());
+		List<${className}Entity> ${classname}List = ${classname}Service.query${className}EntityListForPage(${classname}Entity,${classname}QueryVO.getStartRow(),${classname}QueryVO.getRows());
 		//统计行数,如果数据量比较大可以才线程同时处理两个语句
 		Long count= ${classname}Service.query${className}EntityListForPageCount(${classname}Entity);
 		${className}QResultVO ${classname}QResultVO = ${classname}QueryVO.ok(${classname}List);
@@ -91,7 +91,7 @@ public class ${className}Controller {
 		ValidatorUtils.validateEntity(${classname}QueryVO);
 		${className}Entity ${classname}Entity = new ${className}Entity();
 		BeanCopierUtils.copyProperties(${classname}QueryVO, ${classname}Entity);
-		List<${className}Entity> ${classname}List = ${classname}Service.query${className}EntityListForPage(${classname}Entity,${classname}QueryVO.getStartRow(),${classname}QueryVO.getEndRow());
+		List<${className}Entity> ${classname}List = ${classname}Service.query${className}EntityListForPage(${classname}Entity,${classname}QueryVO.getStartRow(),${classname}QueryVO.getRows());
 		//统计行数,如果数据量比较大可以才线程同时处理两个语句
 		Long count= ${classname}Service.query${className}EntityListForPageCount(${classname}Entity);
 		${className}QResultVO ${classname}QResultVO = ${classname}QueryVO.ok(${classname}List);

@@ -154,6 +154,7 @@ public class GenUtils {
 				columnEntity.setDataType(JdbcType.TIMESTAMP.name().replaceAll("\\(.*\\)", ""));
 				break;
 			case "DATE":
+			case "DATETIME":
 				columnEntity.setDataType(JdbcType.DATE.name().replaceAll("\\(.*\\)", ""));
 				break;
 			case "VARCHAR2":

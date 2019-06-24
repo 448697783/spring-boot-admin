@@ -92,20 +92,18 @@ public class ${className}ServiceImpl implements I${className}Service {
 	}
 	
 	@Override
-	@AutoRetry
 	public int edit${className}Entity(${className}Entity ${classname}Entity){
 		int size = ${classname}Dao.updateEntity(${classname}Entity);
-		if(size==0){
+		if(size==${classname}Entity.size()){
 			throw new AutoRetryException();
 		}
 		return size;
 	}
 	
 	@Override
-	@AutoRetry
 	public int edit${className}Entity(List<${className}Entity> ${classname}Entitys){
 		int size = ${classname}Dao.batchUpdateEntity(${classname}Entitys);
-		if(size==0){
+		if(size==${classname}Entitys.size()){
 			throw new AutoRetryException();
 		}
 		return size;
