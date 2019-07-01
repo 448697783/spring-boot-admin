@@ -1,5 +1,7 @@
 package admin.modules.sys.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,8 +10,6 @@ import admin.modules.sys.dao.SysUserTokenDao;
 import admin.modules.sys.entity.SysUserTokenEntity;
 import admin.modules.sys.oauth2.TokenGenerator;
 import admin.modules.sys.service.SysUserTokenService;
-
-import java.util.Date;
 
 
 @Service("sysUserTokenService")
@@ -70,7 +70,6 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 		}
 
 		R r = R.ok().put("token", token).put("expire", EXPIRE);
-
 		return r;
 	}
 }

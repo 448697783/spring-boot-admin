@@ -23,7 +23,9 @@ import com.google.code.kaptcha.Producer;
 
 import admin.common.utils.R;
 import admin.common.utils.ShiroUtils;
+import admin.modules.sys.entity.SysDeptEntity;
 import admin.modules.sys.entity.SysUserEntity;
+import admin.modules.sys.service.SysDeptService;
 import admin.modules.sys.service.SysUserService;
 import admin.modules.sys.service.SysUserTokenService;
 import io.swagger.annotations.ApiOperation;
@@ -42,6 +44,8 @@ public class SysLoginController {
 	private Producer producer;
 	@Autowired
 	private SysUserService sysUserService;
+	@Autowired
+	private SysDeptService sysDeptService;
 	@Autowired
 	private SysUserTokenService sysUserTokenService;
 
@@ -90,6 +94,8 @@ public class SysLoginController {
 
 		//生成token，并保存到数据库
 		R r = sysUserTokenService.createToken(user.getUserId());
+		SysDeptEntity queryObject = sysDeptService.queryObject( user.getDeptId());
+		r.put("parentId", queryObject==null?0:queryObject.getParentId());
 		return r;
 	}
 	
