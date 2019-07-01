@@ -101,6 +101,7 @@ var vm = new Vue({
 			    success: function(r){
 					if(r.code == 0){//登录成功
                         localStorage.setItem("token", r.token);
+                        localStorage.setItem("parentId", r.parentId);
                         parent.location.href ='index.html';
 					}else{
 						vm.error = true;

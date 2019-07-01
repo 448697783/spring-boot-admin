@@ -118,3 +118,41 @@ function getSelectedRows() {
     
     return grid.getGridParam("selarrrow");
 }
+
+//选择一条记录
+function getSelectedOneRow() {	
+	var selectedData;
+	layui.use('table', function(){
+		var table = layui.table;
+		var checkStatus = table.checkStatus('tableId'); //获取表格选中行
+		var checkNumber = checkStatus.data.length; //获取选中行数量
+		var checkData = checkStatus.data; //获取选中行的数据		
+		if(checkNumber == 0){
+			alert("请至少选择一条记录");
+			return;
+		}
+		if(checkNumber > 1){
+			alert("只能选择一条记录");
+			return;
+		}
+		return selectedData = checkData[0]
+	})
+	return selectedData
+}
+
+//选择多条记录
+function getSelectedMoreRow() {
+	var selectedData;
+	layui.use('table', function(){
+		var table = layui.table;
+		var checkStatus = table.checkStatus('tableId'); //获取表格选中行
+		var checkNumber = checkStatus.data.length; //获取选中行数量
+		var checkData = checkStatus.data; //获取选中行的数据
+		if(checkNumber == 0){
+			alert("请至少选择一条记录");
+			return;
+		}				
+		return selectedData = checkData
+	})
+	return selectedData
+}

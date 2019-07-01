@@ -108,8 +108,8 @@ var vm = new Vue({
 	data:{
 		q:{
 			tableName: "",
-			projectName:'productName',
-			packageName:'com.csi',
+			projectName:'wallet-test',
+			packageName:'com.sohu',
 			modeName:"",
 			tableAliase:"",
 			queryVo:true,
