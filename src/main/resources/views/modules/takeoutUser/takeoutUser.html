@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="../../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+		<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+		<link rel="stylesheet" href="../../css/main.css">
+		<link rel="stylesheet" href="../../plugins/layui-v2.4.5/layui/css/layui.css" media="all">
+		<style type="text/css">
+			.layui-table-view{
+				margin-top: 0;
+			}
+		</style>
+	</head>
+<body>
+	<div id="rrapp" v-cloak>
+		<div v-show="showList">
+				<div style="margin-bottom: 10px">
+					<div class="layui-inline">
+						<input type="text" name="keyWords" id="keyWords" autocomplete="off" placeholder="请输入关键字" style="height:32px;" class="layui-input" v-model="q.keyword" @keyup.enter="query">
+					</div>
+					<button v-if="hasPermission('takeoutUser:saveTakeoutUser')" class="layui-btn layui-btn-sm" @click="add"><i class="layui-icon layui-icon-add-1"></i>&nbsp;新增</a>
+					<button v-if="hasPermission('takeoutUser:editTakeoutUser')" class="layui-btn layui-btn-sm" @click="update"><i class="layui-icon layui-icon-edit"></i>&nbsp;修改</a>
+					<button v-if="hasPermission('takeoutUser:deleteTakeoutUser')" class="layui-btn layui-btn-sm" @click="del"><i class="layui-icon layui-icon-delete"></i>&nbsp;删除</a>
+					<button v-if="hasPermission('takeoutUser:queryTakeoutUserList')" class="layui-btn layui-btn-sm" @click="query"><i class="layui-icon layui-icon-search"></i>&nbsp;查询</a>
+				</div>
+			<table id="layuiTable" lay-filter="test"></table>
+	    </div>
+    
+	    <div v-show="!showList" class="panel panel-default">
+	    	<div style="background: #F2F2F2; padding: 15px;">
+				<div class="layui-card">
+					<div class="layui-card-header">{{title}}</div>
+						<div class="layui-card-body">
+							<form class="layui-form" action="">
+								<div class="layui-form-item">
+									<label class="layui-form-label">机器码</label>
+										<div class="layui-input-block">
+											<input type="text" name="fid" placeholder="请输入fid" autocomplete="off" class="layui-input" v-model="takeoutUser.fid">
+										</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">姓名</label>
+										<div class="layui-input-block">
+											<input type="text" name="fname" placeholder="请输入fname" autocomplete="off" class="layui-input" v-model="takeoutUser.fname">
+										</div>
+								</div>
+								
+								<div class="layui-form-item">
+									<label class="layui-form-label">电话</label>
+										<div class="layui-input-block">
+											<input type="text" name="fphonenumber" placeholder="请输入fphonenumber" autocomplete="off" class="layui-input" v-model="takeoutUser.fphonenumber">
+										</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">地址</label>
+										<div class="layui-input-block">
+											<input type="text" name="faddress" placeholder="请输入faddress" autocomplete="off" class="layui-input" v-model="takeoutUser.faddress">
+										</div>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<button type="button" class="layui-btn" @click="saveOrUpdate">确定</button>
+										<button type="button" class="layui-btn layui-btn-primary" @click="reload">返回</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../libs/jquery.min.js"></script>
+		<script src="../../plugins/layer/layer.js"></script>
+		<script src="../../libs/bootstrap.min.js"></script>
+		<script src="../../libs/vue.min.js"></script>
+		<script src="../../plugins/layui-v2.4.5/layui/layui.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/modules/takeoutUser/takeoutUser.js"></script>
+	</body>
+</html>

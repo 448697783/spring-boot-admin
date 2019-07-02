@@ -11,6 +11,7 @@ import admin.common.httpclient.HttpClientUtil;
 import admin.common.httpclient.builder.HCB;
 import admin.common.httpclient.common.HttpConfig;
 import admin.common.httpclient.common.HttpHeader;
+import admin.common.httpclient.common.HttpHeader.Headers;
 import admin.common.httpclient.common.SSLs.SSLProtocolVersion;
 import admin.common.httpclient.exception.HttpProcessException;
 
@@ -33,9 +34,9 @@ public class Demo {
 		//---------------------------------
 		//			【详细说明】
 		//--------------------------------
-		
 		//插件式配置Header（各种header信息、自定义header）
 		Header[] headers 	= HttpHeader.custom()
+											.contentType(Headers.APP_FORM_URLENCODED)
 											.userAgent("javacl")
 											.other("customer", "自定义")
 											.build();
@@ -54,6 +55,7 @@ public class Demo {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("key1", "value1");
 		map.put("key2", "value2");
+		
 		
 		//插件式配置请求参数（网址、请求参数、编码、client）
 		HttpConfig config = HttpConfig.custom()
