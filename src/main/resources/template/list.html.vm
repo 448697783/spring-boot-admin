@@ -20,7 +20,7 @@
 <body>
 	<div id="rrapp" v-cloak>
 		<div v-show="showList">
-			<div class="layui-btn-container">
+			<div style="margin-bottom: 10px">
 				<div class="layui-inline">
 					<input type="text" name="keyWords" id="keyWords" autocomplete="off" placeholder="请输入关键字" class="layui-input" style="height:32px;" v-model="q.keyword" @keyup.enter="query">
 				</div>
