@@ -17,7 +17,7 @@ $(function() {
 		table.render({
 			elem: '#layuiTable',
 			id: 'tableId',
-			height: 'full-20',
+			height: 'full-55',
 			//toolbar: '#toolbar',
 			method: 'get', //接口http请求类型，默认：get
 			url: baseURL + 'sys/role/list', //?page=1&limit=10（该参数可通过 request 自定义）
