@@ -27,13 +27,17 @@ public class ShiroUtils {
 	public static SysUserEntity getUserEntity() {
 		return (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
 	}
-
-	public static Long getUserId() {
-		return getUserEntity().getUserId();
-	}
 	
 	public static Long getDeptId() {
 		return getUserEntity().getDeptId();
+	}
+	
+	public static String getDeptName() {
+		return getUserEntity().getDeptName();
+	}
+
+	public static Long getUserId() {
+		return getUserEntity().getUserId();
 	}
 	
 	public static void setSessionAttribute(Object key, Object value) {
