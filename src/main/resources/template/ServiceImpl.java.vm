@@ -94,7 +94,7 @@ public class ${className}ServiceImpl implements I${className}Service {
 	@Override
 	public int edit${className}Entity(${className}Entity ${classname}Entity){
 		int size = ${classname}Dao.updateEntity(${classname}Entity);
-		if(size==${classname}Entity.size()){
+		if(size==0){
 			throw new AutoRetryException();
 		}
 		return size;

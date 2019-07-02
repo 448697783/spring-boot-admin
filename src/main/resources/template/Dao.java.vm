@@ -201,8 +201,8 @@ public interface ${className}Dao {
 #end
 				")"
     })
-    @Options(useGeneratedKeys=true,keyProperty="id")
-	int insertEntity(${className}Entity ${classname}Entity);
+   #if($pk.extra == 'auto_increment') @Options(useGeneratedKeys=true,keyProperty="$pk.attrname")#end
+    int insertEntity(${className}Entity ${classname}Entity);
 	
 	@Insert({
 			"<script>",
@@ -226,8 +226,8 @@ public interface ${className}Dao {
 			"</foreach >",
 			"</script>",
     })
-    @Options(useGeneratedKeys=true,keyProperty="id")
-	int batchInsertEntity(@Param("list")List<${className}Entity> ${classname}Entitys);
+   #if($pk.extra == 'auto_increment') @Options(useGeneratedKeys=true,keyProperty="$pk.attrname")#end
+    int batchInsertEntity(@Param("list")List<${className}Entity> ${classname}Entitys);
 	
 	@Update({
 			"<script>",

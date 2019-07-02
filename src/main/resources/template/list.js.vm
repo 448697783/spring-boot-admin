@@ -1,47 +1,83 @@
 $(function () {
-    $("#jqGrid").jqGrid({
-        url: baseURL + '${url}/query${className}List',
-        datatype: "json",
-        colModel: [			
+		//表格
+	layui.use('table', function() {
+		var table = layui.table;
+		table.render({
+			elem: '#layuiTable',
+			id: 'tableId',
+			height: 'full-20',
+			//toolbar: '#toolbar',
+			method: 'get', //接口http请求类型，默认：get
+			url: baseURL + '${url}/query${className}List', //?page=1&limit=10（该参数可通过 request 自定义）
+			//where: {token: 'sasasas', id: 123}, //接口的其它参数
+			 request: {
+				pageName: 'page', //页码的参数名称，默认：page
+				limitName: 'rows', //每页数据量的参数名，默认：limit
+			}, 
+			response: {
+				statusName: 'code', //规定数据状态的字段名称，默认：code
+				statusCode: 200, //规定成功的状态码，默认：0
+				msgName: 'msg', //规定状态信息的字段名称，默认：msg
+				countName: 'count', //规定数据总数的字段名称，默认：count
+				dataName: 'resultList', //规定数据列表的字段名称，默认：data
+			},
+			page: true, //是否分页
+			limit: 10, //每页显示的条数
+			limits: [10, 20, 30], //每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。
+			cols: [
+				[{
+						type: 'checkbox',
+						fixed: 'left',
+					},
 #foreach($column in $columns)
 #if($column.columnName == $pk.columnName)
-			{ label: '${column.attrname}', name: '${column.attrname}', index: '${column.columnName}', width: 50, key: true },
+					{
+						field: '${column.attrname}', //字段名
+						title: '${column.comments}', //标题
+						width: 200,
+						sort: true, //是否允许排序 默认：false
+						fixed: 'left' //固定列
+					}#if($velocityCount != $columns.size()), #end
 #else
-			{ label: '${column.comments}', name: '${column.attrname}', index: '${column.columnName}', width: 80 }#if($velocityCount != $columns.size()), #end
-			
+					{
+						field: '${column.attrname}', //字段名
+						title: '${column.comments}', //标题
+						width: 200,
+						sort: true, //是否允许排序 默认：false
+						fixed: 'left' //固定列
+					}#if($velocityCount != $columns.size()), #end
 #end			
 #end
-        ],
-		viewrecords: true,
-        height: 385,
-        rowNum: 10,
-		rowList : [10,30,50],
-        rownumbers: true, 
-        rownumWidth: 25, 
-        autowidth:true,
-        multiselect: true,
-        pager: "#jqGridPager",
-        jsonReader : {
-            root: "resultList",
-            page: "page",
-            total: "totalPage",
-            records: "count"
-        },
-        prmNames : {
-            page:"page", 
-            rows:"rows", 
-            order: "order"
-        },
-        gridComplete:function(){
-        	//隐藏grid底部滚动条
-        	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
-        }
-    });
-});
-
+				]
+			]
+		});
+	})
+	//日期
+	layui.use('laydate', function() {
+		var laydate = layui.laydate;
+		//日期时间选择器
+		laydate.render({
+			elem: '#startTime',
+			type: 'datetime',
+			done: function(value) {
+				vm.${classname}.startTime = value
+			}
+		});
+		laydate.render({
+			elem: '#endTime',
+			type: 'datetime',
+			done: function(value) {
+				vm.${classname}.endTime = value
+			}
+		});
+	})
+})
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
+		q:{
+			keyWords:null
+		},
 		showList: true,
 		title: null,
 		${classname}: {
@@ -61,14 +97,14 @@ var vm = new Vue({
 			vm.${classname} = {};
 		},
 		update: function (event) {
-			var $pk.attrname = getSelectedRow();
-			if($pk.attrname == null){
-				return ;
+            
+            var rowData = getSelectedOneRow();
+			if (rowData == undefined) {
+				return;
 			}
 			vm.showList = false;
-            vm.title = "修改";
-            
-            vm.getInfo(${pk.attrname})
+			vm.title = "修改";
+			vm.getInfo(rowData)
 		},
 		saveOrUpdate: function (event) {
 			var url = vm.${classname}.${pk.attrname}? "${url}/edit${className}" : "${url}/save${className}";
@@ -88,37 +124,32 @@ var vm = new Vue({
 				}
 			});
 		},
+		
 		del: function (event) {
-			var ${pk.attrname}s = getSelectedRows();
-			if(${pk.attrname}s == null){
-				return ;
+			var ${pk.attrname}s = getSelectedMoreRow();
+			if (${pk.attrname}s == undefined) {
+				return;
 			}
-			var arr = [];
-			for(var i = 0;i<${pk.attrname}s.length;i++){
-				arr.push($("#jqGrid").jqGrid('getRowData',${pk.attrname}s[i]))
-			}
-
-			
-			confirm('确定要删除选中的记录？', function(){
+			confirm('确定要删除选中的记录？', function() {
 				$.ajax({
 					type: "POST",
-				    url: baseURL + "${url}/delete${className}List",
-                    contentType: "application/json",
-				    data: JSON.stringify(arr),
-				    success: function(r){
-						if(r.code == 200){
-							alert(r.msg, function(index){
-								$("#jqGrid").trigger("reloadGrid");
+					url: baseURL + "${url}/delete${className}List",
+					contentType: "application/json",
+					data: JSON.stringify(${pk.attrname}s),
+					success: function(r) {
+						if (r.code == 200) {
+							alert(r.msg, function(index) {
+								vm.reload()
 							});
-						}else{
+						} else {
 							alert(r.msg);
 						}
 					}
 				});
 			});
 		},
-		getInfo: function(${pk.attrname}){
-			var rowData = $("#jqGrid").jqGrid('getRowData',${pk.attrname});
+		getInfo: function(rowData){
+
 			$.ajax({
 				type: "POST",
 			    url: baseURL + "${url}/query${className}List",
@@ -138,11 +169,18 @@ var vm = new Vue({
 			});
 		},
 		reload: function (event) {
+		
 			vm.showList = true;
-			var page = $("#jqGrid").jqGrid('getGridParam','page');
-			$("#jqGrid").jqGrid('setGridParam',{ 
-                page:page
-            }).trigger("reloadGrid");
+//			var keyVal = document.getElementById('keyWords').value;
+			layui.use('table', function() {
+				var table = layui.table;
+				table.reload('tableId', {
+					where: vm.q,
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			})
 		}
 	}
 });

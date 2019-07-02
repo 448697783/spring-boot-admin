@@ -1,103 +1,136 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>测试用例</title>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<link rel="stylesheet" href="../../css/bootstrap.min.css">
-<link rel="stylesheet" href="../../css/font-awesome.min.css">
-<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
-<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
-<link rel="stylesheet" href="../../css/main.css">
-<script src="../../libs/jquery.min.js"></script>
-<script src="../../plugins/layer/layer.js"></script>
-<script src="../../libs/bootstrap.min.js"></script>
-<script src="../../libs/vue.min.js"></script>
-<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
-<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
-<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
-<script src="../../js/common.js"></script>
-</head>
-<body>
-<div id="rrapp" v-cloak>
-	<div v-show="showList">
-		<div class="grid-btn">
-			<a v-if="hasPermission('testcase1:queryTestcase1List')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
-			<a v-if="hasPermission('testcase1:saveTestcase1')" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
-			<a v-if="hasPermission('testcase1:editTestcase1')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-			<a v-if="hasPermission('testcase1:deleteTestcase1')" class="btn btn-primary" @click="query"><i class="fa fa-trash-o"></i>&nbsp;查询</a>
-		</div>
-	    <table id="jqGrid"></table>
-	    <div id="jqGridPager"></div>
-    </div>
-    
-    <div v-show="!showList" class="panel panel-default">
-		<div class="panel-heading">测试用例</div>
-		<form class="form-horizontal">
-					<div class="form-group">
-				<div class="col-sm-2 control-label">controller名称</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.controllerName" placeholder="controller名称"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label"></div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.describe" placeholder=""/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label"></div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.method" placeholder=""/>
-				</div>
-			</div>
-					<div style="display:none;" class="form-group">
-				<div class="col-sm-2 control-label">主键</div>
-				<div class="col-sm-10">
-					<input type="hidden" class="form-control" v-model="testcase1.testCaseId" placeholder="主键"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label"></div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.deptId" placeholder=""/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label">创建时间</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.createdTime" placeholder="创建时间"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label">更新时间</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.updatedTime" placeholder="更新时间"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label">上次执行时间</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.execLastTime" placeholder="上次执行时间"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label">状态0:成功1:失败2:未执行</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="testcase1.status" placeholder="状态0:成功1:失败2:未执行"/>
-				</div>
-			</div>
-					<div class="form-group">
-				<div class="col-sm-2 control-label"></div> 
-				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
-				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
-			</div>
-		</form>
-	</div>
-</div>
+	<head>
+		<title>测试用例</title>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="../../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+		<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+		<link rel="stylesheet" href="../../css/main.css">
+		<link rel="stylesheet" href="../../plugins/layui-v2.4.5/layui/css/layui.css" media="all">
+		<style type="text/css">
+			.layui-table-view{
+				margin-top: 0;
+			}
+		</style>
+	</head>
+	<body>
 
-<script src="../../js/modules/testcase1/testcase1.js"></script>
-</body>
+		<div id="rrapp" v-cloak>
+			<div v-show="showList">
+			
+				 <div class="layui-btn-container" id="toolbar" style="display: none;">
+					<div class="layui-input-inline" style="margin-right:10px;">
+						<input type="text" name="keyWords" id="keyWords" autocomplete="off" placeholder="请输入关键字" class="layui-input"
+						 style="height:32px;">
+					</div>
+					<button v-if="hasPermission('testcase1:queryTestcase1List')" class="layui-btn layui-btn-sm"  @click="add"><i class="layui-icon layui-icon-add-1"></i>新增</button>
+					<button v-if="hasPermission('testcase1:saveTestcase1')" class="layui-btn layui-btn-sm" @click="update"><i class="layui-icon layui-icon-edit"></i>修改</button>
+					<button v-if="hasPermission('testcase1:editTestcase1')" class="layui-btn layui-btn-sm" @click="del"><i class="layui-icon layui-icon-delete"></i>删除</button>
+					<button v-if="hasPermission('testcase1:deleteTestcase1')" class="layui-btn layui-btn-sm" @click="query"><i class="layui-icon layui-icon-search"></i>查询</button>
+				</div> 
+			<div class="layui-btn-container" >
+				<button v-if="hasPermission('testcase1:deleteTestcase1List')" class="layui-btn layui-btn-sm" @click="add"><i class="layui-icon layui-icon-add-1"></i>&nbsp;新增</a>
+				<button v-if="hasPermission('testcase1:saveTestcase1,testcase1:saveTestcase1List')" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+				<button v-if="hasPermission('testcase1:editTestcase1,testcase1:editTestcase1List')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+				<button v-if="hasPermission('testcase1:deleteTestcase1,testcase1:deleteTestcase1List')" class="btn btn-primary" @click="query"><i class="fa fa-trash-o"></i>&nbsp;查询</a>
+			</div>
+				<table id="layuiTable" lay-filter="test"></table>
+			</div>
+
+			<div v-show="!showList">
+				<div style="background: #F2F2F2; padding: 15px;">
+					<div class="layui-card">
+						<div class="layui-card-header">{{title}}</div>
+						<div class="layui-card-body">
+							<form class="layui-form" action="">
+								<div class="layui-form-item">
+									<label class="layui-form-label">controller</label>
+									<div class="layui-input-block">
+										<input type="text" name="controllerName" placeholder="请输入controllerName" autocomplete="off" class="layui-input"
+										 v-model="testcase1.controllerName">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">describe</label>
+									<div class="layui-input-block">
+										<input type="text" name="describe" placeholder="请输入describe" autocomplete="off" class="layui-input" v-model="testcase1.describe">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">method</label>
+									<div class="layui-input-block">
+										<input type="text" name="method" placeholder="请输入method" autocomplete="off" class="layui-input" v-model="testcase1.method">
+									</div>
+								</div>
+								<div class="layui-form-item" style="display: none;">
+									<label class="layui-form-label">testCaseId</label>
+									<div class="layui-input-block">
+										<input type="hidden" name="testCaseId" placeholder="请输入testCaseId" autocomplete="off" class="layui-input"
+										 v-model="testcase1.testCaseId">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">deptId</label>
+									<div class="layui-input-block">
+										<input type="text" name="deptId" placeholder="请输入deptId" autocomplete="off" class="layui-input" v-model="testcase1.deptId">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">createdTime</label>
+									<div class="layui-input-block">
+										<input id="createdTime" type="text" name="createdTime" placeholder="请输入createdTime" autocomplete="off" class="layui-input"
+										 v-model="testcase1.createdTime">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">updatedTime</label>
+									<div class="layui-input-block">
+										<input id="updatedTime" type="text" name="updatedTime" placeholder="请输入updatedTime" autocomplete="off" class="layui-input"
+										 v-model="testcase1.updatedTime">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">execLastTime</label>
+									<div class="layui-input-block">
+										<input id="execLastTime" type="text" name="execLastTime" placeholder="请输入execLastTime" autocomplete="off"
+										 class="layui-input" v-model="testcase1.execLastTime">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">status</label>
+									<div class="layui-input-block">
+										<input type="text" name="status" placeholder="请输入status[状态0:成功1:失败2:未执行]" autocomplete="off" class="layui-input"
+										 v-model="testcase1.status">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<button type="button" class="layui-btn" @click="saveOrUpdate">确定</button>
+										<button type="button" class="layui-btn layui-btn-primary" @click="reload">返回</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="../../libs/jquery.min.js"></script>
+		<script src="../../plugins/layer/layer.js"></script>
+		<script src="../../libs/bootstrap.min.js"></script>
+		<script src="../../libs/vue.min.js"></script>
+		<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+		<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+		<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+		<script src="../../plugins/layui-v2.4.5/layui/layui.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/modules/testcase1/testcase1.js"></script>
+		
+	</body>
+	
 </html>
