@@ -51,6 +51,23 @@
       }
       window.swaggerUi = new SwaggerUi({
         url: url,
+        //添加一下代码，具体添加位置，可以看截图
+        apisSorter: function(a,b){
+            //自定义排序规格，按方法说明来进行排序
+            if ((Number(a.name.replace(/[^0-9]/ig,""))>=Number(b.name.replace(/[^0-9]/ig,"")))){
+    	  		return 1;
+      		}else{
+      			return -1
+      		}
+        }, // can also be 'alpha' or a function
+        operationsSorter : function(a,b){
+            //自定义排序规格，按方法说明来进行排序
+            if ((Number(a.summary.replace(/[^0-9]/ig,""))>=Number(b.summary.replace(/[^0-9]/ig,"")))){
+    	  		return 1;
+      		}else{
+      			return -1
+      		}
+        }, // can also be 'alpha' or a function
         dom_id: "swagger-ui-container",
         supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
         onComplete: function(swaggerApi, swaggerUi){
