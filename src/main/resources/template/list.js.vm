@@ -35,16 +35,16 @@ $(function () {
 						field: '${column.attrname}', //字段名
 						title: '${column.comments}', //标题
 						width: 200,
-						sort: true, //是否允许排序 默认：false
-						fixed: 'left' //固定列
+						sort: true //是否允许排序 默认：false
+						//fixed: 'left' //固定列
 					}#if($velocityCount != $columns.size()), #end
 #else
 					{
 						field: '${column.attrname}', //字段名
 						title: '${column.comments}', //标题
 						width: 200,
-						sort: true, //是否允许排序 默认：false
-						fixed: 'left' //固定列
+						sort: true //是否允许排序 默认：false
+						//fixed: 'left' //固定列
 					}#if($velocityCount != $columns.size()), #end
 #end			
 #end
