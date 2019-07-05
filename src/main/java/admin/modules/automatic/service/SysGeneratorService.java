@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -148,7 +149,7 @@ public class SysGeneratorService {
 		    Pattern pattern = Pattern.compile(tableNamesRegEx1,Pattern.CASE_INSENSITIVE);
 		    Matcher matcher = pattern.matcher(vo.getSql());
 		    String tempTableName,tempStr;
-		    List<Map<String, Object>> columns =  new ArrayList<>();
+		    List<LinkedHashMap<String, Object>> columns =  new ArrayList<>();
 		    Set setTableNames =  new HashSet<>();
 		    Set setCloumnNames =  new HashSet<>();
 		    Map<String, String> queryColumnsForSql = queryColumnsForSql(vo.getSql());
