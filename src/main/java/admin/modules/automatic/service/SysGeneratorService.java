@@ -104,8 +104,9 @@ public class SysGeneratorService {
 			for (int i = 1; i < count+1; i++) {
 				metaData.getColumnLabel(i);
 				metaData.getColumnTypeName(i);
+				metaData.getColumnLabel(i);
 				metaData.getCatalogName(i);
-				map.put(metaData.getColumnName(i), metaData.getColumnTypeName(i));
+				map.put(metaData.getColumnLabel(i), metaData.getColumnTypeName(i));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
