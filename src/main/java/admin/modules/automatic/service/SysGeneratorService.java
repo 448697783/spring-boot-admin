@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -102,8 +103,9 @@ public class SysGeneratorService {
 			int count = metaData.getColumnCount();
 			for (int i = 1; i < count+1; i++) {
 				metaData.getColumnLabel(i);
+				metaData.getColumnTypeName(i);
 				metaData.getCatalogName(i);
-				map.put(metaData.getColumnName(i), metaData.getColumnName(i));
+				map.put(metaData.getColumnName(i), metaData.getColumnTypeName(i));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,6 +181,33 @@ public class SysGeneratorService {
 						}
 		    		}
 				}
+		    }
+		    int size = columns.size();
+		    Set<String> keySet = queryColumnsForSql.keySet();
+		    Iterator<String> iterator = keySet.iterator();
+		    
+		    while(iterator.hasNext()) {
+		    	boolean isHave = false;
+		    	String next = iterator.next();
+		    	for (int i = 0; i < size; i++) {
+		    		String columnname = (String) columns.get(i).get("COLUMNNAME");
+		    		if(next.equals(columnname)) {
+		    			isHave = true;
+		    			break;
+		    		}
+		    	}
+		    	if(!isHave) {
+					HashMap mapCloums = new HashMap<String, Object>();
+		    		mapCloums.put("IS_NULLABLE", "NO");
+					mapCloums.put("DATATYPE", queryColumnsForSql.get(next));
+					mapCloums.put("COLUMNCOMMENT", "NO");
+					mapCloums.put("COLUMNKEY", "");
+					mapCloums.put("EXTRA", "");
+					mapCloums.put("COLUMNNAME", next);
+					mapCloums.put("NUMERIC_PRECISION", "");
+					mapCloums.put("COLUMNCOMMENT", "别名");
+					columns.add(mapCloums);
+		    	}
 		    }
 		    
 		    
