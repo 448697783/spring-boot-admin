@@ -288,20 +288,10 @@ public interface ${className}Dao {
 	
 	@Delete({
 		"<script>",
-		"<foreach collection ='list' item='obj' separator =';'>",
-			"delete from ${tableName}",
-			"<where>",
-#foreach($column in $columns)
-#if($column.columnName != $pk.columnName)
-#if ($column.attrType=="String")
-				"<if test='obj.$column.attrname != null  and obj.$column.attrname  != \"\" '> and `$column.columnName` = #{obj.$column.attrname}#if($velocityCount != $columns.size())#end</if>",
-#else
-				"<if test='obj.$column.attrname != null  '> and `$column.columnName` = #{obj.$column.attrname}#if($velocityCount != $columns.size())#end</if>",
-#end
-#end
-#end
-			"</where>",
-			"and ${pk.columnName} = #{obj.${pk.attrname}}",
+		"delete from ${tableName} ",
+		"where ${pk.columnName} in",
+		"<foreach collection ='list' item='obj' open='(' separator=',' close=')'>",
+			" #{obj.${pk.attrname}}",
 		"</foreach >",
 		"</script>"
 	})
