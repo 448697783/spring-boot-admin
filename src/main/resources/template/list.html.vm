@@ -22,10 +22,10 @@
 				<div class="layui-inline">
 					<input type="text" name="keyWords" id="keyWords" autocomplete="off" placeholder="请输入关键字" class="layui-input" style="height:32px;" v-model="q.keyword" @keyup.enter="query">
 				</div>
-				<button v-if="hasPermission('${shrio}:save${className}')" class="layui-btn layui-btn-sm" @click="add"><i class="layui-icon layui-icon-add-1"></i>&nbsp;新增</a>
-				<button v-if="hasPermission('${shrio}:edit${className}')" class="layui-btn layui-btn-sm" @click="update"><i class="layui-icon layui-icon-edit"></i>&nbsp;修改</a>
-				<button v-if="hasPermission('${shrio}:delete${className}')" class="layui-btn layui-btn-sm" @click="del"><i class="layui-icon layui-icon-delete"></i>&nbsp;删除</a>
-				<button v-if="hasPermission('${shrio}:query${className}List')" class="layui-btn layui-btn-sm" @click="query"><i class="layui-icon layui-icon-search"></i>&nbsp;查询</a>
+				<button v-if="hasPermission('${shrio}:save${className}')" class="layui-btn layui-btn-sm" @click="add"><i class="layui-icon layui-icon-add-1"></i>&nbsp;新增</button>
+				<button v-if="hasPermission('${shrio}:edit${className}')" class="layui-btn layui-btn-sm" @click="update"><i class="layui-icon layui-icon-edit"></i>&nbsp;修改</button>
+				<button v-if="hasPermission('${shrio}:delete${className}')" class="layui-btn layui-btn-sm" @click="del"><i class="layui-icon layui-icon-delete"></i>&nbsp;删除</button>
+				<button v-if="hasPermission('${shrio}:query${className}List')" class="layui-btn layui-btn-sm" @click="query"><i class="layui-icon layui-icon-search"></i>&nbsp;查询</button>
 			</div>
 			<table id="layuiTable" lay-filter="test"></table>
 	    </div>
