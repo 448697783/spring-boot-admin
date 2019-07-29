@@ -25,7 +25,7 @@ spring:
     - key: homestay
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.3.187:3306/mars?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      url: jdbc:mysql://192.168.3.187:3306/homestay?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
       username: homestay
       password: homestay
       idle-timeout: 20000
