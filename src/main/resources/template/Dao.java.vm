@@ -281,7 +281,7 @@ public interface ${className}Dao {
 #end
 #end
 				"</where>",
-				"and ${pk.columnName} = #{obj.${pk.attrname}}",
+				"and ${pk.columnName} = #{entity.${pk.attrname}}",
 			"</script>"
 	})
 	int deleteEntity(@Param("entity")${className}Entity ${classname}Entity);
