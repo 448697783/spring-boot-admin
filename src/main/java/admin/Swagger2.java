@@ -30,7 +30,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-@Profile("dev")
+@Profile("test")
 public class Swagger2 {
 //	https://blog.csdn.net/u010466329/article/details/78522992
 //	https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md

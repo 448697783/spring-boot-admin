@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="info" monitorInterval="5">
-
-	<Appenders>
+<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout
 				pattern="[%-d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] [%F:%L] [%c.%M] [%t]: %m%n" />
 		</Console>
 		<RollingFile name="SysRollingFile"
-			fileName="logs/admin/log.log"
-			filePattern="logs/admin/$${date:yyyy-MM}/log-%d{yyyy-MM-dd_HH}-%i.log">
+			fileName="logs/homestay/homestay.log"
+			filePattern="logs/homestay/$${date:yyyy-MM}/homestay-%d{yyyy-MM-dd_HH}-%i.log">
 			<PatternLayout charset="UTF-8"
 				pattern="[%-d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] [%F:%L] [%c.%M] [%t]: %m%n" />
-			<Policies>
-				<TimeBasedTriggeringPolicy modulate="true" interval="1"/> 
-				<SizeBasedTriggeringPolicy size="250 MB" />
-			</Policies>
-		</RollingFile>
-		<RollingFile name="SettleRollingFile"
-					 fileName="logs/admin/log.log"
-					 filePattern="logs/admin/$${date:yyyy-MM}/settle-%d{yyyy-MM-dd_HH}-%i.log">
-			<PatternLayout charset="UTF-8"
-						   pattern="[%-d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] [%F:%L] [%c.%M] [%t]: %m%n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy modulate="true" interval="1"/> 
 				<SizeBasedTriggeringPolicy size="250 MB" />
@@ -28,7 +17,7 @@
 		</RollingFile>
 		<Syslog charset="UTF-8" name="RFC5424" format="RFC5424" host="10.11.157.101"
 			port="9999" protocol="UDP" facility="LOCAL0" newLine="true"
-			messageId="admin-msg" appName="admin-app" mdcId="admin-mdc">
+			messageId="homestay-msg" appName="homestay-app" mdcId="homestay-mdc">
 			<LoggerFields>
 				<KeyValuePair key="thread" value="%t" />
 				<KeyValuePair key="level" value="%p" />

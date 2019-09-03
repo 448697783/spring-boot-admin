@@ -31,14 +31,81 @@
   <script src='lang/zh-cn.js' type='text/javascript'></script>
   <script src="../js/ajaxSetup.js" type='text/javascript'></script>
 
-  <script type="text/javascript">
+  
+</head>
+
+<body class="swagger-section">
+<div id='header'>
+  <div class="swagger-ui-wrap" id="swagger-ui-wrap">
+    <a id="logo" href="http://swagger.io"><img class="logo__img" alt="swagger" height="30" width="30" src="images/logo_small.png" /><span class="logo__title">swagger</span></a>
+    <form id='api_selector'>
+      <div class='input'>
+<!--      <select class="form-control"  placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl">
+      						<option>http://192.168.3.141:8080/v2/homestay/api-docs</option>
+      						<option>http://192.168.3.206:8080/v2/homestay/api-docs</option>
+      						<option>http://192.168.3.141:1111/v2/manager/api-docs</option>
+      						<option>http://192.168.3.206:1111/v2/manager/api-docs</option>
+      						<option>http://unified_crtify.com/v2/api-docs</option>
+      						<option>http://39.107.138.173/v2/api-docs</option>
+      						<option>http://127.0.0.1:8080/v2/api-docs</option>
+      						<option>http://test.huoxingbeidiao.com/v2/api-docs</option>
+		                    <option>option 3</option>
+		                    <option>option 4</option>
+		                    <option>option 5</option>
+		                  </select>--> 
+		    <select class="form-control"  placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" >  
+      			<option v-for="item in items"  v-bind:value="item.url">{{item.url}}</option>  
+		    </select>  
+       </div>
+      <div id='auth_container'></div>
+      <div class='input'><a id="explore" class="header__btn" href="#" data-sw-translate>Explore</a></div>
+    </form>
+  </div>
+</div>
+
+<div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
+<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+
+<script type="text/javascript">
+  
+  var vm = new Vue({
+  	el:'#swagger-ui-wrap',
+  	data:{
+  		items:[],
+          selected:''  
+  	},
+  	mounted:function(){
+  		this.select();
+  	},
+  	methods: {
+  		select:function(){
+  			$.ajax({
+  				type: "POST",
+  			    url: baseURL + "swagger2Url/querySwagger2UrlList",
+                  contentType: "application/json",
+  			    success: function(r){
+  					if(r.code == 200){
+  						if(r.resultList&&r.resultList.length>0){
+  							vm.items = r.resultList;
+  							console.log(vm.items)
+  						}
+  					}else{
+  						alert(r.msg);
+  					}
+  				}
+  			});
+  		},
+  	}
+  	
+  });
     $(function () {
       var url = window.location.search.match(/url=([^&]+)/);
       if (url && url.length > 1) {
         url = decodeURIComponent(url[1]);
       } else {
         //url = "http://petstore.swagger.io/v2/swagger.json";
-          url = "http://wallet-test.sohupay.com/testwallet/v2/api-docs";
+        //  url = "http://wallet-test.sohupay.com/testwallet/v2/api-docs";
+       url = 'http://127.0.0.1:8081/super/v2/api-docs'
       }
 
       hljs.configure({
@@ -105,35 +172,9 @@
         }
       }
   });
+    
+
   </script>
-</head>
 
-<body class="swagger-section">
-<div id='header'>
-  <div class="swagger-ui-wrap">
-    <a id="logo" href="http://swagger.io"><img class="logo__img" alt="swagger" height="30" width="30" src="images/logo_small.png" /><span class="logo__title">swagger</span></a>
-    <form id='api_selector'>
-      <div class='input'><select class="form-control"  placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl">
-      						<option>http://192.168.3.141:8080/v2/api-docs</option>
-      						<option>http://192.168.3.206:8080/v2/api-docs</option>
-      						<option>http://192.168.3.141:1111/v2/api-docs</option>
-      						<option>http://192.168.3.206:1111/v2/api-docs</option>
-      						<option>http://unified_crtify.com/v2/api-docs</option>
-      						<option>http://39.107.138.173/v2/api-docs</option>
-      						<option>http://127.0.0.1:8080/v2/api-docs</option>
-      						<option>http://test.huoxingbeidiao.com/v2/api-docs</option>
-		                    <option>option 3</option>
-		                    <option>option 4</option>
-		                    <option>option 5</option>
-		                  </select>
-       </div>
-      <div id='auth_container'></div>
-      <div class='input'><a id="explore" class="header__btn" href="#" data-sw-translate>Explore</a></div>
-    </form>
-  </div>
-</div>
-
-<div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
-<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 package admin.config;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class DateConverterConfig implements Converter<String, Date> {
             throw new IllegalArgumentException("Invalid boolean value '" + source + "'");
         }
     }
+    
 
     /**
      * 格式化日期
@@ -49,16 +51,16 @@ public class DateConverterConfig implements Converter<String, Date> {
      * @param format String 格式
      * @return Date 日期
      */
-    public  Date parseDate(String dateStr, String format) {
-        Date date=null;
-        try {
-            DateFormat dateFormat = new SimpleDateFormat(format);
-            date = dateFormat.parse(dateStr);
-            dateFormat.format(date);
-        } catch (Exception e) {
-
-        }
-        return date;
+    public  Timestamp parseDate(String dateStr, String format) {
+    	Timestamp date=null;
+    	try {
+    		DateFormat dateFormat = new SimpleDateFormat(format);
+    		date = new Timestamp(dateFormat.parse(dateStr).getDate());
+    		dateFormat.format(date);
+    	} catch (Exception e) {
+    		
+    	}
+    	return date;
     }
 
 }
