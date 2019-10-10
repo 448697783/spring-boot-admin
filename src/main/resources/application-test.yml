@@ -29,7 +29,7 @@ spring:
       username: homestay
       password: homestay
       idle-timeout: 20000
-    - key: homestay
+    - key: net_room
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://192.168.3.187:3306/net_room?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
