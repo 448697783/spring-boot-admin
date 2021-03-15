@@ -1,0 +1,93 @@
+package ${package}.export.vo.${module};
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+import java.math.BigDecimal;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import java.math.BigDecimal;
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className}EResultVO {
+	/**
+	 * 状态码"000000:成功,其他表示失败
+	 */
+	private String code;
+
+	/**
+	 * 描述
+	 */
+	private String msg;
+
+	/**
+     * 调用是否成功
+     */
+	private boolean success;
+
+	public ${className}EResultVO(String code,String msg){
+		this.code = code;
+		this.msg = msg;
+	}
+
+	public ${className}EResultVO(){
+	}
+
+	/**
+	 * 查询列表
+	 */
+	private List<${className}ResultVO> resultList;
+
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("${package}.export.vo.${module}.${className}EResultVO ={")
+		.append("'code':'").append(code).append("'")
+		.append("','msg':'").append(msg).append("'")
+		.append("','success':'").append(success).append("'")
+		.append("'}");
+		return builder.toString();
+	}
+
+	public List<${className}ResultVO> getResultList() {
+		return resultList;
+	}
+
+	public void setResultList(List<${className}ResultVO> resultList) {
+		this.resultList = resultList;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	
+	public boolean getSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+}

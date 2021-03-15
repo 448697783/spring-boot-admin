@@ -19,8 +19,8 @@ public class RenrenApplicationTests {
 		map.put("limit", "2");
 		map.put("id", "4333");
 
-		String url ="http://d-cluster.sohupay.com/wallet/check.pay";
-		HttpConfig config = HttpConfig.custom()
+		String url ="https://api.weixin.qq.com/wxa/getpaidunionid?access_token=12E538FA23B654F893FBC26770DC68C8FD700211&openid=OPENID&transaction_id";
+		final HttpConfig config = HttpConfig.custom()
 				.url(url) // 设置请求的url
 				.map(map) // 设置请求参数，没有则无需设置
 				.encoding("UTF-8") // 设置请求和返回编码，默认就是Charset.defaultCharset()

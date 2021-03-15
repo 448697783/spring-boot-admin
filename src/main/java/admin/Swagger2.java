@@ -1,8 +1,10 @@
 package admin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import com.google.common.base.Predicate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -38,6 +40,10 @@ public class Swagger2 {
 //	http://blog.didispace.com/Springboot-2-0-HikariCP-default-reason/
 //	http://blog.didispace.com/page/5/
 	//http://blog.didispace.com/spring-boot-starter-swagger-1.1.0/
+
+    private static final List<String> excludedPathPrefix = Arrays.asList(
+            "/jsf"
+    );
     @Bean
     public Docket createRestApi() {
         ParameterBuilder ticketPar = new ParameterBuilder();  
@@ -63,15 +69,30 @@ public class Swagger2 {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.regex("^(?!auth).*$"))
+//                .paths(PathSelectors.regex("^(?!auth).*$"))
+//                .paths(new PredicateImp())
                 .build()
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts())
                 ;
     }
+    
+    public static class PredicateImp implements Predicate<String> {
+    
+        @Override
+        public boolean apply(String s) {
+            for (String pathPrefix : excludedPathPrefix) {
+                if (s.startsWith(pathPrefix)) {
+                    return true;
+                }
+            }
+            return  false;
+        }
+    }
 
     private List<ApiKey> securitySchemes() {
     	ArrayList arr= new ArrayList();
+//    	arr.add(new ApiKey("Authorization", "token", "header"));
     	arr.add(new ApiKey("Authorization", "token", "header"));
     	return arr;
     }

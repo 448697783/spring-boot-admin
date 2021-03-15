@@ -51,7 +51,7 @@ public class SysMenuController extends AbstractController {
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:menu:list")
 	public List<SysMenuEntity> list(){
-		List<SysMenuEntity> menuList = sysMenuService.queryList(new HashMap<>());
+		List<SysMenuEntity> menuList = sysMenuService.queryList(new HashMap());
 
 		return menuList;
 	}

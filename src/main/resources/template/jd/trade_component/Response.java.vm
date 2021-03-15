@@ -1,0 +1,20 @@
+package com.duolabao.trade.export.vo.res;
+
+import com.duolabao.trade.export.vo.Result;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+/**
+ * TODO ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className}Response  extends Result{
+
+	@Override
+	public String toString() {
+		return "{" + " \"success\":\"" + isSuccess() + "\"" + ", \"code\":\"" + getCode() + "\"" + ", \"msg\":\"" + getMsg() + "\"" + "}";
+	}
+}

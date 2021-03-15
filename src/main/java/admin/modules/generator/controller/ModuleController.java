@@ -58,7 +58,7 @@ public class ModuleController {
 	@ResponseBody
 	@RequiresPermissions("sys:module:list")
 	public List<ModuleEntity> list(){
-		List<ModuleEntity> menuList = moduleService.queryList(new HashMap<>());
+		List<ModuleEntity> menuList = moduleService.queryList(new HashMap<String,Object>());
 
 		return menuList;
 	}

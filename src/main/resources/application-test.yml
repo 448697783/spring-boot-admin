@@ -2,37 +2,44 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.3.187:3306/admin?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
     username: root
-    password: abc123456
+    password: x5
     openMulti: true
     idle-timeout: 30000
     multi:
     - key: unified_crtify
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.3.187:3306/unified_crtify?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      url: jdbc:mysql://127.0.0.1:3306/unified_crtify?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
       username: unified_crtify
       password: unified_crtify
       idle-timeout: 20000
     - key: mars
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.3.187:3306/mars?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      url: jdbc:mysql://127.0.0.1:3306/mars?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
       username: mars
       password: mars
       idle-timeout: 20000
     - key: homestay
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.3.187:3306/homestay?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      url: jdbc:mysql://127.0.0.1:3306/homestay?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
       username: homestay
       password: homestay
       idle-timeout: 20000
     - key: net_room
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.3.187:3306/net_room?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      url: jdbc:mysql://127.0.0.1:3306/net_room?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
       username: net_room
       password: net_room
+      idle-timeout: 20000
+    - key: pay_center
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://10.222.46.120:3306/pay_center_15?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8
+      username: j_pay_center_15
+      password: XDq4d0FBM9AJ
       idle-timeout: 20000

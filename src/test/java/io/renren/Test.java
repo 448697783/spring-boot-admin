@@ -1,5 +1,9 @@
 package io.renren;
 
+import com.google.common.collect.Range;
+import com.google.common.collect.RangeMap;
+import com.google.common.collect.TreeRangeMap;
+
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
@@ -10,7 +14,14 @@ import java.util.UUID;
 public class Test {
 
     public static void main(String[] args) throws IOException {
-
+        RangeMap<Integer, String> level = TreeRangeMap.create();
+        level.put(Range.closed(90,100), "A");
+        level.put(Range.closedOpen(80,90), "B");
+        level.put(Range.lessThan(80), "C");
+    
+        System.out.println(level);
+        System.out.println(level.get(95));
+        System.out.println(level.get(85));
     	System.out.println(UUID.randomUUID().toString().replace("-", ""));
     	System.out.println(UUID.randomUUID().toString().replace("-", ""));
     	System.out.println(UUID.randomUUID().toString());
@@ -73,7 +84,6 @@ public class Test {
     }
 
     private static void deal(SocketChannel channel, SelectionKey key) throws IOException {
-
         ByteBuffer buffer = ByteBuffer.allocate(1024);
         ByteBuffer responseBuffer = ByteBuffer.allocate(1024);
 

@@ -1,0 +1,17 @@
+package com.duolabao.trade.export.facade;
+
+import com.duolabao.trade.export.vo.req.${className}Request;
+import com.duolabao.trade.export.vo.res.${className}Response;
+
+
+
+/**
+ * TODO ${comments}
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface ${className}Facade {
+
+	public ${className}Response query${className}List(${className}Request  ${classname}Request);
+}

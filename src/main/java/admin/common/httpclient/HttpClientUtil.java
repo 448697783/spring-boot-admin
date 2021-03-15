@@ -446,7 +446,7 @@ public class HttpClientUtil{
 	 * @return
 	 * @throws HttpProcessException 
 	 */
-	private static String fmt2String(HttpResponse resp, String encoding) throws HttpProcessException {
+	public static String fmt2String(HttpResponse resp, String encoding) throws HttpProcessException {
 		String body = "";
 		try {
 			if (resp.getEntity() != null) {

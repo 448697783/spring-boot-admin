@@ -112,17 +112,23 @@ var vm = new Vue({
 			packageName:'com.sohu',
 			modeName:"",
 			tableAliase:"",
-			queryVo:true,
+			queryVo:false,
 			editVo:false,
 			entity:true,
-			controller:true,
+			controller:false,
 			service:true,
 			iservice:true,
-			dao:true,
+			dao:false,
+			facade:true,
+			isfacade:true,
+			jd:true,
 			sql:null,
 		},
 		items:[],  
-        selected:''  
+        selected:'',
+		selectedModule:'',
+
+
 	},
 	mounted:function(){
 		this.select();
@@ -151,12 +157,16 @@ var vm = new Vue({
                 page:1 
             }).trigger("reloadGrid");
 		},
+
+
 		generator: function() {
 			var tableNames = getSelectedRows();
 			if(tableNames != null||vm.q['sql']!=null){
 //				alert("请选择一条记录或填写sql");
 				vm.q['tables']=tableNames;
 				vm.q['aliase']=vm.selected;
+				vm.q['selectedModule']=vm.selectedModule;
+
 				location.href = baseURL+"sys/generator/code?&text="+encodeURI(JSON.stringify(vm.q))+"&token="+token;
 			}else{
 				alert("请选择一条记录");

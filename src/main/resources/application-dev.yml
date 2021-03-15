@@ -15,3 +15,4 @@ spring:
       username: root
       password: abc123456
       idle-timeout: 20000
+

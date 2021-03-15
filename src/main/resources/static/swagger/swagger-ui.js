@@ -23611,7 +23611,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 				var colThead = table.find("thead[class='colThead']").children('th');
 				for (var j = 0; j < len-1; j++) {
 					var ccc =tds.children().eq(j).text();
-					ccc = $.replaceParamter(ccc);
+					//ccc = $.replaceParamter(ccc);
 					var tepCcc = $.replaceMD5(ccc,temp);
 					if(tepCcc!='MD5')
 						temp[colThead.eq(j).text()]=tepCcc;
@@ -26199,13 +26199,20 @@ $.extend({
    V:function(name){
 	  return $.textTemp[name];
    },
+     Date:function(name,format){
+         var str = new Date().format(format);
+         $.textTemp[name] = str;
+         return str;
+    },
    replaceParamter:function(str){
-	   str = this.replaceRC(str);
-	   str = this.replaceVar(str);
-	   str = this.replaceRU(str);
-	   str = this.replaceRE(str);
-	   str = this.replaceRN(str);
-	   str = this.replaceRR(str);
+       str = this.alert(str);
+       str = this.replaceDate(str);
+       str = this.replaceRC(str);
+       str = this.replaceVar(str);
+       str = this.replaceRU(str);
+       str = this.replaceRE(str);
+       str = this.replaceRN(str);
+       str = this.replaceRR(str);
 	   return str;
    },
    replaceMD5 : function(str,arr){
@@ -26252,18 +26259,20 @@ $.extend({
 		if(!matchRCs){
 			return str;
 		}
-		var mlen = matchRCs.length;
+       var tstr = str;
+
+       var mlen = matchRCs.length;
 		for (var k = 0; k< mlen; k++) {
 //			alert(matchRCs[k]);
 			var re = eval(matchRCs[k].replace('@','$.'))
 			if((typeof re=='string')&&re.constructor==String&&re.length>0){
-				return str.replace(/@RC\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?(true|false)?,?(\d*)?,?(\d*)?\)/g,re)
+                tstr = tstr.replace(matchRCs[k],re)
+             //   tstr = tstr.replace(/@RC\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?(true|false)?,?(\d*)?,?(\d*)?\)/g,re)
 			}else{
 				alert('变量参数不合法：'+matchRCs[k]);
-				return str;
 			}
-	
 		}
+       return tstr;
    },
    replaceVar:function(str){
 	   if(str==""){
@@ -26273,19 +26282,44 @@ $.extend({
 		if(!matchRCs){
 			return str;
 		}
-		var mlen = matchRCs.length;
+       var tstr = str;
+
+       var mlen = matchRCs.length;
 		for (var k = 0; k< mlen; k++) {
 //			alert(matchRCs[k]);
 			var re = eval(matchRCs[k].replace('@','$.'))
 			if((typeof re=='string')&&re.constructor==String&&re.length>0){
-				return str.replace(/@V\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')\)/g,re)
+                tstr = tstr.replace(matchRCs[k],re)
 			}else{
 				alert('变量参数不合法：'+matchRCs[k]);
-				return str;
 			}
-	
 		}
+       return tstr;
+
    },
+    alert:function(str){
+        if(str==""){
+            return "";
+        }
+        var matchRCs = str.match(/@alert\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')\)/g);
+        if(!matchRCs){
+            return str;
+        }
+        var tstr = str;
+
+        var mlen = matchRCs.length;
+        for (var k = 0; k< mlen; k++) {
+//			alert(matchRCs[k]);
+            var re = eval(matchRCs[k].replace('@','$.'))
+            if((typeof re=='string')&&re.constructor==String&&re.length>0){
+                alert(re);
+            }else{
+                alert('变量参数不合法：'+matchRCs[k]);
+            }
+        }
+        return tstr;
+
+    },
    replaceRU:function(str){
 	   if(str==""){
 			return "";
@@ -26294,18 +26328,19 @@ $.extend({
 		if(!matchRCs){
 			return str;
 		}
-		var mlen = matchRCs.length;
+       var tstr = str;
+
+       var mlen = matchRCs.length;
 		for (var k = 0; k< mlen; k++) {
 //			alert(matchRCs[k]);
 			var re = eval(matchRCs[k].replace('@','$.'))
 			if((typeof re=='string')&&re.constructor==String&&re.length>0){
-				return str.replace(/@RU\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?(\d*)?\)/g,re)
+                tstr =  tstr.replace(/@RU\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?(\d*)?\)/g,re)
 			}else{
 				alert('变量参数不合法：'+matchRCs[k]);
-				return str;
 			}
-	
 		}
+       return tstr;
    },
    replaceRE:function(str){
 	   if(str==""){
@@ -26315,18 +26350,19 @@ $.extend({
 	   if(!matchRCs){
 		   return str;
 	   }
-	   var mlen = matchRCs.length;
+       var tstr = str;
+
+       var mlen = matchRCs.length;
 	   for (var k = 0; k< mlen; k++) {
 //		   alert(matchRCs[k]);
 		   var re = eval(matchRCs[k].replace('@','$.'))
 		   if((typeof re=='string')&&re.constructor==String&&re.length>0){
-			   return str.replace(/@RE\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?(\d*)?\)/g,re)
+               tstr =  tstr.replace(/@RE\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?(\d*)?\)/g,re)
 		   }else{
 			   alert('变量参数不合法：'+matchRCs[k]);
-			   return str;
 		   }
-		   
 	   }
+       return tstr;
    },
    replaceRN:function(str){
 	   if(str==""){
@@ -26336,17 +26372,20 @@ $.extend({
 	   if(!matchRCs){
 		   return str;
 	   }
-	   var mlen = matchRCs.length;
+       var tstr = str;
+
+       var mlen = matchRCs.length;
 	   for (var k = 0; k< mlen; k++) {
 //		   alert(matchRCs[k]);
 		   var re = eval(matchRCs[k].replace('@','$.'))
 		   if((typeof re=='string')&&re.constructor==String&&re.length>0){
-			   return str.replace(/@RN\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?(\d*)?\)/g,re)
+               tstr =  tstr.replace(/@RN\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?(\d*)?\)/g,re)
 		   }else{
 			   alert('变量参数不合法：'+matchRCs[k]);
-			   return str;
 		   }
 	   }
+       return tstr;
+
    },
    replaceRR:function(str){
 	   if(str==""){
@@ -26356,18 +26395,44 @@ $.extend({
 	   if(!matchRCs){
 		   return str;
 	   }
-	   var mlen = matchRCs.length;
+       var tstr = str;
+
+       var mlen = matchRCs.length;
+	   var tstr = str;
 	   for (var k = 0; k< mlen; k++) {
 //		   alert(matchRCs[k]);
 		   var re = eval(matchRCs[k].replace('@','$.'))
 		   if((typeof re=='string')&&re.constructor==String&&re.length>0){
-			   return str.replace(/@RR\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?('.+(,.+)*)?'\)/g,re)
+               tstr = tstr.replace(/@RR\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,?('.+(,.+)*)?'\)/g,re)
 		   }else{
 			   alert('变量参数不合法：'+matchRCs[k]);
-			   return str;
 		   }
 	   }
+	   return tstr;
    },
+    replaceDate:function(str){
+        if(str==""){
+            return "";
+        }
+        var matchRCs = str.match(/@Date\(('[A-Za-z0-9_\-\u4e00-\u9fa5]*')?,('[A-Za-z0-9_\-\u4e00-\u9fa5\s:]*')\)/g);
+        if(!matchRCs){
+            return str;
+        }
+        var tstr = str;
+
+        var mlen = matchRCs.length;
+        var tstr = str;
+        for (var k = 0; k< mlen; k++) {
+//		   alert(matchRCs[k]);
+            var re = eval(matchRCs[k].replace('@','$.'))
+            if((typeof re=='string')&&re.constructor==String&&re.length>0){
+                tstr = tstr.replace(matchRCs[k],re)
+            }else{
+                alert('变量参数不合法：'+matchRCs[k]);
+            }
+        }
+        return tstr;
+    },
     fireKeyEvent:function(el, evtType, keyCode) {
        var evtObj;
        if (document.createEvent) {
@@ -26399,7 +26464,39 @@ $.extend({
            el.fireEvent('on' + evtType, evtObj);
        }
    }
-   
-  
+
+
 
 })
+
+Date.prototype.format = function(format) {
+    /*
+     * eg:format="YYYY-MM-dd hh:mm:ss";
+
+     */
+    var o = {
+        "M+" :this.getMonth() + 1, // month
+        "d+" :this.getDate(), // day
+        "h+" :this.getHours(), // hour
+        "m+" :this.getMinutes(), // minute
+        "s+" :this.getSeconds(), // second
+        "q+" :Math.floor((this.getMonth() + 3) / 3), // quarter
+        "S" :this.getMilliseconds()
+        // millisecond
+    }
+    if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + "")
+            .substr(4 - RegExp.$1.length));
+    }
+    for ( var k in o) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            // format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? ("00" + o[k]).substr(("" + o[k]).length)
+                : ("00" + o[k]).substr(("" + o[k]).length));
+        }
+    }
+    return format;
+}
+
+//var startTime = new Date().format("yyyy-MM-dd 00:00:00");
+//var endTime = new Date().format("yyyy-MM-dd hh:mm:ss");

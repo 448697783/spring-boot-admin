@@ -1,0 +1,64 @@
+package ${package}.export.vo.${module};
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+import java.math.BigDecimal;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import java.math.BigDecimal;
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className}ResultVO implements Serializable{
+		
+#foreach ($column in $columns)
+	/**
+	 * $column.comments
+	 */
+	private $column.attrType $column.attrname;
+#end
+
+#foreach ($column in $columns)
+	
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("${package}.modules.${module}.vo.${className}Result ={")
+#foreach ($column in $columns)
+#if($velocityCount==1)
+		.append("'$column.attrname'").append("':'").append($column.attrname).append("'")
+#else
+		.append(",'${column.attrname}'").append("':'").append($column.attrname).append("'")
+#end 
+#end
+		.append("}");
+		return builder.toString();
+		
+	}
+}
+
+

@@ -1,0 +1,59 @@
+package ${package}.export;
+
+import java.util.List;
+import java.util.Map;
+	#if($isSql)
+	import ${package}.export.vo.${module}.${className}EditVO;
+	import ${package}.export.vo.${module}.${className}EResultVO;
+	import ${package}.export.vo.${module}.${className}QueryVO;
+	import ${package}.export.vo.${module}.${className}SaveVO;	
+	import ${package}.export.vo.${module}.${className}QResultVO;	
+	import ${package}.export.vo.${module}.${className}SResultVO;	
+
+	#end
+
+//
+//	<jsf:provider id="${className}FacadeJsf"
+//      interface="${package}.export.${className}Facade" ref="${className}FacadeImpl"
+//		alias="${classname}Facade${sf-alias}" server="jsf" />
+//
+/**
+ * TODO ${comments}
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface ${className}Facade {
+
+#if($isSql)
+	/**
+	 * 查询${comments}
+	 */
+	public ${className}QResultVO query${className}List(${className}QueryVO  ${classname}QueryVO);
+#else
+	/**
+	 * 查询${comments}
+	 */
+	public ${className}QResultVO query${className}List(${className}QueryVO  ${classname}QueryVO);
+
+	/**
+	 * 保存${comments}
+	 */
+	public ${className}SResultVO save${className}(${className}SaveVO  ${classname}SaveVO);
+
+	/**
+	 * 批量保存${comments}
+	 */
+	public ${className}SResultVO save${className}List(List<${className}SaveVO>  ${classname}SaveVOList);
+
+	/**
+	 * 修改${comments}
+	 */
+	public ${className}EResultVO edit${className}(${className}EditVO ${classname}EditVO);
+
+	/**
+	 * 批量修改${comments}
+	 */
+	public ${className}EResultVO edit${className}List(List<${className}EditVO> ${classname}EditVOList);
+#end
+}

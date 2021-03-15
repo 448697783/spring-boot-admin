@@ -97,6 +97,7 @@ public class CtrLogAspect  {
 	
 	private void intiCtrLog(ProceedingJoinPoint joinPoint,long beginTime, int number){
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+		
 		Method method = signature.getMethod();
 		CtrlLog syslog = method.getAnnotation(CtrlLog.class);
 		String methodInfo = syslog.value();

@@ -1,0 +1,85 @@
+package ${package}.export.vo.${module};
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+import java.math.BigDecimal;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import java.math.BigDecimal;
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className}EditVO implements Serializable{
+
+
+#foreach ($column in $columns)
+#if (!${column.characterMaximumLength})
+#else
+	${column.characterMaximumLength}
+#end
+#if (!${column.isNullable})
+#else
+#if($column.columnName != $pk.columnName)
+#if($column.isNullable)
+	${column.isNullable}
+#end
+#end
+#end
+#if (!${column.numericPrecision})
+#else
+	${column.numericPrecision}
+#end
+	private $column.attrType $column.attrname;
+	
+#end
+
+#foreach ($column in $columns)
+
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("${package}.modules.${module}.vo.${className}EditVO ={")
+#foreach ($column in $columns)
+#if($velocityCount==1)
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+		.append("'$column.attrname'").append("':'").append($column.attrname).append("'")
+#else
+		.append("'$column.attrname'").append("':'").append($column.attrname).append("'")
+#end
+#else
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+		.append(",'$column.attrname'").append("':'").append($column.attrname).append("'")
+#else
+		.append(",'$column.attrname'").append("':'").append($column.attrname).append("'")
+#end
+#end
+#end
+		.append("}");
+		return builder.toString();
+	}
+}

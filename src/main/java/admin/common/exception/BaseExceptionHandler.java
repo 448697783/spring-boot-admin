@@ -1,6 +1,9 @@
 package admin.common.exception;
 
 
+import com.fasterxml.jackson.core.JsonParseException;
+//import com.jd.jsf.gd.error.NoAliveProviderException;
+//import com.jd.jsf.gd.error.RpcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -34,12 +37,40 @@ public class BaseExceptionHandler {
 		ContextLog.error(r.toString(), e);
 		return r;
 	}
+	/**
+	 * 自定义异常
+	 */
+//	@ExceptionHandler(RpcException.class)
+//	public R handleRpcException(RpcException e){
+//		R r = new R();
+//		r.put("code", e.getErrorCode());
+//		r.put("msg", e.getMessage());
+//		ContextLog.error(r.toString(), e);
+//		return r;
+//	}
+
+//	@ExceptionHandler(NoAliveProviderException.class)
+//	public R handleNoAliveProviderException(NoAliveProviderException e){
+//		R r = new R();
+//		r.put("code", "500");
+//		r.put("msg", e.toString());
+//		ContextLog.error(r.toString(), e);
+//		return r;
+//	}
+	@ExceptionHandler(JsonParseException.class)
+	public R handleJsonParseException(JsonParseException e){
+		R r = new R();
+		r.put("code","500");
+		r.put("msg", "json格式错误"+e.toString());
+		ContextLog.error(r.toString(), e);
+		return r;
+	}
 
 	@ExceptionHandler(Exception.class)
 	public R handleException(Exception e){
 		R r = new R();
 		r.put("code", "500");
-		r.put("msg", "系统繁忙,请稍后再试");
+		r.put("msg", e.toString());
 		ContextLog.error(r.toString(), e);
 		return r;
 	}
@@ -48,7 +79,7 @@ public class BaseExceptionHandler {
 	public R handleHttpMessageNotReadableException(HttpMessageNotReadableException e){
 		R r = new R();
 		r.put("code", "500");
-		r.put("msg", "检查参数类型是否正确");
+		r.put("msg", e.getMessage());
 		ContextLog.error(r.toString(), e);
 		return r;
 	}

@@ -1,0 +1,67 @@
+package com.duolabao.trade.export.vo.req;
+
+import com.duolabao.trade.export.vo.Result;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+
+/**
+ * TODO ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className}Request implements Serializable{
+#foreach ($column in $columns)
+
+	/**
+	 * TODO $column.comments
+	 */
+	private $column.attrType $column.attrname;
+	
+#end
+	
+
+#foreach ($column in $columns)
+
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+
+
+
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("${package}.modules.${module}.vo.${className}QueryVO ={")
+#foreach ($column in $columns)
+#if($velocityCount==1)
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+		.append("$column.attrname=").append(($column.attrname))
+#else
+		.append("$column.attrname=").append($column.attrname)
+#end
+#else
+#if ($column.attrType=="Date"||$column.attrType=="Timestamp")
+		.append(",$column.attrname=").append(($column.attrname))
+#else
+		.append(",${column.attrname}=").append($column.attrname)
+#end
+#end 
+#end
+		.append("}");
+		return builder.toString();
+	}
+}

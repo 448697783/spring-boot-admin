@@ -35,7 +35,7 @@ import admin.common.httpclient.exception.HttpProcessException;
  * @date 2015年11月9日 下午5:45:47 
  * @version 1.0
  */
-public class  HCB extends HttpClientBuilder{
+public class HCB extends HttpClientBuilder{
 	
 	public boolean isSetPool=false;//记录是否设置了连接池
 	private SSLProtocolVersion sslpv=SSLProtocolVersion.SSLv3;//ssl 协议版本
